@@ -17,6 +17,7 @@ src_unpack() {
 #        ./autogen.sh || die "autogen.sh failed"
 	cd ${S}
         epatch ${FILESDIR}/makefile-modified.patch
+        cp ${FILESDIR}/assaultcube ${S}
 }
 
 
@@ -27,15 +28,27 @@ src_compile() {
 }
 
 src_install () {
+	cd ${S}
+	dogamesbin assaultcube || die "error"
+
 	cd ${S}/ac/source/src
 	emake install || die "install failed"
-        cd ${S}/ac/
 
-        insinto "${GAMES_DATADIR}/${PN}/bin_unix"
-        doins -r bin_unix/* || die "doins failed"
-        
+        cd ${S}/ac/
+        dogamesbin  bin_unix/native_client || die "doins failed"
+        dogamesbin  bin_unix/native_server || die "doins failed"
+
         insinto "${GAMES_DATADIR}/${PN}/packages"
         doins -r packages/* || die "doins failed"
-        prepgamesdirs
 
+        insinto "${GAMES_DATADIR}/${PN}/config"
+        doins -r config/* || die "doins failed"
+
+        insinto "${GAMES_DATADIR}/${PN}/bot"
+        doins -r bot/* || die "doins failed"
+
+	doicon icon.ico
+	make_desktop_entry assaultcube AssaultCube
+
+        prepgamesdirs
 }
