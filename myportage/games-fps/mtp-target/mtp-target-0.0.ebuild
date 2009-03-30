@@ -12,19 +12,19 @@ ESVN_REPO_URI="svn://mtp-target.org/trunk"
 
 src_unpack() {
         subversion_src_unpack
-        cd ${S}/mtp-target
-        make update
-
+	cd ${S}
+	epatch ${FILESDIR}/Variables.mk.patch
+	make update
 }
 
 
 src_compile() {
-        cd ${S}/mtp-target
-        emake || die "make failed"
+        cd ${S}
+        emake all || die "make failed"
 }
 
 src_install () {
-        cd ${S}/mtp-target
+        cd ${S}
         emake DESTDIR="${D}" install || die "install failed"
         dodoc ChangeLog* README*  AUTHORS
 }
