@@ -1,0 +1,80 @@
+--- Makefile.old	2008-11-21 18:00:30.000000000 +0100
++++ Makefile	2008-11-23 18:58:36.000000000 +0100
+@@ -13,7 +13,7 @@
+ 
+ 
+ # Data path
+-#DATA_DEF := \"ndata\"
++DATA_DEF := \"${GAMES_DATADIR}/${PN}/ndata\"
+ 
+ 
+ #
+@@ -36,7 +36,7 @@
+ #
+ #   CFLAGS
+ #
+-CLUA   := -Ilib/lua
++CLUA   := -Ilua
+ CSDL   := $(shell sdl-config --cflags) -DGL_GLEXT_PROTOTYPES
+ CXML   := $(shell xml2-config --cflags)
+ CTTF   := $(shell freetype-config --cflags)
+@@ -52,12 +52,11 @@
+ #
+ #   LDFLAGS
+ #
+-LDLUA   := lib/lua/liblua.a
+ LDSDL   := $(shell sdl-config --libs) -lSDL_image -lSDL_mixer
+ LDXML   := $(shell xml2-config --libs)
+ LDTTF   := $(shell freetype-config --libs)
+ LDPNG   := $(shell libpng-config --libs)
+-LDGL    := -lGL
++LDGL    := -lGL -llua
+ LDFLAGS := -lm $(LDLUA) $(LDSDL) $(LDXML) $(LDTTF) $(LDPNG) $(LDGL)
+ 
+ 
+@@ -83,7 +82,7 @@
+ endif # LINUX
+ 
+ else # DEBUG
+-CFLAGS += -O2 -funroll-loops -pipe -std=c99 -ansi
++CFLAGS += ${CFLAGS}
+ endif # DEBUG
+ 
+ 
+@@ -113,7 +112,7 @@
+ #
+ #   TARGETS
+ #
+-.PHONY: all help lua docs clean distclean
++.PHONY: all help docs clean distclean
+ 
+ 
+ %.o:	%.c %.h
+@@ -121,7 +120,7 @@
+ 	@echo "   CC   $@"
+ 
+ 
+-all:	lua naev
++all:	naev
+ 
+ 
+ help:
+@@ -135,17 +134,10 @@
+ 
+ 
+ $(APPNAME): $(OBJS)
+-	@$(CC) $(LDFLAGS) -o $(APPNAME) $(OBJS) lib/lua/liblua.a
++	@$(CC) $(LDFLAGS) -o $(APPNAME) $(OBJS)
+ 	@echo "   LD   $(APPNAME)"
+ 
+ 
+-lua: lib/lua/liblua.a
+-
+-
+-lib/lua/liblua.a:
+-	+@$(MAKE) -C lib/lua a
+-
+-
+ docs:
+ 	@( cd src; doxygen )
+ 
