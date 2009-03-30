@@ -1,7 +1,7 @@
-EAPI="1"
-inherit subversion autotools eutils
+EAPI="2"
+inherit subversion autotools eutils games
 
-DESCRIPTION="Vega Strike is an Open Source 3D Action-Space-Sim that lets you trade, fight, and explore in a vast universe."
+DESCRIPTION="MTP-Target"
 SRC_URI=""
 
 LICENSE="LGPL-2"
