@@ -1,0 +1,279 @@
+diff -Naur polly-src.old/lighting.h polly-src/lighting.h
+--- polly-src.old/lighting.h	2008-11-17 23:01:00.000000000 +0100
++++ polly-src/lighting.h	2009-03-27 17:37:14.000000000 +0100
+@@ -2,9 +2,11 @@
+ 
+ #ifndef MBOSTOCK_LIGHTING_H
+ #define MBOSTOCK_LIGHTING_H
+-
++#ifdef __APPLE__
+ #include <OpenGL/gl.h>
+-
++#else
++    #include <GL/gl.h>
++#endif
+ namespace mbostock {
+ 
+   class Light {
+diff -Naur polly-src.old/main.cpp polly-src/main.cpp
+--- polly-src.old/main.cpp	2008-12-05 06:36:00.000000000 +0100
++++ polly-src/main.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -1,11 +1,23 @@
+ // -*- C++ -*-
+ 
++#ifdef __APPLE__
+ #include <OpenGL/gl.h>
+ #include <OpenGL/glu.h>
++#else
++    #include <GL/gl.h>
++    #include <GL/glu.h>
++    #include <GL/glut.h>
++#endif
++
+ #include <SDL/SDL.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++
++#ifdef __APPLE__
+ #include <TinyXML/tinyxml.h>
++#else
++    #include <tinyxml.h>
++#endif
+ 
+ #include "room.h"
+ #include "shader.h"
+@@ -192,6 +204,11 @@
+ }
+ 
+ int main(int argc, char** argv) {
++
++#ifndef __APPLE__
++  glutInit(&argc, argv);
++#endif
++
+   SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+ 
+   SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL, 1);
+diff -Naur polly-src.old/material.cpp polly-src/material.cpp
+--- polly-src.old/material.cpp	2008-12-01 23:33:00.000000000 +0100
++++ polly-src/material.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -1,6 +1,9 @@
+ // -*- C++ -*-
+-
++#ifdef __APPLE__
+ #include <OpenGL/gl.h>
++#else
++    #include <GL/gl.h>
++#endif
+ #include <iostream>
+ #include <math.h>
+ #include <stdlib.h>
+diff -Naur polly-src.old/model.cpp polly-src/model.cpp
+--- polly-src.old/model.cpp	2008-12-01 23:33:00.000000000 +0100
++++ polly-src/model.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -1,7 +1,11 @@
+ // -*- C++ -*-
+-
++#ifdef __APPLE__
+ #include <GLUT/glut.h>
+ #include <OpenGL/glu.h>
++#else
++    #include <GL/glut.h>
++    #include <GL/glu.h>
++#endif
+ #include <algorithm>
+ #include <iostream>
+ #include <math.h>
+diff -Naur polly-src.old/model.h polly-src/model.h
+--- polly-src.old/model.h	2008-12-01 23:33:00.000000000 +0100
++++ polly-src/model.h	2009-03-27 17:37:14.000000000 +0100
+@@ -2,9 +2,11 @@
+ 
+ #ifndef MBOSTOCK_MODEL_H
+ #define MBOSTOCK_MODEL_H
+-
++#ifdef __APPLE__
+ #include <OpenGL/glu.h>
+-
++#else
++    #include <GL/glu.h>
++#endif
+ #include "physics/shape.h"
+ #include "physics/vector.h"
+ 
+diff -Naur polly-src.old/player.cpp polly-src/player.cpp
+--- polly-src.old/player.cpp	2008-12-02 05:44:00.000000000 +0100
++++ polly-src/player.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -1,8 +1,13 @@
+ // -*- C++ -*-
+-
++#ifdef __APPLE__
+ #include <GLUT/glut.h>
+ #include <OpenGL/gl.h>
+ #include <OpenGL/glu.h>
++#else
++    #include <GL/glut.h>
++    #include <GL/gl.h>
++    #include <GL/glu.h>
++#endif
+ #include <iostream>
+ #include <math.h>
+ #include <stdio.h>
+diff -Naur polly-src.old/resource.cpp polly-src/resource.cpp
+--- polly-src.old/resource.cpp	2008-11-16 20:52:00.000000000 +0100
++++ polly-src/resource.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -9,7 +9,11 @@
+ using namespace mbostock;
+ 
+ const char* Resources::path() {
++#ifdef __APPLE__
+   return "Contents/Resources/";
++#else
++  return "resources/";
++#endif
+ }
+ 
+ const char* Resources::readFile(const char* p) {
+diff -Naur polly-src.old/seesaw.cpp polly-src/seesaw.cpp
+--- polly-src.old/seesaw.cpp	2008-12-02 11:08:00.000000000 +0100
++++ polly-src/seesaw.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -1,7 +1,9 @@
+ // -*- C++ -*-
+-
++#ifdef __APPLE__
+ #include <OpenGL/gl.h>
+-
++#else
++    #include <GL/gl.h>
++#endif
+ #include "material.h"
+ #include "physics/constraint.h"
+ #include "physics/force.h"
+diff -Naur polly-src.old/shader.cpp polly-src/shader.cpp
+--- polly-src.old/shader.cpp	2008-12-02 10:01:00.000000000 +0100
++++ polly-src/shader.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -2,6 +2,10 @@
+ 
+ #include <stdlib.h>
+ 
++#ifndef __APPLE__
++#include <GL/glew.h>
++#endif
++
+ #include "model.h"
+ #include "resource.h"
+ #include "shader.h"
+diff -Naur polly-src.old/shader.h polly-src/shader.h
+--- polly-src.old/shader.h	2008-12-02 10:01:00.000000000 +0100
++++ polly-src/shader.h	2009-03-27 17:37:14.000000000 +0100
+@@ -3,7 +3,11 @@
+ #ifndef _SHADER_H
+ #define _SHADER_H
+ 
++#ifdef __APPLE__
+ #include <OpenGL/gl.h>
++#else
++    #include <GL/gl.h>
++#endif
+ 
+ namespace mbostock {
+ 
+diff -Naur polly-src.old/simulation.cpp polly-src/simulation.cpp
+--- polly-src.old/simulation.cpp	2008-11-07 07:02:00.000000000 +0100
++++ polly-src/simulation.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -1,6 +1,10 @@
+ // -*- C++ -*-
+ 
++#ifdef __APPLE_
+ #include <SDL/sdl.h>
++#else
++    #include <SDL/SDL.h>
++#endif
+ 
+ #include "simulation.h"
+ 
+diff -Naur polly-src.old/sound.cpp polly-src/sound.cpp
+--- polly-src.old/sound.cpp	2008-12-05 06:36:00.000000000 +0100
++++ polly-src/sound.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -1,7 +1,13 @@
+ // -*- C++ -*-
+ 
++#ifdef __APPLE__
+ #include <SDL/SDL_error.h>
+ #include <SDL_mixer/SDL_mixer.h>
++#else
++#include <SDL/SDL_error.h>
++#include <SDL/SDL_mixer.h>
++#endif
++
+ #include <iostream>
+ #include <string>
+ #include <vector>
+diff -Naur polly-src.old/texture.cpp polly-src/texture.cpp
+--- polly-src.old/texture.cpp	2008-11-27 07:14:00.000000000 +0100
++++ polly-src/texture.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -1,9 +1,17 @@
+ // -*- C++ -*-
+ 
++#ifdef __APPLE__
+ #include <OpenGL/gl.h>
+ #include <OpenGL/glu.h>
+ #include <SDL/sdl.h>
+ #include <SDL_image/SDL_image.h>
++#else
++#include <GL/gl.h>
++#include <GL/glu.h>
++#include <SDL/SDL.h>
++#include <SDL/SDL_image.h>
++#endif
++
+ #include <iostream>
+ #include <string>
+ #include <vector>
+diff -Naur polly-src.old/texture.h polly-src/texture.h
+--- polly-src.old/texture.h	2008-11-27 07:14:00.000000000 +0100
++++ polly-src/texture.h	2009-03-27 17:37:14.000000000 +0100
+@@ -2,9 +2,11 @@
+ 
+ #ifndef MBOSTOCK_TEXTURE_H
+ #define MBOSTOCK_TEXTURE_H
+-
++#ifdef __APPLE__
+ #include <OpenGL/gl.h>
+-
++#else
++    #include <GL/gl.h>
++#endif
+ namespace mbostock {
+ 
+   class Texture {
+diff -Naur polly-src.old/world.cpp polly-src/world.cpp
+--- polly-src.old/world.cpp	2008-12-05 01:41:00.000000000 +0100
++++ polly-src/world.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -1,6 +1,10 @@
+ // -*- C++ -*-
+ 
++#ifdef __APPLE__
+ #include <OpenGL/gl.h>
++#else
++    #include <GL/gl.h>
++#endif
+ 
+ #include "material.h"
+ #include "portal.h"
+diff -Naur polly-src.old/worlds.cpp polly-src/worlds.cpp
+--- polly-src.old/worlds.cpp	2008-12-05 06:36:00.000000000 +0100
++++ polly-src/worlds.cpp	2009-03-27 17:37:14.000000000 +0100
+@@ -1,4 +1,12 @@
++#ifdef __APPLE__
+ #include <TinyXML/tinyxml.h>
++#else
++#ifndef TIXML_USE_STL
++#define TIXML_USE_STL
++#endif
++#include <tinyxml.h>
++#endif
++
+ #include <iostream>
+ #include <list>
+ #include <map>
