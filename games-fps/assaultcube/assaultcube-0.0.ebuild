@@ -11,6 +11,9 @@ DOCS="ChangeLog* README* AUTHORS"
 
 ESVN_REPO_URI="https://actiongame.svn.sourceforge.net/svnroot/actiongame/trunk"
 
+DEPEND="media-libs/openal
+        media-libs/sdl-image"
+
 src_unpack() {
         subversion_src_unpack
 #        cd ${S}/ac/source/src
