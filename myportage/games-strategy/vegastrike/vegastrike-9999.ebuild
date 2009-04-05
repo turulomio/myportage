@@ -7,7 +7,6 @@ SRC_URI=""
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="x86 amd64"
-MAKE_OPTS="-j1"
 ESVN_REPO_URI="https://vegastrike.svn.sourceforge.net/svnroot/vegastrike/trunk"
 
 src_unpack() {
@@ -20,12 +19,12 @@ src_unpack() {
 
 src_compile() {
         cd ${S}/vegastrike
-        emake || die "make failed"
+        emake -j1 || die "make failed"
 }
 
 src_install () {
         cd ${S}/vegastrike
-        emake DESTDIR="${D}" install || die "install failed"
+        emake  install || die "install failed"
         dodoc ChangeLog* README*  AUTHORS
 }
 
