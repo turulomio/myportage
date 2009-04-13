@@ -6,8 +6,8 @@ inherit eutils games
 
 DESCRIPTION="a free real time strategy game that takes place in space"
 HOMEPAGE="http://rrgbis.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
-
+SRC_URI="mirror://sourceforge/${PN}/${P}-src.tar.bz2
+mirror://sourceforge/${PN}/${P}-data.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86"
@@ -19,14 +19,14 @@ DEPEND="${RDEPEND}"
 
 S=${WORKDIR}/${PN}
 
-src_unpack() {
-	unpack ${A}
-	cd ${S}
-	sed -i Makefile -e 's:local/share:share/games/rrgbis:'	|| die "sed failed"
-	sed -i Makefile -e 's:local/bin:games/bin:'	|| die "sed failed"
-}
+src_compile(){
+	cd ${S}/src/FTGL
+	./configure
+	
+        cd ${S}
+        sed -i Makefile -e 's:local/share:share/games/rrgbis:'  || die "sed failed"
+        sed -i Makefile -e 's:local/bin:games/bin:'     || die "sed failed"
 
-src_compile() {
 	emake CXXFLAGS="${CXXFLAGS} $(sdl-config --cflags) -Isrc/squirrel/include" || die "emake failed"
 }
 
