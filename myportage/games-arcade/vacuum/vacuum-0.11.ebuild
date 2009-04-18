@@ -14,18 +14,11 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-
-#S="${WORKDIR}/${P}"
-dir=${GAMES_DATADIR}/${P}
+DEPEND="dev-perl/sdl-perl"
 
 src_configure() {
 	econf --prefix=/usr/games || die "Fallo el econf"
 }
-
-#src_compile() {
-#        cd ${S}
-#	emake  || die "emake failed"
-#}
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
