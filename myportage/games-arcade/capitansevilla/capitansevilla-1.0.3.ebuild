@@ -12,11 +12,21 @@ SRC_URI="http://computeremuzone.com/cezgs/remakes/Capitan.tar.bz2"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+DEPEND="
+media-libs/allegro
+"
 
+DIR=${WORKDIR}/capitan-1.0.3
 
+src_conf(){
+	cd ${DIR}
+	make depsclean
+	make deps
+}
 
 src_compile() {
-#        cd ${S}
+        cd ${DIR}
+	make clean
 #        econf || die "configure failed"
         emake || die "make failed"
 }
