@@ -29,6 +29,7 @@ src_install () {
         emake DESTDIR="${D}" install || die "install failed"
         insinto /usr/bin/; dobin "${FILESDIR}/navit-update-spain.sh"
         insinto /usr/bin/; dobin "${FILESDIR}/navit-update-planet.sh"
+        dodir /usr/share/navit/maps
         elog "To update spanish map, run"
         elog "# navit-update-spain.sh"
         elog "To update planet map, run"
