@@ -13,6 +13,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 DEPEND="
+media-libs/alogg
 media-libs/allegro
 "
 
@@ -27,18 +28,15 @@ src_conf(){
 src_compile() {
         cd ${DIR}
 	make clean
-#        econf || die "configure failed"
+        sed -i -e "s:-Iinclude:-Iinclude -I/usr/include/alogg:" Makefile
         emake || die "make failed"
 }
 
 
 
 src_install () {
-#        cd ${S}/navit
+        cd ${DIR}
         emake DESTDIR="${D}" install || die "install failed"
-        insinto /usr/bin/; dobin "${FILESDIR}/navit-update-spain.sh"
-        elog "To update spanish map, run"
-        elog "# navit-update-spain.sh"
 }
 
 
