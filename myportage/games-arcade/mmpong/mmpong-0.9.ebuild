@@ -37,8 +37,8 @@ src_install () {
 
 
         einfo "copying gamedata-files ..."
-#        insinto "${GAMES_DATADIR}"/${PN}/
-#        doins -r share/gamedir/* || die "failed while copying gamedata"
+        libinto "/usr/lib"
+        dolib libmmpong.so || die "failed while copying gamedata"
 
 #        emake DESTDIR="${D}" install || die "install failed"
 	prepgamesdirs
