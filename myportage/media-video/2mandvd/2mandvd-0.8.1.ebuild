@@ -28,10 +28,15 @@ src_configure(){
 
 src_install() {
 	
-        dobin 2ManDVD || die "dobin failed"
+        newbin 2ManDVD 2mandvd|| die "dobin failed"
+
+        newicon Interface/mandvdico.png ${PN}.png
+        make_desktop_entry ${PN} ${PN} ${PN}.png "AudioVideo;QT"
 
         insinto "/usr/share/2mandvd"
         doins -r *.qm || die "doins failed"
+
+
 
 #	make_desktop_entry ${PN} Kartofel
 
