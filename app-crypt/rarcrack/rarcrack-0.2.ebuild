@@ -15,24 +15,12 @@ SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
 
-#S=${WORKDIR}/${P}-rc2/
 
-#src_prepare(){
-#	eautoconf
-#}
-
-#src_compile() {
-#	emake || die "emake failed"
-#}
+src_compile() {
+	sed -i -e "s:0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ;,._-¿?!¡:" rarcrack.h
+	emake || die "emake failed"
+}
 
 src_install() {
-        dobin rarcrack || die "dogamesbin failed"
-
-#        insinto "${dir}"
-#        doins -r fonts/*.ttf || die "doins failed"
-
-#	make_desktop_entry ${PN} Kartofel
-
-
-#	prepgamesdirs
+        dobin rarcrack || die "dobin failed"
 }
