@@ -17,7 +17,7 @@ IUSE=""
 
 
 src_compile() {
-	sed -i -e "s:0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ;,._-¿?!¡:" rarcrack.h
+#	sed -i -e "s:0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ;,._-¿?!¡:" rarcrack.h
 	emake || die "emake failed"
 }
 
