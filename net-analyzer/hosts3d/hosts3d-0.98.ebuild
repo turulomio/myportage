@@ -22,8 +22,7 @@ S=${WORKDIR}/hosts3d-098
 #	econf --prefix=/usr/games || die "Fallo el econf"
 #}
 
-#src_install() {
-#	emake DESTDIR="${D}" install || die "emake install failed"
-#	prepgamesdirs
-#}
+src_install() {
+	emake DESTDIR="${D}" install || die "emake install failed"
+}
 
