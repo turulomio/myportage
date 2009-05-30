@@ -9,6 +9,7 @@ KEYWORDS="~x86"
 
 
 DEPEND="
+dev-libs/opensc
 "
 RDEPEND=${DEPEND}
 
