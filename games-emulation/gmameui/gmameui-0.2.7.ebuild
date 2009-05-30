@@ -21,6 +21,7 @@ RDEPEND="dev-libs/expat
 	gnome? ( gnome-base/libgnome )"
 
 DEPEND="${RDEPEND}
+	games-emulation/sdlmame
 	nls? ( sys-devel/gettext )"
 
 src_compile() {
