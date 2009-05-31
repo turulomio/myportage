@@ -8,6 +8,11 @@ LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
+DEPEND="
+net-wireless/aircrack-ng
+"
+
+RDEPEND=${DEPEND}
 
 src_compile() {
         emake || die "make failed"
