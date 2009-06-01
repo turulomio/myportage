@@ -18,5 +18,8 @@ src_install() {
 	rpm2targz opensc-dnie-1.4.5-1.fc9.i386_Fedora_9.rpm
 	cd ${D}
 	tar xvzf  ${WORKDIR}/opensc-dnie-1.4.5-1.fc9.i386_Fedora_9.tar.gz
+	elog "Ejecute /usr/share/opensc-dnie/inst_pkcs11_cert.pl"
+
+
 }
 
