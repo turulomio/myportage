@@ -43,7 +43,7 @@ src_compile() {
 		$(use_with sdl SDL) \
 		$(use_with lua leptonica) \
 		|| die "econf failed"
-	emake || die
+	emake -j1 || die
 #	jam || die "emake failed"
 }
 
@@ -56,4 +56,6 @@ src_test() {
 src_install() {
 	emake DESTDIR="${D}" install || die
 	dodoc CHANGES README
+        dolocalbin "${FILESDIR}/myocr"
+
 }
