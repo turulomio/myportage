@@ -16,8 +16,6 @@ DEPEND="media-libs/openal
 
 src_unpack() {
         subversion_src_unpack
-#        cd ${S}/ac/source/src
-#        ./autogen.sh || die "autogen.sh failed"
 	cd ${S}
         epatch ${FILESDIR}/makefile-modified.patch
         cp ${FILESDIR}/assaultcube ${S}
@@ -27,7 +25,7 @@ src_unpack() {
 src_compile() {
         cd ${S}/ac/source/src
         make clean
-        emake || die "make failed"
+        emake -j 1|| die "make failed"
 }
 
 src_install () {
