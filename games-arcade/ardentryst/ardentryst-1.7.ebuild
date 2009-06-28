@@ -14,6 +14,10 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
+DEPEND="
+dev-python/pygame
+"
+
 S="${WORKDIR}/Ardentryst17/"
 
 src_install() {
@@ -25,15 +29,6 @@ src_install() {
 	cp -r * "${D}/${GAMES_DATADIR}/${PN}/"
 
 	dogamesbin ardentryst.sh
-
-#	insinto "${GAMES_DATADIR}/${PN}"
-#	doins *
-
-#        insinto "${GAMES_DATADIR}/${PN}/Base"
-#	doins Base/*
-
-#        insinto "${GAMES_DATADIR}/${PN}/Data"
-#        doins Data/*
 
 	prepgamesdirs
 }
