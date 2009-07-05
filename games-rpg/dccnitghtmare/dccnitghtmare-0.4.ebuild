@@ -5,13 +5,13 @@
 inherit games
 
 MY_P="dccnitghtmare"
-MY_PV="0_3_2_src"
+MY_PV="0_4"
 
 DESCRIPTION="a sarcastic 3D single player RPG"
 HOMEPAGE="http://dnt.dnteam.org"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}_${MY_PV}.tar.bz2"
 
-LICENSE="public-domain"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
@@ -39,14 +39,15 @@ S=${WORKDIR}/${PN}
 src_install() 
 {
 	dogamesbin bin/${PN} || die "dogamesbin failed"
-	insinto "${GAMES_DATADIR}"/${PN}
+	insinto "${GAMES_DATADIR}"/${PN}	
 	doins -r data/* || die "doins failed"
+	doins bin/dcc.opc bin/options.cfg || die "doins failed"
 	cd "${S}"/po
 	make DESTDIR="${D}" install || "make po install failed"
 	cd "${S}"
 	doicon data/dnt-icon.png
 	make_desktop_entry dccnitghtmare DccNiTghtmare
-	dodoc README license.txt
+	dodoc README COPYING
 	prepgamesdirs
 }
 
