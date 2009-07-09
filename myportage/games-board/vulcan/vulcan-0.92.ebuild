@@ -19,17 +19,16 @@ DEPEND="${RDEPEND}"
 
 S=${WORKDIR}/${P}
 
-src_install() 
-{
-	dogamesbin bin/${PN} || die "dogamesbin failed"
-	insinto "${GAMES_DATADIR}"/${PN}
-	doins -r data/* || die "doins failed"
-	cd "${S}"/po
-	make DESTDIR="${D}" install || "make po install failed"
-	cd "${S}"
-	doicon data/xut-icon.png
-	make_desktop_entry xut XUT
-	dodoc COPYING
-	prepgamesdirs
+
+src_compile(){
+        sed -i -e "s:/usr/local:/usr:" Makefile
+	emake -j1
 }
 
+src_install(){
+        dogamesbin vulcan
+        insinto "${GAMES_DATADIR}"/${PN}
+        doins -r data/* || die "doins failed"
+        prepgamesdirs
+
+}
