@@ -9,6 +9,9 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 
 DEPEND="
+media-libs/sdl-gfx
+media-libs/sdl-image
+media-libs/sdl-ttf
 "
 RDEPEND=${DEPEND}
 
