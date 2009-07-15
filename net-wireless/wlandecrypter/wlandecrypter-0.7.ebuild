@@ -10,6 +10,7 @@ KEYWORDS="x86 amd64"
 
 DEPEND="
 net-wireless/aircrack-ng
+net-wireless/wepattack
 "
 
 RDEPEND=${DEPEND}
