@@ -11,6 +11,7 @@ DOCS="ChangeLog* README* AUTHORS"
 ESVN_REPO_URI="https://glparchis.svn.sourceforge.net/svnroot/glparchis"
 
 DEPEND="
+media-libs/ftgl
 "
 RDEPEND=${DEPEND}
 
