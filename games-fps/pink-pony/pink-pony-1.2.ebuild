@@ -2,7 +2,7 @@ EAPI="2"
 inherit  autotools eutils games
 
 DESCRIPTION="Pink Pony is a Tron­-like multiplayer racing­ game. "
-SRC_URI="http://pink-pony.googlecode.com/files/pink-pony-1.0.tar.bz2"
+SRC_URI="http://pink-pony.googlecode.com/files/${P}.tar.bz2"
 
 LICENSE="LGPL-2"
 SLOT="0"
