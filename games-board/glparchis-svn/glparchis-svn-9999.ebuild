@@ -28,5 +28,8 @@ src_unpack() {
 
 
 src_install () {
+	cd po
+	make update-po
+	cd ..
         emake DESTDIR="${D}" install || die "install failed"
 }
