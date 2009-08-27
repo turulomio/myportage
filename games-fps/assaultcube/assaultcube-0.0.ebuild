@@ -48,8 +48,12 @@ src_install () {
         insinto "${GAMES_DATADIR}/${PN}/bot"
         doins -r bot/* || die "doins failed"
 
-	doicon icon.ico
-	make_desktop_entry assaultcube AssaultCube
+        insinto "${GAMES_DATADIR}/${PN}/docs"
+        doins -r docs/* || die "doins failed"
+
+	cp icon.ico assaultcube.ico
+	doicon assaultcube.ico
+	make_desktop_entry assaultcube AssaultCube /usr/share/pixmaps/assaultcube.ico
 
         prepgamesdirs
 }
