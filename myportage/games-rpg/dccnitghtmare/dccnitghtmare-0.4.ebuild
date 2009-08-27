@@ -46,7 +46,7 @@ src_install()
 	make DESTDIR="${D}" install || "make po install failed"
 	cd "${S}"
 	doicon data/dnt-icon.png
-	make_desktop_entry dccnitghtmare DccNiTghtmare
+	make_desktop_entry dccnitghtmare DccNiTghtmare dnt-icon.png
 	dodoc README COPYING
 	prepgamesdirs
 }
