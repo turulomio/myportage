@@ -46,6 +46,6 @@ src_install() {
 	insinto  /etc/udev/rules.d/
 	doins contrib/90-r5u87x-loader.rules.in
 
-	insinto /lib/firmware
+	insinto /usr/lib/r5u87x/ucode/
 	doins ucode/*.fw #r5u870_1810.fw r5u870_1830.fw r5u870_1832.fw r5u870_1833.fw r5u870_1834.fw r5u870_1835.fw r5u870_1836.fw r5u870_1870.fw r5u870_1870_1.fw
 }
