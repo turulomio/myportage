@@ -31,6 +31,12 @@ src_unpack() {
 	epatch "${FILESDIR}/${P}-speex-path.patch" # fix speex include path
 	epatch "${FILESDIR}/${P}-Makefile.am.patch" # Needed for autoreconf
 	epatch "${FILESDIR}/${P}-wx-fixes.patch" # SF.net bug #1688993
+	sed -i '31 i #include <cstring>' src/audiere.h
+	sed -i '8 i #include <stdlib.h>' src/debug.h
+	sed -i '9 i #include <stdio.h>' src/utility.h
+
+
+
 	eautoreconf || die "eautoreconf failed"
 }
 
