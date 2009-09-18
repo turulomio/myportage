@@ -13,6 +13,7 @@ S=${WORKDIR}/${PN}
 DEPEND="
 dev-libs/protobuf
 dev-util/scons
+media-libs/audiere
 media-libs/devil
 media-libs/glfw
 media-libs/ilmbase
