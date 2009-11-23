@@ -16,3 +16,7 @@ RDEPEND=${DEPEND}
 
 S=${WORKDIR}/edgar-${PV}
 
+src_compile(){
+        sed -i -e 's:BIN_DIR = $(PREFIX)/games/:BIN_DIR = $(PREFIX)/games/bin/:' makefile
+	emake
+}
