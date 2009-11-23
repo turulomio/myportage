@@ -1,7 +1,7 @@
 inherit  autotools eutils games
 
 DESCRIPTION="When Edgar's father fails to return home after venturing out one dark and stormy night, Edgar fears the worst: he has been captured by the evil sorcerer who lives in a fortress beyond the forbidden swamp."
-SRC_URI="http://www.parallelrealities.co.uk/download/9a12d63d/edgar/edgar-${PV}-1.tar.gz"
+SRC_URI="http://www.parallelrealities.co.uk/download/edgar/edgar-${PV}-1.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 
