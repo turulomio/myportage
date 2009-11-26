@@ -21,9 +21,6 @@ RDEPEND=${DEPEND}
 
 src_unpack() {
         subversion_src_unpack
-        cd ${S}/navit/navit/
-        sed -i -e "s:orientation=\"-1\":orientation=\"1\":" navit.xml
-        sed -i -e "s:echo 'Fix the speech tag in navit.xml to let navit say\:' '\%s':espeak -ves+1 -w /tmp/navit.wav '\%s'; playsound /tmp/navit.wav:" navit.xml
 
 	cd ${S}/navit
         ./autogen.sh || die "autogen.sh failed"
@@ -37,6 +34,10 @@ src_compile() {
 }
 
 src_install () {
+
+        cd ${S}/navit/navit/
+        sed -i -e "s:orientation=\"-1\":orientation=\"1\":" navit.xml
+        sed -i -e "s:echo 'Fix the speech tag in navit.xml to let navit say\:' '\%s':espeak -ves+1 -w /tmp/navit.wav '\%s'; playsound /tmp/navit.wav:" navit.xml
         cd ${S}/navit
         emake DESTDIR="${D}" install || die "install failed"
         insinto /usr/bin/; dobin "${FILESDIR}/navit-update-spain.sh"
