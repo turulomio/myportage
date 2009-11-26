@@ -20,6 +20,7 @@ DEPEND="dev-games/ode
         media-libs/freetype:2
         media-libs/libpng
         media-libs/openal
+	games-util/techne
         virtual/opengl"
 RDEPEND="${DEPEND}"
 
