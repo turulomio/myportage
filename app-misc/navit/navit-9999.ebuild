@@ -26,7 +26,7 @@ HOMEPAGE="http://www.navit-project.org"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm"
+KEYWORDS="~amd64 ~x86"
 
 IUSE_GPS="gps_source_android +gps_source_demo +gps_source_file gps_source_gpsd
 	gps_source_gypsy gps_source_iphone gps_source_wince"
