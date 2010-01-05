@@ -13,7 +13,12 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86"
 
-DEPEND=""
+DEPEND="
+app-forensics/sleuthkit
+app-forensics/foremost
+"
+
+RDEPEND="${DEPEND}"
 
 src_compile(){
 	elog "Nothing to compile"
