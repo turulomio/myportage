@@ -16,6 +16,8 @@ KEYWORDS="~x86"
 DEPEND=""
 
 src_compile(){
+	cd ${S}/GPSWarning/i18n
+	./generabinarios
 	elog "Nothing to compile"
 }
 
@@ -24,4 +26,6 @@ src_install(){
 	dobin GPSWarning/gpswarning
 	insinto /usr/share/${PN}
 	doins GPSWarning/radares.txt
+	insinto /usr/share/locale/en/LC_MESSAGES/
+	doins GPSWarning/i18n/en/gpswarning.mo
 }
