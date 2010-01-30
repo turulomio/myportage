@@ -17,7 +17,6 @@ DEPEND="media-libs/openal
 src_unpack() {
         subversion_src_unpack
 	cd ${S}
-        epatch ${FILESDIR}/makefile-modified.patch
         cp ${FILESDIR}/assaultcube ${S}
 }
 
