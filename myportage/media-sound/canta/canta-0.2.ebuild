@@ -8,8 +8,8 @@ inherit games eutils
 
 DESCRIPTION="Its goal is to provide a platform for playing and creating songs and singing to them into a microphone."
 HOMEPAGE="http://www.canta-game.org/"
-SRC_URI="http://cgit.canta-game.org/cgit.cgi/canta/snapshot/canta-0.2-beta6.tar.gz
-http://cgit.canta-game.org/cgit.cgi/canta-media/snapshot/canta-media-0.2-beta6.tar.gz"
+SRC_URI="http://cgit.canta-game.org/cgit.cgi/canta/snapshot/canta-0.2.0.tar.gz
+http://cgit.canta-game.org/cgit.cgi/canta-media/snapshot/canta-media-0.2.0.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -19,7 +19,7 @@ DEPEND="
 "
 RDEPEND=${DEPEND}
 
-S=${WORKDIR}/canta-0.2-beta6
+S=${WORKDIR}/canta-0.2.0
 src_compile() {
 	emake || die "Fallo el econf"
 }
