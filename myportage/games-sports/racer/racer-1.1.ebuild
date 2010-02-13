@@ -18,7 +18,7 @@ media-libs/allegro
 "
 
 src_compile(){
-        sed -i -e "s:DESTDIR=/usr/local:DESTDIR=/usr:" Makefile
+        sed -i -e "s:DESTDIR=/usr/local:DESTDIR=${D}/usr:" Makefile
         emake all
 }
 
