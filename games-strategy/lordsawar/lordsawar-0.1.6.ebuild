@@ -28,9 +28,6 @@ src_compile() {
 }
 
 src_install () {
-	cp dat/various/castle_icon.png lordsawar.png
-	doicon lordsawar.png
-	make_desktop_entry lordsawar "Lordsawar" /usr/share/pixmaps/lordsawar.png
         emake DESTDIR="${D}" install || die "install failed"
         dodoc ChangeLog* README*  TODO AUTHORS NEWS
 }
