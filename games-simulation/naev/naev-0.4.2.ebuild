@@ -24,19 +24,12 @@ DEPEND="${RDEPEND}
 
 src_unpack() {
 	unpack ${P}.tar.bz2
-	cp "${DISTDIR}"/ndata-"${PV}" "${T}"
-	cd "${S}"
-	# use system png library.
-	sed -i \
-		-e "s:<png.h>:<libpng12/png.h>:" src/opengl.c || die "sed failed"
-
-	# fix make system
-	#2	epatch "${FILESDIR}/${PV}-Makefile.patch"
-
-	if ! use debug; then
-		sed -i -e "s!DEBUG := 1!DEBUG := 0!" Makefile || die "sed debug failed"
-	fi
+#	unpack ndata-${PV}
         cp ${FILESDIR}/naev.sh ${S}
+}
+
+src_configure(){
+	econf || die "econf failed"
 }
 
 src_compile() {
