@@ -8,25 +8,26 @@ LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-ESVN_REPO_URI="http://xulpymoney.svn.sourceforge.net/viewvc/xulpymoney/"
+ESVN_REPO_URI="https://xulpymoney.svn.sourceforge.net/svnroot/xulpymoney/xulpymoney"
+
+DEPEND="
+dev-db/postgresql-server
+dev-python/adodb-py
+www-servers/apache
+"
 
 src_unpack() {
         subversion_src_unpack
-        cd ${S}/lordsawar/trunk
-        ./autogen.sh || die "autogen failed"
-        AT_M4DIR="." eautoreconf
 }
 
 
-src_compile() {
-        cd ${S}/lordsawar/trunk
-        econf --disable-nls || die "configure failed"
-        emake || die "make failed"
-}
 
 src_install () {
-        cd ${S}/lordsawar/trunk
         emake DESTDIR="${D}" install || die "install failed"
-        dodoc ChangeLog* README*  TODO AUTHORS NEWS
+	elog "Debes instalar apache para que lea psp:"
+	elog "  - Modifica /etc/conf.d/apache2"
+	elog "  - Modifica apache"
+	elog "Debes instalar la base de datos con el comando"
+
 }
 
