@@ -13,17 +13,19 @@ SLOT="0"
 KEYWORDS="amd64 ~ppc ~sparc ~x86"
 IUSE="debug doc gnome nls joystick"
 
-RDEPEND="dev-libs/expat
-	>=x11-libs/gtk+-2.4
-	>=dev-libs/glib-2.4
-	x11-themes/gnome-icon-theme
-	nls? ( virtual/libintl )
-	gnome? ( gnome-base/libgnome )"
-
-DEPEND="${RDEPEND}
+DEPEND="
+	dev-libs/expat
+        >=x11-libs/gtk+-2.4
+        >=dev-libs/glib-2.4
+        x11-themes/gnome-icon-theme
+        nls? ( virtual/libintl )
+        gnome? ( gnome-base/libgnome )
+	x11-libs/vte
 	games-emulation/sdlmame
 	app-arch/libarchive
 	nls? ( sys-devel/gettext )"
+
+RDEPEND="${DEPEND}"
 
 src_compile() {
 	local myconf
