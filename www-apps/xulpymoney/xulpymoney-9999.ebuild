@@ -13,6 +13,7 @@ ESVN_REPO_URI="https://xulpymoney.svn.sourceforge.net/svnroot/xulpymoney/xulpymo
 DEPEND="
 dev-db/postgresql-server
 dev-python/adodb-py
+www-apache/mod_python
 www-servers/apache
 "
 
