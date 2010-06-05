@@ -1,26 +1,26 @@
 EAPI="1"
-inherit subversion autotools eutils
+inherit autotools eutils
 
 DESCRIPTION="An accounting web application, developed with mod_python and XUL"
-SRC_URI=""
+
+SRC_URI="mirror://sourceforge/project/xulpymoney/xulpymoney-0.1.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-ESVN_REPO_URI="https://xulpymoney.svn.sourceforge.net/svnroot/xulpymoney/xulpymoney"
 
 DEPEND="
 dev-db/postgresql-server
 dev-python/adodb-py
+sci-visualization/gnuplot
 www-apache/mod_python
+www-client/mozilla-firefox
 www-servers/apache
 "
 
-src_unpack() {
-        subversion_src_unpack
-}
 
+S=${WORKDIR}/xulpymoney
 src_compile(){
 	elog "Nada para compilar"
 }
