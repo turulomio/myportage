@@ -33,6 +33,7 @@ src_install(){
         mkdir -p ${D}/usr/share/recovermypartition/
 
 	cp recovermypartition.py ${D}/usr/bin/recovermypartition
+        chmod 755  ${D}/usr/bin/recovermypartition
         cp po/en.mo ${D}/usr/share/locale/en/LC_MESSAGES/recovermypartition.mo
         cp po/es.mo ${D}/usr/share/locale/es/LC_MESSAGES/recovermypartition.mo
         cp INSTALL RELEASES GPL-3.txt ${D}/usr/share/recovermypartition/
