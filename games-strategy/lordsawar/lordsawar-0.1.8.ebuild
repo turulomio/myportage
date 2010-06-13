@@ -11,6 +11,7 @@ KEYWORDS="x86 amd64"
 DEPEND="
 dev-cpp/gtkmm
 dev-cpp/libglademm
+dev-libs/libtar
 net-libs/gnet
 "
 RDEPEND=${DEPEND}
