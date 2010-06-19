@@ -21,16 +21,16 @@ else
 	SRC_URI=""
 fi
 
-DESCRIPTION="An open-source car navigation system with a routing engine."
+DESCRIPTION="An open-source vector based car navigation system with a routing engine."
 HOMEPAGE="http://www.navit-project.org"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~arm ~x86"
 
 IUSE_GPS="gps_source_android +gps_source_demo +gps_source_file gps_source_gpsd
 	gps_source_gypsy gps_source_iphone gps_source_wince"
-IUSE_GUI="gui_sdl gui_gtk +gui_internal gui_win32"
+IUSE_GUI="gui_sdl +gui_gtk +gui_internal gui_win32"
 IUSE_GRAPHICS="graphics_android graphics_gd +graphics_gtk graphics_opengl
 	graphics_qt graphics_sdl graphics_win32"
 IUSE_SPEECH="speech_android speech_cmd speech_speechd"
@@ -46,11 +46,6 @@ COMMON_DEPEND="
 	nls? ( sys-devel/gettext )
 	python? ( dev-lang/python )
 	gui_gtk? ( x11-libs/gtk+:2 )
-	gui_sdl? (
-		media-libs/sdl-image
-		>=dev-games/cegui-0.5
-		media-libs/quesoglc
-	)
 	graphics_gtk? (
 		x11-libs/gtk+:2
 		svg? ( gnome-base/librsvg[zlib] )
@@ -62,7 +57,7 @@ COMMON_DEPEND="
 # cvs required by gettext's autopoint.
 # subversion requires webdav to fetch navit. See subversion.eclass
 DEPEND="${COMMON_DEPEND}
-	dev-util/cvs
+	dev-vcs/cvs
 	dev-util/pkgconfig
 	|| (
 		dev-util/subversion[webdav-neon]
@@ -84,7 +79,6 @@ EPATCH_SUFFIX="patch"
 src_prepare() {
 
 	einfo "the revision requested is ${NAVIT_REV}"
-	epatch
 
 	autopoint -f || die "autopoint failed"
 	eautoreconf
@@ -105,7 +99,6 @@ src_configure() {
 	# Frontends
 	conf="$conf
 	$(use_enable gui_gtk gui-gtk)
-	$(use_enable gui_sdl gui-sdl)
 	$(use_enable gui_internal gui-internal)
 	$(use_enable gui_win32 gui-win32)"
 
@@ -161,3 +154,4 @@ pkg_postinst () {
 		ewarn
 	)
 }
+
