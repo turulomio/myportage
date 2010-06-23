@@ -59,9 +59,6 @@ COMMON_DEPEND="
 DEPEND="${COMMON_DEPEND}
 	dev-vcs/cvs
 	dev-util/pkgconfig
-	|| (
-		dev-util/subversion[webdav-serf]
-	)
 	sys-devel/gettext
 	svg2png? (
 		|| (
