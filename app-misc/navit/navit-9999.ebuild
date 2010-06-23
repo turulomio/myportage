@@ -60,7 +60,6 @@ DEPEND="${COMMON_DEPEND}
 	dev-vcs/cvs
 	dev-util/pkgconfig
 	|| (
-		dev-util/subversion[webdav-neon]
 		dev-util/subversion[webdav-serf]
 	)
 	sys-devel/gettext
