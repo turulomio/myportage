@@ -39,6 +39,25 @@ src_install(){
         mkdir -p ${D}/${GAMES_DATADIR}/frogatto/images    
         cp -R images/* ${D}/${GAMES_DATADIR}/frogatto/images
 
+        mkdir -p ${D}/${GAMES_DATADIR}/frogatto/music
+        cp -R music/* ${D}/${GAMES_DATADIR}/frogatto/music
+
+        mkdir -p ${D}/${GAMES_DATADIR}/frogatto/music_aac
+        cp -R music_aac/* ${D}/${GAMES_DATADIR}/frogatto/music_aac
+
+        mkdir -p ${D}/${GAMES_DATADIR}/frogatto/sounds
+        cp -R sounds/* ${D}/${GAMES_DATADIR}/frogatto/sounds
+
+        mkdir -p ${D}/${GAMES_DATADIR}/frogatto/sounds_wav
+        cp -R sounds_wav/* ${D}/${GAMES_DATADIR}/frogatto/sounds_wav
+
         cp game ${D}/${GAMES_DATADIR}/frogatto/
+
+        cp images/window-icon.png frogatto.png
+        doicon frogatto.png
+        make_desktop_entry frogatto Frogatto /usr/share/pixmaps/frogatto.png
+
+
+        prepgamesdirs
 
 }
