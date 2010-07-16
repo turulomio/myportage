@@ -23,7 +23,6 @@ RDEPEND=${DEPEND}
 
 src_configure(){
 	cd lib && protoc mesh.proto  --cpp_out=./ && cd ..
-        
 }
 
 
@@ -39,7 +38,12 @@ src_install(){
         insinto /usr/share/pink-pony/fonts; doins fonts/*
         insinto /usr/share/pink-pony/models; doins models/*
         insinto /usr/share/pink-pony/music; doins music/*
-        insinto /usr/share/pixmaps; doins install/pink-pony.png
-        insinto /usr/share/applications; doins install/pink-pony.desktop
+        insinto /usr/share/pink-pony/levels; doins levels/*
+        insinto /usr/share/pink-pony/GLSL; doins GLSL/*
+
+        cp install/pink-pony.png pink-pony.png
+        doicon pink-pony.png
+        make_desktop_entry pink-pony "Pink pony" /usr/share/pixmaps/pink-pony.png
+
 	prepgamesdirs
 }
