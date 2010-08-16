@@ -1,15 +1,14 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /cvsroot/dccnitghtmare/dccnightmare/packages/ebuild/dccnitghtmare-0.3.2.ebuild,v 1.1 2008/12/17 09:41:44 farpro Exp $
 
 inherit games
 
 MY_P="dccnitghtmare"
-MY_PV="0_4"
+MY_PV="0.6"
 
 DESCRIPTION="a sarcastic 3D single player RPG"
 HOMEPAGE="http://dnt.dnteam.org"
-SRC_URI="mirror://sourceforge/${PN}/${MY_P}_${MY_PV}.tar.bz2"
+SRC_URI="mirror://sourceforge/${PN}/${MY_P}-${MY_PV}.tar.bz2"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -46,7 +45,7 @@ src_install()
 	make DESTDIR="${D}" install || "make po install failed"
 	cd "${S}"
 	doicon data/dnt-icon.png
-	make_desktop_entry dccnitghtmare DccNiTghtmare dnt-icon.png
+	make_desktop_entry dccnitghtmare DccNiTghtmare
 	dodoc README COPYING
 	prepgamesdirs
 }
