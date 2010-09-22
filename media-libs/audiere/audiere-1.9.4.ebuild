@@ -13,7 +13,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE="cdaudio debug dumb flac speex vorbis wxwindows"
 
 RDEPEND="cdaudio? ( media-libs/libcdaudio )
