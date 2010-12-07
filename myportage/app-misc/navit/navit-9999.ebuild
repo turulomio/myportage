@@ -48,7 +48,7 @@ COMMON_DEPEND="
 	gui_gtk? ( x11-libs/gtk+:2 )
 	graphics_gtk? (
 		x11-libs/gtk+:2
-		svg? ( gnome-base/librsvg[zlib] )
+		svg? ( gnome-base/librsvg )
 	)
 	graphics_qt? ( x11-libs/qt-core )
 	graphics_sdl? ( media-libs/sdl-image[png] )
@@ -62,7 +62,7 @@ DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	svg2png? (
 		|| (
-			gnome-base/librsvg[zlib]
+			gnome-base/librsvg
 			media-gfx/imagemagick[svg,png,xml]
 			media-gfx/inkscape
 			kde-base/kdelibs
