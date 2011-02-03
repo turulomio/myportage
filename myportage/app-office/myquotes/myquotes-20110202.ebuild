@@ -15,8 +15,10 @@ KEYWORDS="x86"
 
 DEPEND="
 dev-db/postgresql-server
+dev-python/psycopg
 dev-python/pyqwt
 dev-python/pytz
+dev-python/PyQt4
 "
 
 RDEPEND="${DEPEND}"
