@@ -35,10 +35,12 @@ src_compile(){
         cd myquotes;pylupdate4 myquotes.pro;lrelease myquotes.pro;
 }
 
+
 src_install(){
         dodir /usr/share/locale/en/LC_MESSAGES/
         dodir /etc/myquotes
         dodir /usr/lib/myquotes
+        dodir /usr/share/myquotes/sql
 
         insinto /etc/myquotes
         newins config.py config.py.dist
@@ -58,6 +60,14 @@ src_install(){
         doins myquotes/i18n/*.qm
         doins myquotes/images/*.py
         doins myquotes/ui/*.py
+
+        insinto /usr/share/myquotes/sql
+        doins sql/myquotes.*
+
+        cp myquotes/images/kmplot.jpg myquotes.jpg
+        doicon myquotes.jpg
+        make_desktop_entry myquotes "MyQuotes" /usr/share/pixmaps/myquotes.jpg
+
 
 }
 
