@@ -20,7 +20,7 @@ DEPEND="
 dev-db/postgresql-server
 dev-python/pyqwt
 dev-python/pytz
-
+dev-python/PyQt4
 "
 
 RDEPEND="${DEPEND}"
@@ -42,6 +42,7 @@ src_install(){
         dodir /usr/share/locale/en/LC_MESSAGES/
 	dodir /etc/myquotes
 	dodir /usr/lib/myquotes
+	dodir /usr/share/myquotes/sql
 
 	insinto /etc/myquotes
 	newins config.py config.py.dist
@@ -61,5 +62,13 @@ src_install(){
 	doins myquotes/i18n/*.qm
 	doins myquotes/images/*.py
 	doins myquotes/ui/*.py
+
+	insinto /usr/share/myquotes/sql
+	doins sql/myquotes.*
+
+        cp myquotes/images/kmplot.jpg myquotes.jpg
+        doicon myquotes.jpg
+        make_desktop_entry myquotes "MyQuotes" /usr/share/pixmaps/myquotes.jpg
+
 
 }
