@@ -26,19 +26,30 @@ RDEPEND="${DEPEND}"
 
 
 src_compile(){
-        cd po; bash ./translate;cd ..
-
-        pyrcc4 xulpymoney-qt/images/xulpymoney-qt.qrc > xulpymoney-qt/images/xulpymoney-qt_rc.py
-        pyuic4 xulpymoney-qt/ui/frmAbout.ui > xulpymoney-qt/ui/Ui_frmAbout.py
-        pyuic4 xulpymoney-qt/ui/frmAccess.ui > xulpymoney-qt/ui/Ui_frmAccess.py
-        pyuic4 xulpymoney-qt/ui/frmAnalisis.ui > xulpymoney-qt/ui/Ui_frmAnalisis.py
-        pyuic4 xulpymoney-qt/ui/frmMain.ui > xulpymoney-qt/ui/Ui_frmMain.py
-        pyuic4 xulpymoney-qt/ui/wdgInversiones.ui > xulpymoney-qt/ui/Ui_wdgInversiones.py
-        cd xulpymoney-qt;pylupdate4 xulpymoney-qt.pro;lrelease xulpymoney-qt.pro;
+        pyrcc4 images/xulpymoney.qrc > images/xulpymoney_rc.py
+        pyuic4 ui/frmAbout.ui > ui/Ui_frmAbout.py 
+        pyuic4 ui/frmAccess.ui > ui/Ui_frmAccess.py 
+        pyuic4 ui/frmMain.ui > ui/Ui_frmMain.py
+        pyuic4 ui/frmOperCuentas.ui > ui/Ui_frmOperCuentas.py
+        pyuic4 ui/frmTablasAuxiliares.ui > ui/Ui_frmTablasAuxiliares.py
+        pyuic4 ui/wdgBancos.ui > ui/Ui_wdgBancos.py
+        pyuic4 ui/wdgCuentas.ui > ui/Ui_wdgCuentas.py
+        pyuic4 ui/frmCuentasIBM.ui > ui/Ui_frmCuentasIBM.py                        
+        pyuic4 ui/wdgInformeClases.ui > ui/Ui_wdgInformeClases.py
+        pyuic4 ui/wdgInformeHistorico.ui > ui/Ui_wdgInformeHistorico.py
+        pyuic4 ui/wdgInformeDividendos.ui > ui/Ui_wdgInformeDividendos.py
+        pyuic4 ui/wdgAPR.ui > ui/Ui_wdgAPR.py
+        pyuic4 ui/wdgIndexRange.ui > ui/Ui_wdgIndexRange.py
+        pyuic4 ui/wdgInversiones.ui > ui/Ui_wdgInversiones.py
+        pyuic4 ui/frmInversionesEstudio.ui > ui/Ui_frmInversionesEstudio.py
+        pyuic4 ui/frmInversionesIBM.ui > ui/Ui_frmInversionesIBM.py
+        pyuic4 ui/frmTransferencia.ui > ui/Ui_frmTransferencia.py
+        pyuic4 ui/wdgTotal.ui > ui/Ui_wdgTotal.py
+        pylupdate4 xulpymoney.pro
+        lrelease xulpymoney.pro
 }
 
 src_install(){
-        dodir /usr/share/locale/en/LC_MESSAGES/
 	dodir /etc/xulpymoney-qt
 	dodir /usr/lib/xulpymoney-qt
 	dodir /usr/share/xulpymoney-qt/sql
@@ -46,28 +57,24 @@ src_install(){
 	insinto /etc/xulpymoney-qt
 	newins config.py config.py.dist
 
-        newbin xulpymoney-qtd.py xulpymoney-qtd
-	newbin xulpymoney-qt/xulpymoney-qt.py xulpymoney-qt
+        newbin xulpymoney.py xulpymoney-qt
 
-	exeinto /etc/init.d/
-	newexe xulpymoney-qt.initd xulpymoney-qt
+	dodoc GPL-3.txt CHANGELOG-* AUTHORS-* RELEASES-* xulpymoney-*.odt 
 
-	insinto /usr/share/locale/en/LC_MESSAGES/
-	newins po/en.mo xulpymoney-qt.po
+	insinto /usr/share/xulpymoney-qt
+	doins i18n/*.qm
 
-	dodoc GPL-3.txt CHANGELOG-* AUTHORS-* RELEASES-* doc/xulpymoney-qt-* 
 
-	insinto /usr/lib/xulpymoney-qt
-	doins xulpymoney-qt/i18n/*.qm
-	doins xulpymoney-qt/images/*.py
-	doins xulpymoney-qt/ui/*.py
+        insinto /usr/lib/xulpymoney-qt
+	doins images/*.py
+	doins ui/*.py
 
 	insinto /usr/share/xulpymoney-qt/sql
-	doins sql/xulpymoney-qt.*
+	doins sql/pgsql.*
 
-        cp xulpymoney-qt/images/kmplot.jpg xulpymoney-qt.jpg
-        doicon xulpymoney-qt.jpg
-        make_desktop_entry xulpymoney-qt "xulpymoney-qt" /usr/share/pixmaps/xulpymoney-qt.jpg
+        cp images/dinero.png xulpymoney-qt.png
+        doicon xulpymoney-qt.png
+        make_desktop_entry xulpymoney-qt "Xulpymoney-qt" /usr/share/pixmaps/xulpymoney-qt.png
 
 
 }
