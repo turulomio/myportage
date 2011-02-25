@@ -61,11 +61,8 @@ src_install(){
 
 	dodoc GPL-3.txt CHANGELOG-* AUTHORS-* RELEASES-* xulpymoney-*.odt 
 
-	insinto /usr/share/xulpymoney-qt
+	insinto /usr/lib/xulpymoney-qt
 	doins i18n/*.qm
-
-
-        insinto /usr/lib/xulpymoney-qt
 	doins images/*.py
 	doins ui/*.py
 
