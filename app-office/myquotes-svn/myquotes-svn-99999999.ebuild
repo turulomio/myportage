@@ -35,6 +35,7 @@ src_compile(){
         pyuic4 myquotes/ui/frmAccess.ui > myquotes/ui/Ui_frmAccess.py
         pyuic4 myquotes/ui/frmAnalisis.ui > myquotes/ui/Ui_frmAnalisis.py
         pyuic4 myquotes/ui/frmMain.ui > myquotes/ui/Ui_frmMain.py
+        pyuic4 myquotes/ui/frmQuotesIBM.ui > myquotes/ui/Ui_frmQuotesIBM.py
         pyuic4 myquotes/ui/wdgInversiones.ui > myquotes/ui/Ui_wdgInversiones.py
         cd myquotes;pylupdate4 myquotes.pro;lrelease myquotes.pro;
 }
