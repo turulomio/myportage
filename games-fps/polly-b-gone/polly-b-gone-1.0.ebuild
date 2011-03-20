@@ -22,7 +22,7 @@ RDEPEND="media-libs/libsdl
 	media-libs/sdl-image
 	media-libs/glew
 	media-libs/freeglut
-	dev-util/tinyxml
+	dev-libs/tinyxml
 	media-libs/sdl-mixer"
 DEPEND="${RDEPEND}"
 
