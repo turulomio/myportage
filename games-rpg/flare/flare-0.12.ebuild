@@ -2,6 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 inherit games
+EAPI=2
 
 MY_PV=`echo ${PV}|sed 's/\.//g'`
 
@@ -16,7 +17,12 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 
-DEPEND=""
+DEPEND="
+media-libs/libsdl
+media-libs/sdl-image
+media-libs/sdl-mixer[vorbis]
+"
+
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/flare_v${MY_PV}
