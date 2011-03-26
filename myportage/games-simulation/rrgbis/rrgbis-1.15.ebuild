@@ -6,8 +6,8 @@ inherit eutils games
 
 DESCRIPTION="a free real time strategy game that takes place in space"
 HOMEPAGE="http://rrgbis.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${PN}/${PV}/${P}-src.tar.bz2
-mirror://sourceforge/${PN}/${PN}/${PV}/${P}-data.tar.bz2"
+SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${PV}/${P}.tar.bz2
+mirror://sourceforge/project/${PN}/${PN}/${PV}/${PN}-1.13-data.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86"
