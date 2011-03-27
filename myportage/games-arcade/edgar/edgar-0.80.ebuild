@@ -6,11 +6,14 @@ SRC_URI="http://www.parallelrealities.co.uk/download/edgar/edgar-${PV}-1.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
+EAPI=2
 
 DEPEND="
+media-libs/libsdl[joystick]
 media-libs/sdl-mixer
 media-libs/sdl-image
 media-libs/sdl-ttf
+media-libs/sdl-net
 "
 RDEPEND=${DEPEND}
 
