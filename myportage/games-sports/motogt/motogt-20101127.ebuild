@@ -27,8 +27,16 @@ src_install(){
 
    dodoc doc/* linux.txt
 
-   insinto ${GAMES_DATADIR}/${PN}
-   doins -r  data || die "doins failed"
+   insinto ${GAMES_DATADIR}/${PN}/data
+   doins -r  data/bikes  data/font  data/menu  data/misc  data/music  data/osd  data/particle  data/shaders  data/slides  data/sound  data/src  || die "doins failed"
+
+   insinto /var/lib/motogt/
+   doins -r data/tracks
+   fperms -R 770 /var/lib/motogt/tracks
+   fowners -R games:games  /var/lib/motogt/tracks
+
+   dosym /var/lib/motogt/tracks/ ${GAMES_DATADIR}/${PN}/data/tracks
+
 
    newicon data/tracks/00/minimap.png motogt.png
    make_desktop_entry motogt.sh MotoGT /usr/share/pixmaps/motogt.png
