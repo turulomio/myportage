@@ -15,6 +15,8 @@ IUSE=""
 SLOT=0
 
 DEPEND="
+dev-db/mysql
+x11-libs/wxGTK
 "
 RDEPEND="${DEPEND}"
 
