@@ -37,14 +37,18 @@ src_install(){
    newgamesbin  ${FILESDIR}/flare.sh flare.sh
    exeopts -m0750
    exeinto ${GAMES_DATADIR}/${PN}
-   doexe flare 
+   doexe flare
 
    insinto ${GAMES_DATADIR}/${PN}
-   doins -r  enemies   fonts  images  items  maps  music  npcs  powers  saves  soundfx  tilesetdefs || die "doins failed"
+   doins -r  enemies   fonts  images  items  maps  music  npcs  powers  soundfx  tilesetdefs || die "doins failed"
    dogamesdoc credits.html README.txt
 
    make_desktop_entry flare.sh Flare ${FILESDIR}/flare.png
 
+   dodir /var/lib/flare/saves
+   dosym /var/lib/flare/saves ${GAMES_DATADIR}/${PN}/saves
+   fperms 770 /var/lib/flare/saves
+   fowners games:games /var/lib/flare/saves
+
    prepgamesdirs
-   diropts -m0770; keepdir ${GAMES_DATADIR}/${PN}/saves
 }
