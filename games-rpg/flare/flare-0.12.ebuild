@@ -4,7 +4,8 @@
 inherit games
 EAPI=2
 
-MY_PV=`echo ${PV}|sed 's/\.//g'`
+MY_PV=${PV//./} 
+#Quita el punto con bash
 
 
 DESCRIPTION="Free action roleplaying game"
