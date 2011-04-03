@@ -1,7 +1,7 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-inherit games
+inherit games scons-utils
 EAPI=2
 
 
@@ -16,19 +16,19 @@ IUSE=""
 
 
 DEPEND="
-media-libs/libsdl
-media-libs/sdl-image
-media-libs/sdl-mixer[vorbis]
+dev-games/cegui[-static-libs,ogre]
+dev-games/ogre[cg,tools]
+dev-util/scons
 "
 
 RDEPEND="${DEPEND}"
 
-S=${WORKDIR}/flare_v${MY_PV}
+#S=${WORKDIR}/flare_v${MY_PV}
 
 src_compile(){
-   cd build
-   cmake .
-   emake || die
+   mv src/settings.cpp src/settings.bad; sed -e '/#include <exception>/ i #include <errno.h>' src/settings.bad > src/settings.cpp
+   elog "Debes instalar el overlay gamerlay"
+   escons||die
 }
 
 src_install(){
