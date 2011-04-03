@@ -13,6 +13,7 @@ IUSE=""
 SLOT=0
 
 DEPEND="
+dev-lang/lua
 net-libs/enet
 sci-physics/bullet
 "
@@ -33,9 +34,8 @@ src_install(){
    insinto ${GAMES_DATADIR}/${PN}
    doins -r  data  || die "doins failed"
 
-#   newicon data/tracks/00/minimap.png motogt.png
-   make_desktop_entry motogt.sh MotoGT
-# /usr/share/pixmaps/motogt.png
+   doicon ${FILESDIR}/lipsofsuna.jpg
+   make_desktop_entry lipsofsuna.sh "Lips of Suna" /usr/share/pixmaps/lipsofsuna.jpg
 
    prepgamesdirs
 }
