@@ -14,6 +14,10 @@ SLOT=0
 
 DEPEND="
 dev-lang/lua
+media-libs/openal
+media-libs/glew
+media-libs/libsdl
+media-libs/sdl-ttf
 net-libs/enet
 sci-physics/bullet
 "
@@ -21,7 +25,7 @@ RDEPEND="${DEPEND}"
 
 
 src_compile(){
-   ./waf configure
+   ./waf configure || die
    ./waf build
 }
 
