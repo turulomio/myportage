@@ -13,12 +13,13 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86"
 
-DEPEND=""
+DEPEND="app-misc/navit"
 
 src_compile(){
 	elog "Nothing to compile"
 }
 
 src_install(){
+	dodir /usr/share/navit/maps
 	dobin *
 }
