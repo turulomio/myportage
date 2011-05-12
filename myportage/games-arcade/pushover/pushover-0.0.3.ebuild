@@ -20,4 +20,8 @@ RDEPEND="${DEPEND}"
 
 src_install() {
 	emake DESTDIR="${D}" install || die "einstall failed"
+        doicon pushover.ico
+        make_desktop_entry pushover Pushover /usr/share/pixmaps/pushover.ico
+	prepgamesdirs 
+
 }
