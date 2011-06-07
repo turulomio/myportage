@@ -25,7 +25,9 @@ games-util/jngl
 RDEPEND="${DEPEND}"
 
 src_configure(){
-	elog "Nothing to configure"
+#   touch data/maps/Original/highscore.hsc
+  elog "Nothing to configure"
+
 }
 
 src_compile(){
@@ -42,7 +44,14 @@ src_install(){
    insinto ${GAMES_DATADIR}/${PN}
    doins *.py *.pyx || die "doins failed"
    doins -r  data img sound || die "doins failed"
-   dogamesdoc *.txt *.rtf
+   dodoc *.txt *.rtf
+
+#   dodir /var/lib/somyeol/data/maps/Original/
+#   dosym data/maps/Original/highscore.hsc /var/lib/somyeol/data/maps/Original/highscore.hsc 
+#   fperms 770 /var/lib/somyeol/data/maps/Original/highscore.hsc 
+#   fowners games:games /var/lib/somyeol/data/maps/Original/highscore.hsc 
+
+
 
    make_desktop_entry somyeol.sh Somyeol ${FILESDIR}/somyeol.png
 
