@@ -6,7 +6,7 @@ DESCRIPTION="sslstrip remove https and forwards http"
 HOMEPAGE="http://www.thoughtcrime.org/software/sslstrip/"
 SRC_URI="http://www.thoughtcrime.org/software/sslstrip/${P}.tar.gz"
 
-inherit eutils python distutils
+inherit eutils python
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
