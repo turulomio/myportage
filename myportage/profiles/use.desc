@@ -1,0 +1,6 @@
+# Copyright 1999-2011 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/profiles/use.desc,v 1.462 2011/07/17 15:58:02 pacho Exp $
+
+# Keep them sorted
+nvtt - Enable support for Nvidia Texture Toolkit
