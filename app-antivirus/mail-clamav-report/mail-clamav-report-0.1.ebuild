@@ -17,8 +17,8 @@ src_install(){
 	insinto /etc/mail-clamav-report
 	doins ${FILESDIR}/*.cfg.dist
 	dobin ${FILESDIR}/mail-clamav-report
-        insinto /etc/cron.daily
+        insinto /etc/cron.weekly
         doins ${FILESDIR}/mail-clamav-report
-        fperms 0755 /etc/cron.daily/mail-clamav-report
+        fperms 0755 /etc/cron.weekly/mail-clamav-report
 
 }

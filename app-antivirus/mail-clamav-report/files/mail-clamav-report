@@ -7,7 +7,7 @@ inicio=datetime.datetime.now()
 config = ConfigParser.ConfigParser()
 config.read("/etc/mail-clamav-report/mail-clamav-report.cfg")
 try:
-    server=config.get("smtp","smtpserver" )
+    servidor=config.get("smtp","smtpserver" )
     user=config.get("smtp","user")
     password=config.get("smtp","pass")
     to=config.get("user","to")
@@ -15,20 +15,27 @@ except:
     print ("Error con el fichero de configuración /etc/mail-clamav-report/mail-clamav-report.cfg")    
 
 
-f=os.popen("clamscan -ir /")
+name=os.popen("hostname").read()
+f=os.popen("hostname -d")
+name=name[:-1]+"."+f.read()[:-1]
+f.close()
+
+f=os.popen("nice -n 19 clamscan -ir /tmp")
 report=f.read()
 f.close()
 
 message = """From: mail-clamav-report
 To: """+to+"""
+Content-Type: text/plain; charset=UTF-8
 Subject: mail-clamav-report
 
 """+report+ """
 ------------------------
-El proceso ha durado: """ + str(datetime.datetime.now()-inicio)
+"""+name +""": el proceso ha durado: """ + str(datetime.datetime.now()-inicio)
+
 
 try:
-    server = smtplib.SMTP(server)
+    server = smtplib.SMTP(servidor)
 #    server.set_debuglevel(1)
     server.ehlo()
     server.starttls()
