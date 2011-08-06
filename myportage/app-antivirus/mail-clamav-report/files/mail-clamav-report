@@ -20,7 +20,7 @@ f=os.popen("hostname -d")
 name=name[:-1]+"."+f.read()[:-1]
 f.close()
 
-f=os.popen("nice -n 19 clamscan -ir /tmp")
+f=os.popen("nice -n 19 clamscan -ir /")
 report=f.read()
 f.close()
 
