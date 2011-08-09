@@ -1,5 +1,4 @@
 [user]
-from=from.domain.com
 to=to.domain.com
 
 [smtp]
