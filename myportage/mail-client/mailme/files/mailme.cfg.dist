@@ -1,0 +1,8 @@
+[user]
+from=from.domain.com
+to=to.domain.com
+
+[smtp]
+smtpserver = smtp.gmail.com
+user=user
+pass=pass

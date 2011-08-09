@@ -1,0 +1,1 @@
+20110808 La contraseña que sea un hash en vez de plain
