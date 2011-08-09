@@ -1,0 +1,41 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import smtplib, sys, ConfigParser, os, datetime
+
+inicio=datetime.datetime.now()
+
+config = ConfigParser.ConfigParser()
+config.read("/etc/mailme/mailme.cfg")
+try:
+    servidor=config.get("smtp","smtpserver" )
+    user=config.get("smtp","user")
+    password=config.get("smtp","pass")
+    to=config.get("user","to")
+except:
+    print ("Error con el fichero de configuración /etc/mailme/mailme.cfg")    
+
+
+name=os.popen("hostname").read()
+f=os.popen("hostname -d")
+name=name[:-1]+"."+f.read()[:-1]
+f.close()
+
+message = """From: mailme@"""+name+"""
+To: """+to+"""
+Content-Type: text/plain; charset=UTF-8
+Subject: Mailme from """+name+"""
+
+"""+sys.argv[1]
+
+try:
+    server = smtplib.SMTP(servidor)
+#    server.set_debuglevel(1)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+    server.login(user,password)
+except:
+    print "Error: unable to send email"
+
+server.sendmail("mailme"+name, to, message)
+server.quit()
