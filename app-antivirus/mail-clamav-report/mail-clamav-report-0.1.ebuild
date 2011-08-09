@@ -6,11 +6,10 @@ DESCRIPTION="Script que envia por correo el analisis del disco duro"
 LICENSE="GPL-2"
 
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="x86"
 
 DEPEND="
 app-antivirus/clamav
-net-mail/sendEmail
 "
 
 src_install(){
