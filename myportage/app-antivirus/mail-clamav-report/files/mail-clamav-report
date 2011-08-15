@@ -24,14 +24,14 @@ f=os.popen("nice -n 19 clamscan -ir /")
 report=f.read()
 f.close()
 
-message = """From: mail-clamav-report
-To: """+to+"""
+message = """From: Mail-clamav-report
+To: """ + to + """
 Content-Type: text/plain; charset=UTF-8
-Subject: mail-clamav-report
+Subject: Mail-clamav-report from """ + name + """
 
-"""+report+ """
+""" + report + """
 ------------------------
-"""+name +""": el proceso ha durado: """ + str(datetime.datetime.now()-inicio)
+""" + name + """: el proceso ha durado: """ + str(datetime.datetime.now()-inicio)
 
 
 try:
