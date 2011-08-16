@@ -1,0 +1,24 @@
+diff -Naur org/Makefile patch/Makefile
+--- org/Makefile	2006-09-05 14:53:11.000000000 +0200
++++ patch/Makefile	2009-08-20 10:47:22.000000000 +0200
+@@ -27,7 +27,7 @@
+ #       OBJETIVOS
+ #---------------------------
+ 
+-NAME_EXE= tirititran
++NAME_EXE= supertirititran
+ PROGRAMA = $(SRCDIR)/tirititran.cpp
+ 
+ DEP = SDL_rotozoom.o barra.o cargar.o configuracion.o disparojugador.o disparosenemigos.o elementos.o explosion.o fuente.o intercom.o joystick.o juego.o mapa.o niveles.o opciones.o pantalla.o SDL_Animation.o sonido.o tiempo.o unrarlib.o tirititran.o
+diff -Naur org/src/defines.h patch/src/defines.h
+--- org/src/defines.h	2006-09-17 19:05:07.000000000 +0200
++++ patch/src/defines.h	2009-08-20 10:47:32.000000000 +0200
+@@ -30,7 +30,7 @@
+ #ifndef DEFINES_H_
+ #define DEFINES_H_
+ 
+-#define DATA_DIR "/usr/share/tirititran/data"
++#define DATA_DIR "/usr/share/games/supertirititran/data"
+ 
+ #define NOPCIONES 8
+ #define NOPCIONES_OPCIONES 8
