@@ -6,7 +6,7 @@ EAPI="2"
 
 inherit eutils games
 
-DESCRIPTION="super hero shoot em up"
+DESCRIPTION="Super hero gaditano, shoot em up"
 HOMEPAGE="http://www.super-tirititran.com"
 SRC_URI="mirror://sourceforge/${PN}/${PN}-09-linux-sources.tar.gz"
 LICENSE="CCPL-Attribution-NonCommercial-NoDerivs-2.0"
