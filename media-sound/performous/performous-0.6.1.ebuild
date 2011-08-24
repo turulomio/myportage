@@ -7,8 +7,7 @@ EAPI=2
 inherit  cmake-utils
 DESCRIPTION="Performous is a free cross-platform singing game"
 HOMEPAGE="http://performous.org/"
-SRC_URI="mirror://sourceforge/performous/files/performous/Performous-${PV}-Source.tar.bz2"
-
+SRC_URI="mirror://sourceforge/performous/performous/${PV}/Performous-${PV}-Source.tar.bz2"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
