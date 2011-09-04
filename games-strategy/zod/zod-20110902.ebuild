@@ -23,8 +23,10 @@ RDEPEND="${DEPEND}"
 S=${WORKDIR}/zod_engine/
 
 src_compile(){
+
    elog "Compiling zod_src"
    cd zod_src
+   sed -i -e "s:mysql/mysql.h:mysql.h:" zmysql.h
    emake || die "emake failed"
    elog "Compiling zod_launcher_src"
    cd ../zod_launcher_src
