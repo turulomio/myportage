@@ -1,0 +1,15 @@
+#!/bin/bash
+emaint cleanresume -f
+emerge -ev world
+emerge --resume --skipfirst
+emerge --resume --skipfirst
+emerge --resume --skipfirst
+emerge --resume --skipfirst
+emerge --resume --skipfirst
+emerge --resume --skipfirst
+emerge --resume --skipfirst
+emerge --resume --skipfirst
+emerge --resume --skipfirst
+emerge --resume --skipfirst
+emerge --resume --skipfirst
+
