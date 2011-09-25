@@ -14,7 +14,7 @@ HOMEPAGE="http://myquotes.sourceforge.net"
 LICENSE="GPL-3"
 
 SLOT="0"
-KEYWORDS="x86"
+KEYWORDS="x86 amd64"
 
 DEPEND="
 dev-db/postgresql-server

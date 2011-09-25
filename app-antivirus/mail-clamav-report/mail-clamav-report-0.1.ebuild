@@ -6,7 +6,7 @@ DESCRIPTION="Script que envia por correo el analisis del disco duro"
 LICENSE="GPL-2"
 
 SLOT="0"
-KEYWORDS="x86"
+KEYWORDS="x86 amd64"
 
 DEPEND="
 app-antivirus/clamav

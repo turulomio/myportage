@@ -6,7 +6,7 @@ DESCRIPTION="Script que envia un correo rapidamente desde consola"
 LICENSE="GPL-3"
 
 SLOT="0"
-KEYWORDS="x86"
+KEYWORDS="x86 amd64"
 
 DEPEND=""
 
