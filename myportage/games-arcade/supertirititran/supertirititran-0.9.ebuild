@@ -11,7 +11,7 @@ HOMEPAGE="http://www.super-tirititran.com"
 SRC_URI="mirror://sourceforge/${PN}/${PN}-09-linux-sources.tar.gz"
 LICENSE="CCPL-Attribution-NonCommercial-NoDerivs-2.0"
 SLOT="0"
-KEYWORDS="~ppc ~x86"
+KEYWORDS="~ppc ~x86 amd64"
 IUSE=""
 
 DEPEND="media-libs/libsdl
