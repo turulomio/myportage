@@ -9,6 +9,7 @@ while True:
 	os.system("/etc/init.d/NetworkManager restart")
 	time.sleep(15)
 	os.system("/etc/init.d/noip restart")
+        os.system("/etc/init.d/sshd restart")
 	num=num+1
     	print ("Numero de reinicios "+ str(num))
     time.sleep(30)
