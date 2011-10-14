@@ -1,0 +1,15 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import os, time
+print ("Arrancando checknet") 
+num=0
+ping=os.popen("ping -c 3 www.kde.org").read()
+while True:
+    if ping.find("Error")>-1 or ping.find("unreachable")>-1 or ping.find("unknown host")>-1:
+	os.system("/etc/init.d/NetworkManager restart")
+	time.sleep(15)
+	os.system("/etc/init.d/noip restart")
+	num=num+1
+    	print ("Numero de reinicios "+ str(num))
+    time.sleep(30)
+    
