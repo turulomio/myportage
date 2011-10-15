@@ -28,51 +28,9 @@ RDEPEND="${DEPEND}"
 
 
 src_compile(){
-        cd po; bash ./translate;cd ..
-
-        pyrcc4 myquotes/images/myquotes.qrc > myquotes/images/myquotes_rc.py
-        pyuic4 myquotes/ui/frmAbout.ui > myquotes/ui/Ui_frmAbout.py
-        pyuic4 myquotes/ui/frmAccess.ui > myquotes/ui/Ui_frmAccess.py
-        pyuic4 myquotes/ui/frmAnalisis.ui > myquotes/ui/Ui_frmAnalisis.py
-        pyuic4 myquotes/ui/frmMain.ui > myquotes/ui/Ui_frmMain.py
-        pyuic4 myquotes/ui/frmQuotesIBM.ui > myquotes/ui/Ui_frmQuotesIBM.py
-        pyuic4 myquotes/ui/wdgInversiones.ui > myquotes/ui/Ui_wdgInversiones.py
-	pyuic4 myquotes/ui/wdgLog.ui > myquotes/ui/Ui_wdgLog.py
-        cd myquotes;pylupdate4 myquotes.pro;lrelease myquotes.pro;
+	emake compile || die "Error compiling"
 }
 
 src_install(){
-        dodir /usr/share/locale/en/LC_MESSAGES/
-	dodir /etc/myquotes
-	dodir /usr/lib/myquotes
-	dodir /usr/share/myquotes/sql
-
-	insinto /etc/myquotes
-	newins config.py config.py.dist
-
-        newbin myquotesd.py myquotesd
-	newbin myquotes/myquotes.py myquotes
-
-	exeinto /etc/init.d/
-	newexe myquotes.initd myquotes
-
-	insinto /usr/share/locale/en/LC_MESSAGES/
-	newins po/en.mo myquotes.po
-
-	dodoc GPL-3.txt CHANGELOG-* AUTHORS-* RELEASES-* doc/myquotes-* 
-
-	insinto /usr/lib/myquotes
-        doins libmyquotes.py
-	doins myquotes/i18n/*.qm
-	doins myquotes/images/*.py
-	doins myquotes/ui/*.py
-
-	insinto /usr/share/myquotes/sql
-	doins sql/myquotes.*
-
-        cp myquotes/images/kmplot.jpg myquotes.jpg
-        doicon myquotes.jpg
-        make_desktop_entry myquotes "MyQuotes" /usr/share/pixmaps/myquotes.jpg
-
-
+	emake DESTDIR="${D}" install || die "Install failed"
 }
