@@ -12,6 +12,7 @@ ESVN_REPO_URI="https://glparchis.svn.sourceforge.net/svnroot/glparchis/pyglParch
 
 DEPEND="
 dev-python/PyQt4
+dev-python/pyopengl
 "
 RDEPEND=${DEPEND}
 
