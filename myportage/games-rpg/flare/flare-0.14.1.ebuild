@@ -10,8 +10,7 @@ MY_PV=${PV//./}
 
 DESCRIPTION="Free action roleplaying game"
 HOMEPAGE="http://clintbellanger.net/rpg/"
-SRC_URI="http://flare-engine.googlecode.com/files/flare_src_v${MY_PV}.zip"
-
+SRC_URI="https://github.com/clintbellanger/flare/zipball/master"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -28,6 +27,9 @@ RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/flare_src_v${MY_PV}
 
+src_unpack(){
+	unzip ${A}
+}
 src_compile(){
    cd build
    cmake .

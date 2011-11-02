@@ -3,10 +3,9 @@ inherit subversion autotools eutils
 DESCRIPTION="OpenGL Parchis"
 HOMEPAGE="http://glparchis.sourceforge.net"
 
-LICENSE="LGPL-2"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="x86 amd64"
-DOCS="ChangeLog* README* AUTHORS"
 
 ESVN_REPO_URI="https://glparchis.svn.sourceforge.net/svnroot/glparchis/pyglParchis"
 
