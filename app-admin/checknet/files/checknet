@@ -3,7 +3,9 @@
 import os, time
 print ("Arrancando checknet") 
 num=0
-ping=os.popen("ping -c 3 www.kde.org").read()
+i,o,e=os.popen3("ping -c 3 www.kde.org")
+print (i.read(),o.read(),e)
+ping=i.read()+o.read()+e.read()
 while True:
     if ping.find("Error")>-1 or ping.find("unreachable")>-1 or ping.find("unknown host")>-1:
 	os.system("/etc/init.d/NetworkManager restart")
