@@ -19,7 +19,7 @@ KEYWORDS="x86 amd64"
 DEPEND="
 dev-db/postgresql-server
 dev-python/psycopg
-dev-python/pyqwt
+dev-python/matplotlib
 dev-python/PyQt4
 dev-python/pytz
 "
