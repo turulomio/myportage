@@ -1,2 +1,4 @@
 20110816 Meter mldonkey-monitor como ebuild
 20111029 Programa de envio de ip por correo
+20111103 Meter peliculas-insertar peliculas-generar
+20111103 Hacer un ebuild para YUMI usb boot loader
