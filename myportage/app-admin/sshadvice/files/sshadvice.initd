@@ -1,0 +1,19 @@
+#!/sbin/runscript
+
+depend() {
+	need sshd
+}
+
+start() {
+	ebegin "Starting sshadvice"
+        start-stop-daemon --start sshadvice --background -m --pidfile /var/run/sshadvice.pid --quiet --exec /usr/bin/sshadvice
+	eend $?
+}
+
+
+stop() {
+	ebegin "Stoping sshadvice"
+
+        start-stop-daemon --stop sshadvice --quiet --pidfile /var/run/sshadvice.pid
+	eend $?
+}
