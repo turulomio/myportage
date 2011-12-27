@@ -6,7 +6,7 @@ EAPI="3"
 
 inherit eutils wxwidgets games
 
-MY_P="0ad-r0${PV}-alpha"
+MY_P="0ad-r${PV}-alpha"
 S="${WORKDIR}/${MY_P}"
 
 DESCRIPTION="0 A.D. is a free, real-time strategy game currently under development by Wildfire Games."
@@ -16,31 +16,31 @@ SRC_URI="mirror://sourceforge/zero-ad/${MY_P}-unix-build.tar.xz
 
 LICENSE="GPL-2 CCPL-Attribution-ShareAlike-3.0"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
-IUSE="debug +editor nvtt test"
+KEYWORDS="~amd64 ~x86"
+IUSE="debug editor nvtt pch test"
 
-RDEPEND="virtual/opengl
-	media-libs/openal
-	media-libs/libsdl
+RDEPEND=">=dev-lang/spidermonkey-1.8.5
 	dev-libs/boost
-	sys-libs/zlib
-	|| ( dev-libs/libgamin app-admin/fam )
-	editor? ( x11-libs/wxGTK:2.8 )
-	media-libs/devil
-	net-libs/enet:1.3
-	virtual/jpeg
-	media-libs/libpng
 	dev-libs/libxml2
-	media-libs/libvorbis
+	media-libs/devil[-jpeg]
+	media-libs/openal
 	media-libs/libogg
+	media-libs/libpng
+	media-libs/libsdl[joystick]
+	media-libs/libvorbis
+	net-libs/enet:1.3
 	net-misc/curl
+	sys-libs/zlib
+	virtual/fam
+	virtual/jpeg
+	virtual/opengl
+	editor? ( x11-libs/wxGTK:2.8 )
 	nvtt? ( dev-util/nvidia-texture-tools )"
 
 DEPEND="${RDEPEND}
+	app-arch/zip
 	dev-lang/nasm
-	dev-util/cmake
-	app-arch/xz-utils
-	app-arch/zip"
+	dev-util/cmake"
 
 RESTRICT="strip mirror"
 
@@ -53,18 +53,28 @@ pkg_setup() {
 	fi
 }
 
+src_prepare() {
+	epatch "${FILESDIR}"/premake-archless.patch
+	epatch "${FILESDIR}"/premake-script-archless.patch
+}
+
 src_compile() {
-	UPDATE_ARGS="--with-system-enet"
+	UPDATE_ARGS="--with-system-enet --with-system-mozjs185"
+
+#	if ! use pch ; then
+#		UPDATE_ARGS="${UPDATE_ARGS}  --without-pch"
+#	fi
 
 	if ! use editor ; then
 		UPDATE_ARGS="${UPDATE_ARGS} --disable-atlas"
 	fi
 
-	if ! use nvtt ; then
+	if use nvtt ; then
 		UPDATE_ARGS="${UPDATE_ARGS} --with-system-nvtt"
 	fi
 
 	cd "${S}/build/workspaces"
+	einfo "Running update-workspaces.sh with ${UPDATE_ARGS}"
 	./update-workspaces.sh ${UPDATE_ARGS} || die "update-workspaces.sh failed"
 	cd gcc
 
@@ -99,6 +109,7 @@ src_install() {
 
 	insinto "${dir}"/system
 
+	#we install build-in nvtt
 	if use !nvtt ; then
 		doins "${S}"/binaries/system/libnvcore.so || die "doins failed"
 		doins "${S}"/binaries/system/libnvimage.so || die "doins failed"
@@ -107,14 +118,14 @@ src_install() {
 	fi
 
 	if use debug ; then
-		doins "${S}"/binaries/system/libmozjs-ps-debug.so || die "doins failed"
+#		doins "${S}"/binaries/system/libmozjs185-ps-debug.so.1.0 || die "doins failed"
 		doins "${S}"/binaries/system/libCollada_dbg.so || die "doins failed"
 		if use editor ; then
 			doins "${S}"/binaries/system/libAtlasUI_dbg.so || die "doins failed"
 		fi
 		EXE_NAME=pyrogenesis_dbg
 	else
-		doins "${S}"/binaries/system/libmozjs-ps-release.so || die "doins failed"
+#		doins "${S}"/binaries/system/libmozjs185-ps-release.so.1.0 || die "doins failed"
 		doins "${S}"/binaries/system/libCollada.so || die "doins failed"
 		if use editor ; then
 			doins "${S}"/binaries/system/libAtlasUI.so || die "doins failed"
@@ -131,4 +142,3 @@ src_install() {
 
 	prepgamesdirs
 }
-
