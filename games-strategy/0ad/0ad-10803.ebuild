@@ -22,7 +22,7 @@ IUSE="debug editor nvtt pch test"
 RDEPEND=">=dev-lang/spidermonkey-1.8.5
 	dev-libs/boost
 	dev-libs/libxml2
-	media-libs/devil[-jpeg]
+	media-libs/devil
 	media-libs/openal
 	media-libs/libogg
 	media-libs/libpng
