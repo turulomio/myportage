@@ -128,6 +128,7 @@ src_configure() {
 
 src_install () {
 	emake DESTDIR="${D}" install || die "Install failed"
+	cp navit/navit.xml ${D}/usr/share/navit/navit.xml.dist
 }
 
 pkg_postinst () {
