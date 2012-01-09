@@ -2,7 +2,7 @@
 # Created by Pathogen @ www.hakhub.tk
 
 import datetime
-import subprocess as sp
+import subprocess 
 import re, os
 import pyinotify
 
@@ -11,8 +11,8 @@ class MyEventHandler(pyinotify.ProcessEvent):
 	fallidos=0
 	validos=0
 	def process_IN_MODIFY(self, event):
-		cat = sp.Popen("cat /var/log/messages| grep -i sshd",stdout = sp.PIPE,shell=True)
-		for line in cat.stdout.readlines():
+		cat = subprocess.check_output("cat /var/log/messages| grep -i sshd",shell=True)
+		for line in cat.split(b'\n'):
 			d=str(datetime.datetime.now().year)+" " + line[:-len(line)+15].decode('UTF-8')
 			if line.find(b'pam_unix(sshd:auth): authentication failure')!=-1:
 				try:
