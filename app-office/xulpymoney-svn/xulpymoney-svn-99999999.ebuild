@@ -17,6 +17,7 @@ SLOT="0"
 KEYWORDS="x86 amd64"
 
 DEPEND="
+app-office/myquotes-svn
 dev-db/postgresql-server
 dev-python/psycopg
 dev-python/matplotlib
