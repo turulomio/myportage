@@ -6,12 +6,6 @@ cd /usr/local/portage
 svn update
 cd $mypwd
 emaint cleanresume -f
-emerge --update --newuse --deep --with-bdeps=y -v @world
-emerge --resume --skipfirst
-emerge --resume --skipfirst
-emerge --resume --skipfirst
-revdep-rebuild -i
-emerge --resume --skipfirst
-emerge --resume --skipfirst
-emerge --resume --skipfirst
+emerge --update --newuse --deep --with-bdeps=y -v --keep-going y @world
+revdep-rebuild -i -- --keep-going y 
 eclean-dist -d
