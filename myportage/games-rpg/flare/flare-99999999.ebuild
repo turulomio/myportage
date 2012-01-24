@@ -43,7 +43,8 @@ src_install(){
    doexe flare
 
    insinto ${GAMES_DATADIR}/${PN}
-   doins -r  config enemies   fonts  images  items  maps  music  npcs  powers  soundfx  tilesetdefs || die "doins failed"
+#   doins -r  config enemies   fonts  images  items  maps  music  npcs  powers  soundfx  tilesetdefs || die "doins failed"
+   doins -r art_src
    dogamesdoc credits.html README.txt
 
    make_desktop_entry flare.sh Flare ${FILESDIR}/flare.png
