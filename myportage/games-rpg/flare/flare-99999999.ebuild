@@ -1,8 +1,9 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/app-admin/sagan-rules/sagan-rules-999999999999.ebuild,v 1.1 2011/08/31 08:30:15 maksbotan Exp $
 
-inherit games
-EAPI=2
+EAPI=3
+inherit games git-2
 
 MY_PV=${PV//./} 
 #Quita el punto con bash
@@ -10,7 +11,9 @@ MY_PV=${PV//./}
 
 DESCRIPTION="Free action roleplaying game"
 HOMEPAGE="http://clintbellanger.net/rpg/"
-SRC_URI="https://github.com/clintbellanger/flare/zipball/master"
+
+EGIT_REPO_URI="git://github.com/clintbellanger/flare.git"
+
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -27,9 +30,6 @@ RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/flare_src_v${MY_PV}
 
-src_unpack(){
-	unzip ${A}
-}
 src_compile(){
    cd build
    cmake .
