@@ -1,3 +1,0 @@
-#!/bin/bash
-emaint cleanresume -f
-qlist -I -C | grep svn| xargs emerge -v --oneshot --keep-going y
