@@ -6,9 +6,6 @@ EAPI=3
 inherit games git-2
 
 MY_PV=${PV//./} 
-#Quita el punto con bash
-
-
 DESCRIPTION="Free action roleplaying game"
 HOMEPAGE="http://clintbellanger.net/rpg/"
 
@@ -31,28 +28,18 @@ RDEPEND="${DEPEND}"
 S=${WORKDIR}/flare_src_v${MY_PV}
 
 src_compile(){
+   sed -i 's:@FLARE_EXECUTABLE_PATH@:/usr/games/bin/flare:' distribution/flare.desktop.in
+   mkdir build
    cd build
-   cmake .
+   cmake -DCMAKE_INSTALL_PREFIX:STRING="${D}/usr" ..
    emake || die
 }
 
+
 src_install(){
-   newgamesbin  ${FILESDIR}/flare.sh flare.sh
-   exeopts -m0750
-   exeinto ${GAMES_DATADIR}/${PN}
-   doexe flare
-
-   insinto ${GAMES_DATADIR}/${PN}
-#   doins -r  config enemies   fonts  images  items  maps  music  npcs  powers  soundfx  tilesetdefs || die "doins failed"
-   doins -r art_src mods tiled
-   dogamesdoc credits.html README.txt
-
-   make_desktop_entry flare.sh Flare ${FILESDIR}/flare.png
-
-   dodir /var/lib/flare/saves
-   dosym /var/lib/flare/saves ${GAMES_DATADIR}/${PN}/saves
-   fperms 770 /var/lib/flare/saves
-   fowners games:games /var/lib/flare/saves
-
+   cd build
+   emake install || die
+   mv ${D}/usr/games/flare ${D}/usr/games/bin/flare
    prepgamesdirs
 }
+
