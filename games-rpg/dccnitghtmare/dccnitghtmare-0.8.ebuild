@@ -4,7 +4,7 @@
 inherit games
 
 MY_P="dccnitghtmare"
-MY_PV="0.6"
+MY_PV="0.7"
 
 DESCRIPTION="a sarcastic 3D single player RPG"
 HOMEPAGE="http://dnt.dnteam.org"

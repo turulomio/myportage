@@ -1,0 +1,5 @@
+#!/bin/bash
+echo 'wtv2mpg input'
+#ffmpeg -i $1 -vcodec copy $1.m2v -acodec copy $1.mp2
+ffmpeg  -i $1.mp2 -i $1.m2v  $1.mpg
+
