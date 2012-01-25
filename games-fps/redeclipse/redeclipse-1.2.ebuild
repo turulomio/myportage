@@ -8,7 +8,7 @@ inherit games
 
 DESCRIPTION="First-person ego-shooter, built as a total conversion of Cube Engine 2"
 HOMEPAGE="http://www.redeclipse.net/"
-SRC_URI="mirror://sourceforge/${PN}/${PN}_${PV}_linux.tar.bz2"
+SRC_URI="mirror://sourceforge/${PN}/${PN}_${PV}/${PN}_${PV}_linux_bsd.tar.bz2"
 
 # According to license.txt file
 LICENSE="as-is ZLIB CCPL-Attribution-ShareAlike-3.0"
