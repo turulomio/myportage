@@ -4,7 +4,7 @@
 
 inherit subversion autotools eutils
 
-ESVN_REPO_URI="https://myquotes.svn.sourceforge.net/svnroot/myquotes"
+ESVN_REPO_URI="https://myquotes.svn.sourceforge.net/svnroot/myquotes/2"
 
 
 
