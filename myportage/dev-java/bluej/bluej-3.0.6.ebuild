@@ -8,7 +8,7 @@ inherit java-pkg-2 java-ant-2 eutils versionator
 
 DESCRIPTION="Java IDE"
 HOMEPAGE="http://xml.apache.org/xalan-j/index.html"
-SRC_URI="http://www.bluej.org/download/files/source/BlueJ-source-305.zip"
+SRC_URI="http://www.bluej.org/download/files/source/BlueJ-source-306.zip"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
