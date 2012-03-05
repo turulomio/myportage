@@ -2,7 +2,7 @@
 20111029 Programa de envio de ip por correo
 20111103 Meter peliculas-insertar peliculas-generar
 20111103 Hacer un ebuild para YUMI usb boot loader
-20111218 Hacer un emerge.svn que actualice todos los -svn
-20111219 Hacer un script que detecte conexiones ssh al sistema y avise tanto en positivo como en negativo
 20111224 plee the bear instala en local/bin/ cambiar
 20120112 Meter Urban terror
+20120125 En flare el binario está fuera de los binarios
+20120127 En q3rally el binario está fuera de los binarios
