@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit eutils wxwidgets games
+inherit eutils wxwidgets games toolchain-funcs
 
 MY_P="0ad-r${PV}-alpha"
 S="${WORKDIR}/${MY_P}"
@@ -16,8 +16,8 @@ SRC_URI="mirror://sourceforge/zero-ad/${MY_P}-unix-build.tar.xz
 
 LICENSE="GPL-2 CCPL-Attribution-ShareAlike-3.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="debug editor nvtt pch test"
+KEYWORDS="~x86 ~amd64"
+IUSE="debug editor pch test" #nvtt
 
 RDEPEND=">=dev-lang/spidermonkey-1.8.5
 	dev-libs/boost
@@ -34,8 +34,8 @@ RDEPEND=">=dev-lang/spidermonkey-1.8.5
 	virtual/fam
 	virtual/jpeg
 	virtual/opengl
-	editor? ( x11-libs/wxGTK:2.8 )
-	nvtt? ( dev-util/nvidia-texture-tools )"
+	editor? ( x11-libs/wxGTK:2.8[X] )"
+#	nvtt? ( dev-util/nvidia-texture-tools )"
 
 DEPEND="${RDEPEND}
 	app-arch/zip
@@ -51,12 +51,44 @@ pkg_setup() {
 	if use editor ; then
 		WX_GTK_VER=2.8 need-wxwidgets unicode
 	fi
+	[[ "$(gcc-version)" > "4.5" ]] && echo \
+'gcc >= 4.6 not supported!
+you need gcc <4.6 for build:
+
+dev-util/nvidia-cuda-toolkit
+media-libs/ilmbase
+games-strategy/0ad
+
+use gcc-config or copy/paste this
+
+##################################
+#COMPILERS
+if [ -f ${ROOT}/etc/portage/package.compilers ]; then
+  while read target ver; do
+	if [ "${target}" = "${CATEGORY}/${PN}" ]; then
+	MY_GCC="$(find /usr/$MACHTYPE/gcc-bin/ -name "$ver*")"
+	export ROOTPATH="${MY_GCC}:${ROOTPATH}"
+	export PATH="${MY_GCC}:${PATH}"
+	export LIBRARY_PATH="$(gcc-config -L):${LIBRARY_PATH}"
+	fi
+  done < ${ROOT}/etc/portage/package.compilers
+fi
+##################################
+in /etc/portage/bashrc
+
+and
+
+echo "media-libs/ilmbase 4.4" >> /etc/portage/package.compilers
+echo "games-strategy/0ad 4.4" >> /etc/portage/package.compilers
+echo "dev-util/nvidia-cuda-toolkit 4.4" >> /etc/portage/package.compilers
+
+for build this packages with gcc 4.4.*' && die
 }
 
-src_prepare() {
-	epatch "${FILESDIR}"/premake-archless.patch
-	epatch "${FILESDIR}"/premake-script-archless.patch
-}
+#src_prepare() {
+	#epatch "${FILESDIR}"/premake-archless2.patch
+	#epatch "${FILESDIR}"/premake-script-archless.patch
+#}
 
 src_compile() {
 	UPDATE_ARGS="--with-system-enet --with-system-mozjs185"
@@ -69,9 +101,9 @@ src_compile() {
 		UPDATE_ARGS="${UPDATE_ARGS} --disable-atlas"
 	fi
 
-	if use nvtt ; then
-		UPDATE_ARGS="${UPDATE_ARGS} --with-system-nvtt"
-	fi
+#	if use nvtt ; then
+#		UPDATE_ARGS="${UPDATE_ARGS} --with-system-nvtt"
+#	fi
 
 	cd "${S}/build/workspaces"
 	einfo "Running update-workspaces.sh with ${UPDATE_ARGS}"
@@ -110,12 +142,12 @@ src_install() {
 	insinto "${dir}"/system
 
 	#we install build-in nvtt
-	if use !nvtt ; then
+#	if use !nvtt ; then
 		doins "${S}"/binaries/system/libnvcore.so || die "doins failed"
 		doins "${S}"/binaries/system/libnvimage.so || die "doins failed"
 		doins "${S}"/binaries/system/libnvmath.so || die "doins failed"
 		doins "${S}"/binaries/system/libnvtt.so || die "doins failed"
-	fi
+#	fi
 
 	if use debug ; then
 #		doins "${S}"/binaries/system/libmozjs185-ps-debug.so.1.0 || die "doins failed"
@@ -138,7 +170,7 @@ src_install() {
 
 	games_make_wrapper ${PN} ./system/${EXE_NAME} ${dir}
 	doicon "${S}"/build/resources/0ad.png
-	make_desktop_entry "${dir}"/system/${EXE_NAME} "0 A.D."
+	make_desktop_entry "${dir}"/system/${EXE_NAME} "0 A.D." 0ad
 
 	prepgamesdirs
 }
