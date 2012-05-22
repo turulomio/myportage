@@ -1,0 +1,5 @@
+#!/bin/bash
+mkdir -p "$1.jpg"
+cd "$1.jpg"
+convert -density 300  "../$1" "$1.jpg"
+cd ..
