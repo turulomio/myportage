@@ -10,6 +10,7 @@ KEYWORDS="~x86 ~amd64"
 ESVN_REPO_URI="https://xulpymoney.svn.sourceforge.net/svnroot/xulpymoney/odttranslate"
 
 DEPEND="
+<dev-lang/python-3.0.0
 app-office/libreoffice
 "
 RDEPEND=${DEPEND}
