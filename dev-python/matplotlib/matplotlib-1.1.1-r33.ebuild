@@ -21,3 +21,4 @@ LICENSE="BitstreamVera BSD matplotlib MIT OFL-1.1"
 
 EGIT_REPO_URI="https://github.com/matplotlib/matplotlib.git"
 
+DEPEND="dev-python/python-dateutil"
