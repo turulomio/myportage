@@ -5,7 +5,6 @@
 EAPI=1
 JAVA_PKG_BSFIX_NAME="build.xml build-impl.xml profiler-build-impl.xml"
 inherit eutils java-pkg-2 java-ant-2
-
 MY_P="OmegaT_${PV/_p/_}"
 DESCRIPTION="Open source computer assisted translation (CAT) tool written in Java."
 HOMEPAGE="http://www.omegat.org/"
@@ -60,7 +59,7 @@ src_install() {
 
 	if [ -n "${myarch}" ] ; then
 		libopts -m0755
-		java-pkg_doso dist/native/libhunspell-${myarch}.so
+#		java-pkg_doso dist/native/libhunspell-${myarch}.so
 		dosym "${JAVA_PKG_LIBDEST}" "${JAVA_PKG_JARDEST}"/native
 	fi
 
