@@ -1,3 +1,4 @@
+EAPI=3
 inherit subversion autotools eutils
 DESCRIPTION="OpenGL Parchis"
 HOMEPAGE="http://glparchis.sourceforge.net"
@@ -11,6 +12,7 @@ ESVN_REPO_URI="https://glparchis.svn.sourceforge.net/svnroot/glparchis/pyglParch
 DEPEND="
 dev-python/PyQt4
 dev-python/pyopengl
+media-sound/vorbis-tools[ogg123]
 "
 RDEPEND=${DEPEND}
 
