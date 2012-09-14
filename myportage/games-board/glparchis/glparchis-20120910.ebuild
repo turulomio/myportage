@@ -9,9 +9,8 @@ KEYWORDS="x86 amd64"
 
 SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${P}/${P}.tar.gz"
 DEPEND="
-dev-python/PyQt4
+dev-python/PyQt4[phonon]
 dev-python/pyopengl
-media-sound/vorbis-tools[ogg123]
 "
 RDEPEND=${DEPEND}
 
