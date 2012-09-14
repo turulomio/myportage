@@ -7,11 +7,10 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${P}/${P}.tar.gz"
+SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${P}/${PN}-src-linux-${PV}.tar.gz"
 DEPEND="
-dev-python/PyQt4
+dev-python/PyQt4[phonon]
 dev-python/pyopengl
-media-sound/vorbis-tools[ogg123]
 "
 RDEPEND=${DEPEND}
 
