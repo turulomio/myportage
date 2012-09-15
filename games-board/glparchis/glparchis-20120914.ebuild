@@ -19,5 +19,5 @@ src_compile(){
 }
 
 src_install(){
-        emake DESTDIR="${D}" install || die "Install failed"
+        emake DESTDIR="${D}/usr" install || die "Install failed"
 }
