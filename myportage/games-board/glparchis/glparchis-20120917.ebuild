@@ -7,7 +7,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${P}/${P}.tar.gz"
+SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${P}/${PN}-src-linux-${PV}.tar.gz"
 DEPEND="
 dev-python/PyQt4[phonon]
 dev-python/pyopengl
@@ -19,5 +19,5 @@ src_compile(){
 }
 
 src_install(){
-        emake DESTDIR="${D}" install || die "Install failed"
+        emake DESTDIR="${D}/usr" install || die "Install failed"
 }
