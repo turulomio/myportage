@@ -11,5 +11,6 @@ KEYWORDS="x86 amd64"
 DEPEND=""
 
 src_install(){
-	dobin ${FILESDIR}/emerge.sy*
+	dobin ${FILESDIR}/c*
+	dobin ${FILESDIR}/e*
 }

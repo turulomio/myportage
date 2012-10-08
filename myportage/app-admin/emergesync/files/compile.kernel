@@ -1,7 +1,17 @@
 #!/bin/bash
-cwd=`pwd`
+if [ $# -ne 1 ]
+then
+  echo "Usage: compile.kernel hmacpass"
+  exit 65
+fi
+
+START=$(date +%s)
+PROCS=`cat /proc/cpuinfo | grep processor |wc -l`
+MAKEOPTS="-j$PROCS"
+echo "Compilando con $PROCS procesadores"
+CWD=`pwd`
 cd /usr/src/linux
-make
+make $MAKEOPTS
 make modules_install
 make install
 module-rebuild rebuild
@@ -10,4 +20,8 @@ hmac256 $1 /boot/initramfs.gz
 hmac256 $1 /boot/vmlinuz > /boot/vmlinuz.hmac
 hmac256 $1 /boot/initramfs.gz > /boot/initramfs.hmac
 lilo
-cd $cwd
+cd $CWD
+END=$(date +%s)
+diff=$(( $END - $START ))
+echo "La compilación con $PROCS procesadores duró $(($diff / 60)) minutos y $(($diff % 60)) segundos."
+
