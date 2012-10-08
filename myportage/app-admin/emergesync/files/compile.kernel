@@ -1,0 +1,13 @@
+#!/bin/bash
+cwd=`pwd`
+cd /usr/src/linux
+make
+make modules_install
+make install
+module-rebuild rebuild
+hmac256 $1 /boot/vmlinuz
+hmac256 $1 /boot/initramfs.gz
+hmac256 $1 /boot/vmlinuz > /boot/vmlinuz.hmac
+hmac256 $1 /boot/initramfs.gz > /boot/initramfs.hmac
+lilo
+cd $cwd
