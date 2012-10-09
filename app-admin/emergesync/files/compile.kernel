@@ -1,7 +1,9 @@
 #!/bin/bash
 if [ $# -ne 1 ]
 then
-  echo "Usage: compile.kernel hmacpass"
+  echo "Programa que ayuda a la compilación de un nuevo kernel en Gentoo"
+  echo "Se debe copiar el .config en el nuevo directorio y hacer # make oldconfig"
+  echo "Después se debe ejecutar: # compile.kernel hmacpass"
   exit 65
 fi
 
