@@ -2,7 +2,7 @@ EAPI="2"
 inherit  autotools eutils games
 
 DESCRIPTION="http://digitalpaint.org/files/"
-SRC_URI="mirror://sourceforge/paintball2/paintball2_build029_linux_full.tar.gz"
+SRC_URI="mirror://sourceforge/paintball2/paintball20_alpha035_src_20120109.zip"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
@@ -23,17 +23,6 @@ src_configure(){
 }
 
 src_compile(){
-	emake release
+	emake release|| die
 }
 
-src_install(){
-#	make install_root
-#        cp ${FILESDIR}/paintball2.sh ${S}
-	dogamesbin paintball2/paintball2
-
-	exeinto /usr/games/${PN}
-	doexe   paintball2/ref_pbgl.so  paintball2/snd_alsa.so  paintball2/snd_oss.so
-#        insinto "${GAMES_DATADIR}/${PN}/pics"
-#        doins -r pics/* || die "doins failed"
-
-}
