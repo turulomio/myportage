@@ -18,17 +18,14 @@ DEPEND="
 sci-geosciences/gpsd
 "
 
-
-src_prepare() {
-	autopoint -f || die "autopoint failed"
-	eautoreconf
-}
-
 src_configure() {
-	econf --disable-samplemap
+	mkdir build
+	cd build
+	cmake ..
 }
 
 src_install () {
+	cd build
 	emake DESTDIR="${D}" install || die "Install failed"
 	cp navit/navit.xml ${D}/usr/share/navit/navit.xml.dist
 }
