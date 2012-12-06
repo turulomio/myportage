@@ -21,7 +21,7 @@ sci-geosciences/gpsd
 src_configure() {
 	mkdir build
 	cd build
-	cmake ..
+	cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 }
 
 src_install () {
