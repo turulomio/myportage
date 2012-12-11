@@ -6,18 +6,20 @@ EAPI=1
 
 inherit java-pkg-2 java-ant-2 eutils versionator
 
-DESCRIPTION="Java IDE"
-HOMEPAGE="http://xml.apache.org/xalan-j/index.html"
-SRC_URI="http://www.bluej.org/download/files/source/BlueJ-source-306.zip"
+DESCRIPTION="Java ODF playing"
+HOMEPAGE="http://www.jopendocument.org"
+SRC_URI="http://www.jopendocument.org/download/jOpenDocument-src-1.3b1.zip"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 DEPEND="
-dev-java/apple-java-extensions-bin"
+dev-java/itext
+>=dev-java/junit-4
+"
 S=${WORKDIR}
 
 src_compile() {
-	ant -Dbuild_java_home=/usr/ -Dbluej_home=${WORKDIR}
+	ant -Dbuild_java_home=/usr 
 
 }
 
