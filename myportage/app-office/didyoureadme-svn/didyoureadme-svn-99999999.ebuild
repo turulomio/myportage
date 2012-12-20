@@ -5,7 +5,7 @@
 EAPI=2
 inherit subversion autotools eutils
 
-ESVN_REPO_URI="http://svn.code.sf.net/p/xulpymoney/code/DidYouReadMe"
+ESVN_REPO_URI="http://svn.code.sf.net/p/didyoureadme/code"
 
 IUSE=""
 DESCRIPTION="Sistema de reparto de documentación con acuse de recibo"
