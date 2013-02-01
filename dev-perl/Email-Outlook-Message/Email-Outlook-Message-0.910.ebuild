@@ -20,4 +20,6 @@ DEPEND="dev-perl/IO-All
 	>=dev-perl/Email-MIME-ContentType-1.15.0
 	>=dev-perl/Email-Simple-2.100.0
 	>=dev-perl/OLE-StorageLite-0.190.0
+	virtual/perl-Module-Build
+	dev-perl/Email-LocalDelivery
 	dev-lang/perl"
