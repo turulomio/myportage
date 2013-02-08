@@ -20,6 +20,7 @@ DEPEND="
 dev-python/PyQt4
 dev-python/psycopg
 dev-python/pytz
+dev-python/bottle
 "
 
 RDEPEND="${DEPEND}"
