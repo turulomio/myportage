@@ -5,7 +5,7 @@
 inherit subversion autotools eutils
 
 IUSE=""
-ESVN_REPO_URI="https://xulpymoney.svn.sourceforge.net/svnroot/xulpymoney/navit-mytools"
+ESVN_REPO_URI="svn://svn.code.sf.net/p/xulpymoney/code/navit-mytools"
 DESCRIPTION="Utilidades para navit"
 HOMEPAGE=""
 LICENSE="GPL-2"
