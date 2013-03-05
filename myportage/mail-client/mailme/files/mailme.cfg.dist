@@ -1,5 +1,6 @@
 [user]
-to=to.domain.com
+tohome=to.domain.com
+towork=towork.domain.com
 
 [smtp]
 smtpserver = smtp.gmail.com

@@ -10,7 +10,7 @@ try:
     servidor=config.get("smtp","smtpserver" )
     user=config.get("smtp","user")
     password=config.get("smtp","pass")
-    tohome=config.get("user","tohome")
+    towork=config.get("user","towork")
 except:
     print ("Error con el fichero de configuración /etc/mailme/mailme.cfg")    
 
@@ -21,7 +21,7 @@ name=name[:-1]+"."+f.read()[:-1]
 f.close()
 
 message = """From: mailme@"""+name+"""
-To: """+tohome+"""
+To: """+towork+"""
 Content-Type: text/plain; charset=UTF-8
 Subject: Mailme from """+name+"""
 
@@ -37,5 +37,5 @@ try:
 except:
     print "Error: unable to send email"
 
-server.sendmail("mailme"+name, tohome, message)
+server.sendmail("mailme"+name, towork, message)
 server.quit()
