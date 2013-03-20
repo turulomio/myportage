@@ -1,9 +1,9 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: Mariano Muñoz $
+EAPI=2
 
 inherit autotools 
-EAPI=2
 
 DESCRIPTION="EDB (Evan's Debugger) is a QT4 based binary mode debugger with the goal of having usability on par with OllyDbg"
 HOMEPAGE="http://freshmeat.net/projects/edebugger/"
