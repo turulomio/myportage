@@ -9,7 +9,7 @@ MY_PV=${PV//./}
 DESCRIPTION="Free action roleplaying game"
 HOMEPAGE="http://clintbellanger.net/rpg/"
 
-EGIT_REPO_URI="git://github.com/clintbellanger/flare.git"
+EGIT_REPO_URI="git://github.com/clintbellanger/flare-game.git"
 
 LICENSE="GPL-3"
 SLOT="0"

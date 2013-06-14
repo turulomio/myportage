@@ -1,7 +1,8 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-	
+
+EAPI=2
 DESCRIPTION="sslstrip remove https and forwards http"
 HOMEPAGE="http://www.thoughtcrime.org/software/sslstrip/"
 SRC_URI="http://www.thoughtcrime.org/software/sslstrip/${P}.tar.gz"
@@ -11,7 +12,6 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
-EAPI=2
 	
 RDEPEND=">=dev-lang/python-2.5"
 	

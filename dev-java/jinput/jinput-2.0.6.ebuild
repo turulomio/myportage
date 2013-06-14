@@ -5,11 +5,11 @@
 # svn export https://svn.java.net/svn/jinput~svn/trunk jinput-r${REV}
 # rm -r jinput-r${REV}/lib/*
 # tar Jcf jinput-r${REV}{.tar.xz,}
+EAPI="4"
 
 REV="247"
 MY_P="${PN}-r${REV}"
 
-EAPI="4"
 WANT_ANT_TASKS="ant-nodeps"
 JAVA_PKG_IUSE="source"
 

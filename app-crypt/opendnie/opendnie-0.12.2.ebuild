@@ -11,26 +11,43 @@ SRC_URI="http://forja.cenatic.es/frs/download.php/1332/opensc-opendnie-0.12.2.ta
 LICENSE="GPL"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
+IUSE="udev usb"
 
 DEPEND="
-!dev-libs/opensc
-sys-apps/pcsc-lite
-app-crypt/ccid
+        sys-apps/pcsc-lite
+        app-crypt/ccid
 "
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/opensc-${PV}"
+S="${WORKDIR}/opensc-0.12.2"
+
+src_configure() {
+   econf
+}
 
 src_compile() {
-   econf --prefix=/usr \
-      --sysconfdir=/etc \
-      --datadir=/usr/share \
-      --infodir=/usr/share/info \
-      --mandir=/usr/share/man || die "Could not configure"
-   emake || die "Emake failed"
+   emake || die
 }
 
 src_install() {
-   emake DESTDIR=${D} install || die "make failed"
+   emake DESTDIR="${D}" install || die "make failed"
+}
+
+pkg_postinst() {
+                ewarn "Recuerda inciar el servicio:"
+                ewarn ""
+                ewarn "#/etc/init.d/pcscd start"
+                ewarn ""
+                ewarn "y añadirlo de modo permanente:"
+                ewarn ""
+                ewarn "#rc-update add pcscd default"
+                ewarn ""
+                ewarn "No olvides añadir tu usuario al grupo pcscd y reiniciar sesión:"
+                ewarn ""
+                ewarn "#gpasswd -a vuestro_usuario pcscd"
+                ewarn ""
+                ewarn "Para mas información, preguntas o problemas consulta esta url:"
+                ewarn "http://forums.gentoo.org/viewtopic-t-923326.html"
+ewarn ""
+ewarn ""
 } 
