@@ -1,4 +1,6 @@
-inherit  cmake-utils games
+EAPI=2
+
+inherit  cmake-utils
 
 DESCRIPTION=""
 SRC_URI="mirror://sourceforge/project/libclaw/libclaw/${PV}/libclaw-${PV}.tar.gz"
@@ -15,6 +17,10 @@ RDEPEND=${DEPEND}
 
 src_compile(){
         sed -i '39i#include <zlib.h>' claw/png.hpp
-	cmake .
-	make
+	cmake -DCMAKE_INSTALL_PREFIX=/usr .
+	emake
+}
+
+src_install(){
+        emake DESTDIR="${D}" install || die "install failed"
 }

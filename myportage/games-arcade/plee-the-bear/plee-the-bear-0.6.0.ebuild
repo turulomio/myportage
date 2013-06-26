@@ -1,4 +1,7 @@
+EAPI=2
+
 inherit  autotools cmake-utils games
+
 
 DESCRIPTION="Plee the Bear will be a 2D platform game like those we found on consoles in the beginning of the 90's."
 SHORTPV=${PV:0:3} #Muestra 3 caracteres de substring desde posición 0 
