@@ -7,3 +7,4 @@
 20120125 En flare el binario está fuera de los binarios
 20120127 En q3rally el binario está fuera de los binarios
 20130620 Meter en mailme la contraseña en /home/.mailme
+20130629 mailme depende ya de python3
