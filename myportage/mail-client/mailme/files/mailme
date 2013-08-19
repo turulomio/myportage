@@ -1,10 +1,9 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-import smtplib, sys, ConfigParser, os, datetime
+#!/usr/bin/python3
+import smtplib, sys, configparser, os, datetime
 
 inicio=datetime.datetime.now()
 
-config = ConfigParser.ConfigParser()
+config = configparser.ConfigParser()
 config.read("/etc/mailme/mailme.cfg")
 try:
     servidor=config.get("smtp","smtpserver" )
@@ -35,7 +34,7 @@ try:
     server.ehlo()
     server.login(user,password)
 except:
-    print "Error: unable to send email"
+    print ("Error: unable to send email")
 
 server.sendmail("mailme"+name, tohome, message)
 server.quit()
