@@ -10,7 +10,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 amd64"
 IUSE=""
 
 DEPEND="dev-lang/lua
@@ -20,4 +20,8 @@ RDEPEND="${DEPEND}"
 
 src_install() {
 	emake DESTDIR="${D}" install || die "einstall failed"
+        doicon pushover.ico
+        make_desktop_entry pushover Pushover /usr/share/pixmaps/pushover.ico
+	prepgamesdirs 
+
 }
