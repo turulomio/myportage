@@ -1,10 +1,9 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-import smtplib, sys, ConfigParser, os, datetime
+#!/usr/bin/python3
+import smtplib, sys, configparser, os, datetime
 
 inicio=datetime.datetime.now()
 
-config = ConfigParser.ConfigParser()
+config = configparser.ConfigParser()
 config.read("/etc/mail-clamav-report/mail-clamav-report.cfg")
 try:
     servidor=config.get("smtp","smtpserver" )
@@ -42,7 +41,7 @@ try:
     server.ehlo()
     server.login(user,password)
 except:
-    print "Error: unable to send email"
+    print ("Error: unable to send email")
 
 server.sendmail("mail-clamav-report", to, message)
 server.quit()
