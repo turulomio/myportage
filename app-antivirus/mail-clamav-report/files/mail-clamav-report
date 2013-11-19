@@ -1,17 +1,78 @@
 #!/usr/bin/python3
-import smtplib, sys, configparser, os, datetime
+import smtplib, sys, configparser, os, datetime, getpass
+from optparse import OptionParser
+import base64
+
+version="0.3"
+
+def b2s(b, code='UTF-8'):
+    return bytes(b).decode(code)
+
+def s2b(s, code='UTF-8'):
+    if s==None:
+        return "".encode(code)
+    else:
+        return s.encode(code)
+
+
+class ConfigFile:
+    def __init__(self,filename):
+        self.filename=filename
+        self.config=configparser.ConfigParser()
+        self.server="smtp.gmail.com"
+        self.user="user"
+        self.to="address.domain.com"
+        self.password=""
+        self.load()
+
+    def save(self):
+        try:
+            os.makedirs(os.path.dirname(self.filename), int("0700",8))
+        except:
+            pass
+        if self.config.has_section("user")==False:
+            self.config.add_section("user")
+        if self.config.has_section("smtp")==False:
+            self.config.add_section("smtp")
+        self.config.set("user",  'to', self.to)
+        self.config.set("smtp",  'smtpserver', self.server)
+        self.config.set("smtp",  'user', self.user)
+        self.config.set("smtp",  'pass', b2s(base64.b64encode(s2b(self.password))))
+        with open(self.filename, 'w') as configfile:
+            self.config.write(configfile)
+        os.chmod(self.filename,int("0600",8))
+
+
+    def load(self):
+        self.config.read(self.filename)
+        try:
+            self.server=self.config.get("smtp","smtpserver" )
+            self.user=self.config.get("smtp","user")
+            self.to=self.config.get("user","to")
+            self.password=b2s(base64.b64decode(self.config.get("smtp","pass")))
+        except:
+            print ("Error con el fichero de configuración /etc/mail-clamav-report/mail-clamav-report.cfg")    
+
+    def query(self):
+        print("Generating configuration file...")
+        self.server=input("Enter SMTP server: ")
+        self.user=input("Enter SMTP user: ")
+        self.password=getpass.getpass("Enter SMTP password: ")
+        self.to=input("Enter address to send mail: ")
+        self.save()
 
 inicio=datetime.datetime.now()
 
-config = configparser.ConfigParser()
-config.read("/etc/mail-clamav-report/mail-clamav-report.cfg")
-try:
-    servidor=config.get("smtp","smtpserver" )
-    user=config.get("smtp","user")
-    password=config.get("smtp","pass")
-    to=config.get("user","to")
-except:
-    print ("Error con el fichero de configuración /etc/mail-clamav-report/mail-clamav-report.cfg")    
+config=ConfigFile('/etc/mail-clamav-report/mail-clamav-report.cfg')
+
+#Parse options
+parser = OptionParser(version=version,  description="Antivirus scans whole system and sends an email")
+parser.add_option( "--config", action="store_true", default=False, dest="config", help="Set configuration")
+(options, args) = parser.parse_args()
+
+if options.config==True or os.path.exists(config.filename)==False:
+    config.query()
+    sys.exit(1)
 
 
 name=os.popen("hostname").read()
@@ -19,12 +80,12 @@ f=os.popen("hostname -d")
 name=name[:-1]+"."+f.read()[:-1]
 f.close()
 
-f=os.popen("nice -n 19 clamscan -ir /")
+f=os.popen("clamscan -ir --bell /tmp")
 report=f.read()
 f.close()
 
 message = """From: Mail-clamav-report
-To: """ + to + """
+To: """ + config.to + """
 Content-Type: text/plain; charset=UTF-8
 Subject: Mail-clamav-report from """ + name + """
 
@@ -32,16 +93,17 @@ Subject: Mail-clamav-report from """ + name + """
 ------------------------
 """ + name + """: el proceso ha durado: """ + str(datetime.datetime.now()-inicio)
 
-
 try:
-    server = smtplib.SMTP(servidor)
+    server = smtplib.SMTP(config.server)
 #    server.set_debuglevel(1)
     server.ehlo()
     server.starttls()
     server.ehlo()
-    server.login(user,password)
+    server.login(config.user,config.password)
 except:
     print ("Error: unable to send email")
 
-server.sendmail("mail-clamav-report", to, message)
+server.sendmail("mail-clamav-report", config.to, message)
 server.quit()
+
+print (report)
