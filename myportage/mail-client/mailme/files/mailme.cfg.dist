@@ -1,8 +1,0 @@
-[user]
-tohome=to.domain.com
-towork=towork.domain.com
-
-[smtp]
-smtpserver = smtp.gmail.com
-user=user
-pass=pass

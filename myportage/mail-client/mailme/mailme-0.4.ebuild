@@ -20,8 +20,5 @@ src_unpack(){
 }
 
 src_install(){
-	insinto "/etc/mailme"
-	doins "${FILESDIR}/mailme.cfg.dist"
 	dobin "${FILESDIR}/mailme"
-	dobin "${FILESDIR}/mailmework"
 }
