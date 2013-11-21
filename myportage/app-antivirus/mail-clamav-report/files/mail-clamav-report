@@ -103,7 +103,7 @@ try:
 except:
     print ("Error: unable to send email")
 
-server.sendmail("mail-clamav-report", config.to, message)
+server.sendmail("mail-clamav-report", config.to, message.encode('UTF-8'))
 server.quit()
 
 print (report)
