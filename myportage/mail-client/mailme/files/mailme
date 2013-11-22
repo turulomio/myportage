@@ -67,9 +67,9 @@ inicio=datetime.datetime.now()
 config=ConfigFile(os.path.expanduser('~/.mailme/mailme.cfg'))
 
 #Parse options
-parser = OptionParser(version=version,  description="Antivirus scans whole system and sends an email")
-parser.add_option( "--config", action="store_true", default=False, dest="config", help="Set configuration")
-parser.add_option( "--work", action="store_true", default=False, dest="work", help="Send to my work mail")
+parser = OptionParser(version=version,  description="Sends a mail easily from console to home and work")
+parser.add_option("-c", "--config", action="store_true", default=False, dest="config", help="Set configuration")
+parser.add_option("-w", "--work", action="store_true", default=False, dest="work", help="Send to my work mail")
 (options, args) = parser.parse_args()
 
 if options.config==True or os.path.exists(config.filename)==False:
@@ -92,7 +92,7 @@ To: """ + to + """
 Content-Type: text/plain; charset=UTF-8
 Subject: Mailme from """ + name + """
 
-"""+sys.argv[1]
+"""+ args[0]
 
 try:
     server = smtplib.SMTP(config.server)
