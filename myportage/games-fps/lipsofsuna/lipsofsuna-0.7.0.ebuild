@@ -13,6 +13,7 @@ IUSE=""
 SLOT=0
 
 DEPEND="
+dev-games/ogre
 dev-lang/lua
 media-libs/openal
 media-libs/glew
