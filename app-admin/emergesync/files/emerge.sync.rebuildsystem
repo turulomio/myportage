@@ -1,4 +1,5 @@
 #!/bin/bash
 emaint cleanresume -f
 emerge -ev world --keep-going y
-
+emerge @preserved-rebuild
+revdep-rebuild -i -- --keep-going y 

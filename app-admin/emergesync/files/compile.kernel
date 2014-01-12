@@ -16,7 +16,7 @@ cd /usr/src/linux
 make $MAKEOPTS
 make modules_install
 make install
-module-rebuild rebuild
+emerge @module-rebuild
 hmac256 $1 /boot/vmlinuz
 hmac256 $1 /boot/initramfs.gz
 hmac256 $1 /boot/vmlinuz > /boot/vmlinuz.hmac

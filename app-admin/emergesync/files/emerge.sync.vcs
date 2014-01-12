@@ -2,4 +2,6 @@
 emaint cleanresume -f
 #qlist -I -C | grep 99999999| xargs emerge -v --oneshot --keep-going y
 equery l '*'| grep 9999| sed 's:-99999999::' |  xargs emerge -v --oneshot --keep-going y
+emerge @preserved-rebuild
+revdep-rebuild -i -- --keep-going y 
 
