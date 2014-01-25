@@ -7,6 +7,6 @@ svn update
 cd $mypwd
 emaint cleanresume -f
 emerge --update --newuse --deep --with-bdeps=y -v --keep-going y @world
-emerge @preserved-rebuild
+emerge -v  @preserved-rebuild
 revdep-rebuild -i -- --keep-going y 
 eclean-dist -d

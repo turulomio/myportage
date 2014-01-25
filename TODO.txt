@@ -4,3 +4,5 @@
 20120112 Meter Urban terror
 20120125 En flare el binario está fuera de los binarios
 20120127 En q3rally el binario está fuera de los binarios
+20140125 Sigue sin funcionaar mailme-clamav
+20140125 Añadir view3dscene, x3dom, x3dedit, makehuman
