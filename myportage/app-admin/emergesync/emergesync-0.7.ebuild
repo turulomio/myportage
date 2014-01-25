@@ -13,3 +13,4 @@ DEPEND=""
 src_install(){
 	dobin ${FILESDIR}/c*
 	dobin ${FILESDIR}/e*
+}
