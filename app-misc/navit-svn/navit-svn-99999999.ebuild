@@ -18,6 +18,10 @@ DEPEND="
 sci-geosciences/gpsd
 "
 
+src_prepare(){
+	epatch "${FILESDIR}"/20140504.diff
+}
+
 src_configure() {
 	mkdir build
 	cd build
