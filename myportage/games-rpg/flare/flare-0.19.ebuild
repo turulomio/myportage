@@ -16,7 +16,7 @@ IUSE=""
 
 RDEPEND="
 	!games-engines/flare
-	media-libs/libsdl[X,audio,joystick,video]
+	media-libs/libsdl[X,sound,joystick,video]
 	media-libs/sdl-image[png]
 	media-libs/sdl-mixer[vorbis]
 	media-libs/sdl-ttf"
