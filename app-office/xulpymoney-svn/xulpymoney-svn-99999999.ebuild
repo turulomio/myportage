@@ -1,15 +1,14 @@
-# Copyright 1999-2010 Gentoo Technologies, Inc.
+# Copyright 1999-2014 Gentoo Technologies, Inc.
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 inherit subversion autotools eutils
 
-ESVN_REPO_URI="https://xulpymoney.svn.sourceforge.net/svnroot/xulpymoney/pyqt"
-
+ESVN_REPO_URI="https://svn.code.sf.net/p/xulpymoney/code/xulpymoney"
 
 
 IUSE=""
-DESCRIPTION="Accounting system with xulpymoney-qt support"
+DESCRIPTION="Accounting system with automatic quotes support"
 HOMEPAGE="http://xulpymoney.sourceforge.net"
 LICENSE="GPL-3"
 
@@ -17,8 +16,6 @@ SLOT="0"
 KEYWORDS="x86 amd64"
 
 DEPEND="
-app-office/myquotes-svn
-dev-db/postgresql-server
 dev-python/psycopg
 dev-python/matplotlib
 dev-python/PyQt4
