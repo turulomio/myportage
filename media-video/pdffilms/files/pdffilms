@@ -62,7 +62,7 @@ class Film:
 		cur=self.mem.con.cursor()
 		sqllo0="select lo_unlink("+str(self.foto)+");"
 		cur.execute(sqllo0)
-		sqldel="delete from films where id_pdffilms=" + str(self.id) + ";"
+		sqldel="delete from films where id_films=" + str(self.id) + ";"
 		cur.execute(sqldel)
 		cur.close()
 
@@ -80,11 +80,9 @@ class Film:
 	def save(self):
 		if self.id==None:
 			sqlins="insert into films (savedate, name, foto, id_dvd) values ('{0}', '{1}', lo_import('{2}'), {3}) returning id_films;".format(self.savedate,self.name,self.pathfoto, self.id_dvd)
-			print ("   - " + file[len(os.getcwd())+1:-4])
 			cur.execute(sqlins)
 			self.id=cur.fetchone()[0]
-			return T
-			True
+			return True
 
 
 
@@ -213,7 +211,7 @@ if "-i" in sys.argv:# insertar
 	cur=mem.con.cursor()
 	print ("+ Insertando las peliculas en la base de datos")
 	for file in glob.glob( os.getcwd()+ "/*.jpg" ):
-		f=Film(self.mem).init__create(datetime.date.today(), string2shell(file[len(os.getcwd())+1:-4]), string2shell(file))
+		f=Film(mem).init__create(datetime.date.today(), string2shell(file[len(os.getcwd())+1:-4]), string2shell(file),id)
 		f.save()
 		print ("    - {0}".format(file[len(os.getcwd())+1:-4]))
 	cur.close()
