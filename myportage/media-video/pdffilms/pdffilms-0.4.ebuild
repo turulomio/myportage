@@ -12,7 +12,7 @@ SLOT="0"
 KEYWORDS="x86 amd64"
 
 DEPEND="
-dev-python/adodb-py
+dev-python/psycopg
 app-text/texlive
 "
 
