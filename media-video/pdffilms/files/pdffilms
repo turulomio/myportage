@@ -1,11 +1,4 @@
 #!/usr/bin/python3
-### TODO
-# Modificar esquema
-# Quitar fotos 100
-
-
-
-
 # No se permiten comillas dobles en la inserción a base de datos
 import os, sys, glob, datetime, string, psycopg2, psycopg2.extras, shutil, math
 
@@ -25,44 +18,51 @@ class Mem:
 		self.con.close()
 
 class Film:
-	def __init__(self, mem, row):
+	def __init__(self, mem):
 		self.mem=mem
-		self.id=row['id_peliculas']
-		self.fecha=row['fechagrabacion']
-		self.titulo=self.parse_title(row['titulo'])
-		self.lu_formatos=row['lu_formatos']
-		self.sonidook=row['sonidook']
-		self.imagenok=row['imagenok']
-		self.cds=row['cds']
-		self.comentario=row['comentario']
+		self.id=None
+		self.savedate=None
+		self.name=None
+		self.foto=None
+		self.pathfoto=None
+		self.id_dvd=None
+		self.year=None
+
+	def init__create(self,savedate, name, pathfoto, id_dvd):
+		"""Introduce pathfoto, ya que deberá luego hacer un insert, id siempre es None, year es None, pero lo parsea en la función"""
+		self.savedate=savedate
+		self.name=name
+		self.id_dvd=id_dvd
+		self.pathfoto=pathfoto
+		self.parse_name()
+		return self
+
+	def init__from_db(self,row):
+		self.id=row['id_films']
+		self.savedate=row['savedate']
+		self.name=row['name']
 		self.foto=row['foto']#oid
 		self.pathfoto=None
-		self.tipofoto=row['tipofoto']
-		self.funciona=row['funciona']
-		self.lu_situaciones=row['lu_situaciones']
-		self.lu_ficheros=row['lu_ficheros']
-		self.id_cds=row['id_cds']
-		self.pathfoto100=None
-		self.foto100=row['foto100']
+		self.id_dvd=row['id_dvd']
+		self.parse_name()
+		return self
 
-	def parse_title(self,titulo):
-		arr=titulo.split(". ")
+	def parse_name(self):
+		name=self.name
+		arr=name.split(". ")
 		try:
 			self.year=int(arr[len(arr)-1])
-			titulo=titulo.replace(". "+arr[len(arr)-1], "")
+			self.name=name.replace(". "+arr[len(arr)-1], "")
+			if self.year<1850 or self.year>datetime.date.today().year:#Must be a film
+				self.year=None
 		except:
 			self.year=None
-		return titulo
-
 
 	def delete(self):
 		cur=self.mem.con.cursor()
 		sqllo0="select lo_unlink("+str(self.foto)+");"
 		cur.execute(sqllo0)
-#		sqllo1="select lo_unlink("+str(self.foto100)+");"
-#		cur.execute(sqllo1)
-		sqldel="delete from peliculas where id_peliculas=" + str(self.id) + ";"
-#		print (sqldel)
+		sqldel="delete from films where id_pdffilms=" + str(self.id) + ";"
 		cur.execute(sqldel)
 		cur.close()
 
@@ -77,6 +77,17 @@ class Film:
 	def tex_foto(self,width,height):
 		return  "\\includegraphics[width={0}cm,height={1}cm]{{{2}.jpg}}".format(width,height,self.foto)
 
+	def save(self):
+		if self.id==None:
+			sqlins="insert into films (savedate, name, foto, id_dvd) values ('{0}', '{1}', lo_import('{2}'), {3}) returning id_films;".format(self.savedate,self.name,self.pathfoto, self.id_dvd)
+			print ("   - " + file[len(os.getcwd())+1:-4])
+			cur.execute(sqlins)
+			self.id=cur.fetchone()[0]
+			return T
+			True
+
+
+
 class SetFilms:
 	def __init__(self, mem):
 		self.arr=[]
@@ -86,34 +97,35 @@ class SetFilms:
 		cur=self.mem.con.cursor()
 		cur.execute(sql)
 		for row in cur:
-			self.arr.append(Film(self.mem,row))
+			self.arr.append(Film(self.mem).init__from_db(row))
+		self.mem.con.commit()
 		cur.close()
 
 	def delete_all_films(self):
 		for f in self.arr:
 			f.delete()
 
-	def distinct_id_cds(self):
-		"""Returns a ordered list with distinct id_cds in the set"""
+	def distinct_id_dvd(self):
+		"""Returns a ordered list with distinct id_dvd in the set"""
 		s=set([])
 		for f in self.arr:
-			s.add(f.id_cds)
+			s.add(f.id_dvd)
 		l=list(s)
 		return sorted(l)
 
 
 	def distinct_years(self):
-		"""Returns a ordered list with distinct id_cds in the set"""
+		"""Returns a ordered list with distinct id_dvd in the set"""
 		s=set([])
 		for f in self.arr:
 			s.add(str(f.year))#String para añadir None
 		l=list(s)
 		return sorted(l)
 
-	def films_in_id_cd(self, id_cd):
+	def films_in_id_dvd(self, id_dvd):
 		result=[]
 		for f in self.arr:
-			if f.id_cds==id_cd:
+			if f.id_dvd==id_dvd:
 				result.append(f)
 		return result
 
@@ -124,8 +136,8 @@ class SetFilms:
 				result.append(f)
 		return result
 
-	def sort_by_titulo(self):
-		self.arr=sorted(self.arr, key=lambda f: f.titulo, reverse=False)
+	def sort_by_name(self):
+		self.arr=sorted(self.arr, key=lambda f: f.name, reverse=False)
 
 
 def string2shell(cadena):
@@ -189,7 +201,7 @@ if "-i" in sys.argv:# insertar
 			sys.exit(100)
 
 	sf=SetFilms(mem)
-	sf.load("SELECT * FROM peliculas WHERE id_cds=" + str(id))
+	sf.load("SELECT * FROM films WHERE id_dvd=" + str(id))
 
 	# "Chequeando si hay registros en la base de datos del dispositivo " + str(id)
 	if len(sf.arr)>0:
@@ -201,22 +213,17 @@ if "-i" in sys.argv:# insertar
 	cur=mem.con.cursor()
 	print ("+ Insertando las peliculas en la base de datos")
 	for file in glob.glob( os.getcwd()+ "/*.jpg" ):
-#		comando="convert -resize 100 \"" +file + "\" \"/tmp/pdffilms/" + os.path.basename(file) + ".100.jpg\""
-#		os.system(comando)
-#		os.system("chmod 777 "  + "\"/tmp/pdffilms/" + os.path.basename(file) + ".100.jpg\"")
-		sqlins="insert into peliculas (foto, fechagrabacion, titulo, lu_formatos, id_cds, sonidook, imagenok, cds, comentario, funciona, lu_situaciones) values (lo_import('" + string2shell(file) + "'), '" + str(datetime.date.today())+ "', '" + string2shell(file[len(os.getcwd())+1:-4]) + "',1, " + str(id) + ", true, true,1, '', True, 1);"
-		print ("   - " + file[len(os.getcwd())+1:-4])
-		cur.execute(sqlins)
+		f=Film(self.mem).init__create(datetime.date.today(), string2shell(file[len(os.getcwd())+1:-4]), string2shell(file))
+		f.save()
+		print ("    - {0}".format(file[len(os.getcwd())+1:-4]))
 	cur.close()
 	mem.con.commit()
-
-#	os.system("rm  /tmp/pdffilms/*.100.jpg")
 
 elif "-g" in sys.argv:
 	# SACA LAS IMÁGENES DE LA BASE DE DATOS
 	print ("  - Sacando las imágenes")
 	sf=SetFilms(mem)
-	sf.load("SELECT * FROM peliculas;")
+	sf.load("SELECT * FROM films;")
 	for f in sf.arr:
 		f.extract_foto()
 
@@ -235,6 +242,7 @@ elif "-g" in sys.argv:
 	header = header + "\\geometry{verbose,a4paper}\n"
 	header = header + "\\usepackage{anysize}\n"
 	header = header + "\\marginsize{1.8cm}{1.3cm}{1.5cm}{1.5cm} \n"
+	header = header + "\\usepackage{array}\n"
 	header = header + "\\begin{document}\n"
 
 	bd=""
@@ -249,43 +257,45 @@ elif "-g" in sys.argv:
 
 	print ("  - Listado por página")
 	# LISTADO DE DVD POR PAGINA
-	bd = bd + "\section{DVD en grande}\n"
-	for id_cd in reversed(sf.distinct_id_cds()):
+	bd = bd + "\section{Carátulas grandes}\n"
+	for id_dvd in reversed(sf.distinct_id_dvd()):
 		# Son necesarias las dos
-		bd=bd + "\\subsection*{DVD: "+str(id_cd)+"}\n" 
-		bd=bd + "\\addcontentsline{toc}{subsection}{DVD: "+str(id_cd)+"}\n" 
+		bd=bd + "\\subsection*{Índice "+str(id_dvd)+"}\n" 
+		bd=bd + "\\addcontentsline{toc}{subsection}{Índice "+str(id_dvd)+"}\n" 
 		bd=bd + "\\begin{tabular}{c c}\n"
-		for i, fi in enumerate(sf.films_in_id_cd(id_cd)):
-			bd=bd+"\\begin{tabular}{p{7.1cm}}\n" #Tabla foto titulo interior
+		for i, fi in enumerate(sf.films_in_id_dvd(id_dvd)):
+			bd=bd+"\\begin{tabular}{p{7.1cm}}\n" #Tabla foto name interior
 			bd=bd+ fi.tex_foto(7,7) + "\\\\\n"
-			bd=bd+ string2tex(fi.titulo) +"\\\\\n"
+			bd=bd+ string2tex(fi.name) +"\\\\\n"
 			bd=bd+"\\end{tabular} &"
 			if i % 2==1:
 				bd=bd[:-2]+"\\\\\n"
 		bd = bd + "\\end{tabular}\n"
-	bd=bd +"\\newpage\n\n"
+		bd=bd +"\n\\newpage\n\n"
 
 
 	print ("  - Listado de carátulas en pequeño")
 	# LISTADO DE CARATULAS JUNTAS
-	bd=bd + "\section{DVD en pequeño}\n"
-	for id_cd in reversed(sf.distinct_id_cds()):
-		bd=bd + "\\begin{tabular}{c c c c c c c}\n"
-		bd=bd + "DVD " +str(id_cd) + " & "
-		for fi in sf.films_in_id_cd(id_cd):
-			bd=bd + fi.tex_foto(2.2,2.2) + " &" 
+	bd=bd + "\section{Carátulas pequeñas}\n"
+	for id_dvd in reversed(sf.distinct_id_dvd()):
+		bd=bd + "\\begin{tabular}{m{2.1cm} m{2.1cm} m{2.1cm} m{2.1cm} m{2.1cm} m{2.1cm} m{2.1cm}}\n"
+		bd=bd + "Índice " +str(id_dvd) + " & "
+		for fi in sf.films_in_id_dvd(id_dvd):
+			bd=bd + fi.tex_foto(2.1,2.1) + " &" 
 		bd = bd[:-2]  + "\\\\\n"
 		bd = bd + "\\end{tabular} \\\\\n\n"
-	bd=bd +"\\newpage\n\n"
+	bd=bd +"\n\\newpage\n\n"
 
 
 	print ("  - Listado ordenado alfabéticamente")
 	# ORDENADAS ALFABETICAMENTE
-	sf.sort_by_titulo()
+	sf.sort_by_name()
 	bd=bd + "\section{Ordenadas alfabéticamente}\n"
 	for f in sf.arr:
-		bd=bd + "\\begin{tabular}{c c}\n"
-		bd=bd + f.tex_foto(2.2,2.2) + " & " + string2tex(f.titulo) + " \\\\\n"
+		bd=bd + "\\subsection*{{{0}}}\n".format(string2tex(f.name))
+		bd=bd + "\\addcontentsline{{toc}}{{subsection}}{{{0}}}\n".format(string2tex(f.name))
+		bd=bd + "\\begin{tabular}{m{2.3cm} m{15cm}}\n"
+		bd=bd + f.tex_foto(2.2,2.2) + " & Índice {0}.\\\\\n".format(f.id_dvd)
 		bd = bd + "\\end{tabular}\n\n"
 	bd=bd +"\\newpage\n\n"
 
@@ -301,9 +311,10 @@ elif "-g" in sys.argv:
 			bd=bd + "\\subsection*{Año "+year +"}\n" 
 			bd=bd + "\\addcontentsline{toc}{subsection}{Año "+year+"}\n" 
 		for fi in sf.films_in_year(year):
-			bd=bd + "\\begin{tabular}{c c}\n"
-			bd=bd + fi.tex_foto(2.2,2.2) + " &" + fi.titulo + "\\\\\n"
+			bd=bd + "\\begin{tabular}{m{2.3cm} m{15cm}}\n"
+			bd=bd + fi.tex_foto(2.2,2.2) + " &" + string2tex(fi.name) + ". (Índice {0}).\\\\\n".format(fi.id_dvd)
 			bd = bd + "\\end{tabular} \\\\\n\n"
+		bd=bd +"\n\\newpage\n\n"
 
 	footer=" \
 	\end{document} \
