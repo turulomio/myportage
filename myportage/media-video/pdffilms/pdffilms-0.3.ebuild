@@ -12,8 +12,8 @@ SLOT="0"
 KEYWORDS="x86 amd64"
 
 DEPEND="
-dev-python/adodb-py
-dev-texlive/texlive-latex
+dev-python/psycopg
+app-text/texlive
 "
 
 src_compile(){

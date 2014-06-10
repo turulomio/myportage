@@ -1,296 +1,334 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-  
+#!/usr/bin/python3
+### TODO
+# Modificar esquema
+# Quitar fotos 100
+
+
+
 
 # No se permiten comillas dobles en la inserción a base de datos
-import os, sys, glob, datetime, string, adodb, shutil
+import os, sys, glob, datetime, string, psycopg2, psycopg2.extras, shutil, math
 
-def hayregistros():
-	s = "SELECT count(*) as count FROM peliculas WHERE id_cds= " + str(id)
-	curs=con.Execute(s)
-        r = curs.GetRowAssoc(0)  
-	if int(r['count'])>0:
-		curs.Close()
-		return True
-	else:
-		curs.Close()
-		return False
+class Mem:
+	def __init__(self):
+		self.con=self.connect()
 
-def borrar_registros():
-	s = "SELECT foto, foto100 FROM peliculas WHERE id_cds= " + str(id) + ";"
-        cur=con.Execute(s)
-        while not cur.EOF:
-            	row = cur.GetRowAssoc(0)   
-		sqllo0="select lo_unlink("+str(row['foto'])+");"
-#		print sqllo0
-	        con.Execute(sqllo0)
-                sqllo1="select lo_unlink("+str(row['foto100'])+");"
-                con.Execute(sqllo1)
-		cur.MoveNext()
-	cur.Close()
-        sqldel="delete from peliculas where id_cds=" + str(id) + ";"
-        con.Execute(sqldel)
+	def connect(self):
+		strmq="dbname='pdffilms' port='5432' user='postgres' host='127.0.0.1' password='*'"
+		try:
+			return psycopg2.extras.DictConnection(strmq)
+		except psycopg2.Error:
+			print("Error conecting database")
+			sys.exit(112)
+			
+	def disconnect(self):
+		self.con.close()
+
+class Film:
+	def __init__(self, mem, row):
+		self.mem=mem
+		self.id=row['id_peliculas']
+		self.fecha=row['fechagrabacion']
+		self.titulo=self.parse_title(row['titulo'])
+		self.lu_formatos=row['lu_formatos']
+		self.sonidook=row['sonidook']
+		self.imagenok=row['imagenok']
+		self.cds=row['cds']
+		self.comentario=row['comentario']
+		self.foto=row['foto']#oid
+		self.pathfoto=None
+		self.tipofoto=row['tipofoto']
+		self.funciona=row['funciona']
+		self.lu_situaciones=row['lu_situaciones']
+		self.lu_ficheros=row['lu_ficheros']
+		self.id_cds=row['id_cds']
+		self.pathfoto100=None
+		self.foto100=row['foto100']
+
+	def parse_title(self,titulo):
+		arr=titulo.split(". ")
+		try:
+			self.year=int(arr[len(arr)-1])
+			titulo=titulo.replace(". "+arr[len(arr)-1], "")
+		except:
+			self.year=None
+		return titulo
+
+
+	def delete(self):
+		cur=self.mem.con.cursor()
+		sqllo0="select lo_unlink("+str(self.foto)+");"
+		cur.execute(sqllo0)
+#		sqllo1="select lo_unlink("+str(self.foto100)+");"
+#		cur.execute(sqllo1)
+		sqldel="delete from peliculas where id_peliculas=" + str(self.id) + ";"
+#		print (sqldel)
+		cur.execute(sqldel)
+		cur.close()
+
+	def extract_foto(self):
+		"""Extracts and assign self.pathfoto"""
+		self.pathfoto='/tmp/pdffilms/{0}.jpg'.format(self.foto)
+		cur=self.mem.con.cursor()
+		sql="select lo_export({0}, '{1}');".format(self.foto,self.pathfoto)
+		cur.execute(sql)
+		cur.close()
+		
+	def tex_foto(self,width,height):
+		return  "\\includegraphics[width={0}cm,height={1}cm]{{{2}.jpg}}".format(width,height,self.foto)
+
+class SetFilms:
+	def __init__(self, mem):
+		self.arr=[]
+		self.mem=mem
+
+	def load(self,sql):
+		cur=self.mem.con.cursor()
+		cur.execute(sql)
+		for row in cur:
+			self.arr.append(Film(self.mem,row))
+		cur.close()
+
+	def delete_all_films(self):
+		for f in self.arr:
+			f.delete()
+
+	def distinct_id_cds(self):
+		"""Returns a ordered list with distinct id_cds in the set"""
+		s=set([])
+		for f in self.arr:
+			s.add(f.id_cds)
+		l=list(s)
+		return sorted(l)
+
+
+	def distinct_years(self):
+		"""Returns a ordered list with distinct id_cds in the set"""
+		s=set([])
+		for f in self.arr:
+			s.add(str(f.year))#String para añadir None
+		l=list(s)
+		return sorted(l)
+
+	def films_in_id_cd(self, id_cd):
+		result=[]
+		for f in self.arr:
+			if f.id_cds==id_cd:
+				result.append(f)
+		return result
+
+	def films_in_year(self, year):
+		result=[]
+		for f in self.arr:
+			if str(f.year)==year:
+				result.append(f)
+		return result
+
+	def sort_by_titulo(self):
+		self.arr=sorted(self.arr, key=lambda f: f.titulo, reverse=False)
+
 
 def string2shell(cadena):
-    cadena=string.replace(cadena,"'","\\'")
+    cadena=cadena.replace("'","\\'")
     return cadena
-        
-        
+
+
 def Yn(pregunta):
 	ok = False
 	while True:
-	     	user_input = raw_input(pregunta +" [Y|n]").strip().lower()
+		user_input = input(pregunta +" [Y|n]").strip().lower()
 		if not user_input or user_input == 'y':
-        		return True
-	     	elif user_input == 'n':
-        	 	return False
-	     	else:
-        	 	print "Please enter 'Y', 'n'"
+			print ("si")
+			return True
+		elif user_input == 'n':
+			print ("no")
+			return False
+		else:
+			print ("Please enter 'Y', 'n'")
 
 def string2tex(cadena):
-	cadena=string.replace(cadena,'[','$ [ $')
-	cadena=string.replace(cadena,']','$ ] $')
-	cadena=string.replace(cadena,'&','\&')
-	cadena=string.replace(cadena,'²','$ ^2 $')
+	cadena=cadena.replace('[','$ [ $')
+	cadena=cadena.replace(']','$ ] $')
+	cadena=cadena.replace('&','\&')
+	cadena=cadena.replace('²','$ ^2 $')
 	return cadena
 
 
 ### MAIN SCRIPT ###
 cwd=os.getcwd().split("/")
+try:
+	shutil.rmtree("/tmp/pdffilms")
+except:
+	pass
 os.mkdir("/tmp/pdffilms")
 os.system("chmod 777 /tmp/pdffilms")
 
-
-dsn = "dbname=programas host=localhost port=5432 user=postgres password=***"
-con = adodb.NewADOConnection("postgres")
-con.Connect("127.0.0.1","postgres","*","programas")
+mem=Mem()
 
 
 if "-i" in sys.argv:# insertar			    
-    try:
-	    id=int(cwd[len(cwd)-1])
-    except:
-	    print "El directorio actual no es un directorio numérico"
-	    sys.exit(100)
+	try:
+		id=int(cwd[len(cwd)-1])
+	except:
+		print ("El directorio actual no es un directorio numérico")
+		sys.exit(100)
 
-    if Yn("El identificador del dispositivo a introducir es '" +str(id) + "'. ¿Desea continuar?")==False:
-	    sys.exit(100)
-
-
-    print "+ Comprobando que el nombre de los videos y las imágenes tienen el formato correcto"
-    for file in glob.glob( os.getcwd()+ "/*.jpg" ):
-	    if os.path.exists(file[:-3]+"avi") ==False:
-		    print "No existe " +  file[:-3]+"avi"
-		    sys.exit(100)
-	    else:
-		    continue
-	    if os.path.exists(file[:-3]+"mpg") ==False:
-		    print "No existe " +  file[:-3]+"mpg" 
-	    else:
-		    continue
-		    sys.exit(100)
+	if Yn("El identificador del dispositivo a introducir es '" +str(id) + "'. ¿Desea continuar?")==False:
+		sys.exit(100)
 
 
+	print ("+ Comprobando que el nombre de los videos y las imágenes tienen el formato correcto")
+	for file in glob.glob( os.getcwd()+ "/*.jpg" ):
+		if os.path.exists(file[:-3]+"avi") ==False:
+			print ("No existe " +  file[:-3]+"avi")
+			sys.exit(100)
+		else:
+			continue
+		if os.path.exists(file[:-3]+"mpg") ==False:
+			print ("No existe " +  file[:-3]+"mpg" )
+		else:
+			continue
+			sys.exit(100)
 
-    # "Chequeando si hay registros en la base de datos del dispositivo " + str(id)
-    if hayregistros()==True:
-	if Yn("+ ¿Desea borrar los registros del dispositivo '" +str(id) + "'?")==False:
-		    sys.exit(100)
-	else:
-	    print "   - Borrando los registros..."
-	    borrar_registros()
+	sf=SetFilms(mem)
+	sf.load("SELECT * FROM peliculas WHERE id_cds=" + str(id))
+	print (len(sf.arr))
 
-    print "+ Insertando las peliculas en la base de datos"
-    for file in glob.glob( os.getcwd()+ "/*.jpg" ):
-	comando="convert -resize 100 \"" +file + "\" \"/tmp/pdffilms/" + os.path.basename(file) + ".100.jpg\""
-	os.system(comando)
-	os.system("chmod 777 "  + "\"/tmp/pdffilms/" + os.path.basename(file) + ".100.jpg\"")
-	sqlins="insert into peliculas (foto, foto100, id_peliculas, fechagrabacion, titulo, lu_formatos, id_cds, sonidook, imagenok, cds, comentario, funciona, lu_situaciones) values (lo_import('" + string2shell(file) + "'),lo_import('/tmp/pdffilms/" + string2shell(os.path.basename(file)) + ".100.jpg'),(select max(id_peliculas)+1 from peliculas), '" + str(datetime.date.today())+ "', '" + string2shell(file[len(os.getcwd())+1:-4]) + "',1, " + str(id) + ", true, true,1, '', True, 1);"
-    #	print sqlins
-	print "   - " + file[len(os.getcwd())+1:-4]
-	con.Execute(sqlins)
+	# "Chequeando si hay registros en la base de datos del dispositivo " + str(id)
+	if len(sf.arr)>0:
+		if Yn("+ ¿Desea borrar los registros del dispositivo '" +str(id) + "'?")==False:
+			sys.exit(100)
+		else:
+			print ("   - Borrando los registros...")
+			sf.delete_all_films()
+	cur=mem.con.cursor()
+	print ("+ Insertando las peliculas en la base de datos")
+	for file in glob.glob( os.getcwd()+ "/*.jpg" ):
+#		comando="convert -resize 100 \"" +file + "\" \"/tmp/pdffilms/" + os.path.basename(file) + ".100.jpg\""
+#		os.system(comando)
+#		os.system("chmod 777 "  + "\"/tmp/pdffilms/" + os.path.basename(file) + ".100.jpg\"")
+		sqlins="insert into peliculas (foto, fechagrabacion, titulo, lu_formatos, id_cds, sonidook, imagenok, cds, comentario, funciona, lu_situaciones) values (lo_import('" + string2shell(file) + "'), '" + str(datetime.date.today())+ "', '" + string2shell(file[len(os.getcwd())+1:-4]) + "',1, " + str(id) + ", true, true,1, '', True, 1);"
+		print ("   - " + file[len(os.getcwd())+1:-4])
+		cur.execute(sqlins)
+	cur.close()
+	mem.con.commit()
 
-    os.system("rm  /tmp/pdffilms/*.100.jpg")
+#	os.system("rm  /tmp/pdffilms/*.100.jpg")
 
 elif "-g" in sys.argv:
-    # SACA LAS IMÁGENES DE LA BASE DE DATOS
-    s = "SELECT foto FROM peliculas;"
-    cur=con.Execute(s)
-    while not cur.EOF:
-	    row = cur.GetRowAssoc(0)
-	    sql="select lo_export("+str(row['foto'])+ ", '/tmp/pdffilms/"+ str(row['foto'])+ ".jpg');"
-	    con.Execute(sql)
-	    cur.MoveNext()
-    cur.Close()
-    
-    print ("  - Sacando las imágenes")
-
-    header=""
-    header = header + "\\documentclass[12pt,a4paper]{article}\n"
-    header = header + "\\usepackage{pdflscape}\n"
-    header = header + "\\usepackage[utf8]{inputenc}\n"
-    header = header + "\\usepackage[spanish]{babel}\n"
-    header = header + "\\usepackage[T1]{fontenc}\n"
-    header = header + "\\usepackage{geometry}\n"
-    header = header + "\\usepackage{setspace}\n"
-    header = header + "\\usepackage{graphicx}\n"
-    header = header + "\\usepackage{ae,aecompl}\n"
-    header = header + "\\usepackage[ bookmarksnumbered, colorlinks=true, linkcolor=blue, pdftitle={Listado de películas}, pdfauthor={Pelvis}, pdfkeywords={eric5}]{hyperref}\n"
-    header = header + "\\geometry{verbose,a4paper}\n"
-    header = header + "\\usepackage{anysize}\n"
-    header = header + "\\marginsize{1.8cm}{1.3cm}{1.5cm}{1.5cm} \n"
-
-    header = header + "\\begin{document}\n"
+	# SACA LAS IMÁGENES DE LA BASE DE DATOS
+	print ("  - Sacando las imágenes")
+	sf=SetFilms(mem)
+	sf.load("SELECT * FROM peliculas;")
+	for f in sf.arr:
+		f.extract_foto()
 
 
-    bd=""
-    bd=bd + "\\begin{center}\n"
-    bd=bd + "\\section*{Listado de películas}\n\n"
-    bd=bd + "\\addcontentsline{toc}{section}{Listado de películas}\n"
-    bd=bd + "Esta versión es del día " + str(datetime.date.today()) + "\n"
-    bd=bd + "\\end{center}\n"
-    bd=bd +"\\tableofcontents{ }\n"
-    bd=bd +"\\newpage\n"
+	header=""
+	header = header + "\\documentclass[12pt,a4paper]{article}\n"
+	header = header + "\\usepackage{pdflscape}\n"
+	header = header + "\\usepackage[utf8]{inputenc}\n"
+	header = header + "\\usepackage[spanish]{babel}\n"
+	header = header + "\\usepackage[T1]{fontenc}\n"
+	header = header + "\\usepackage{geometry}\n"
+	header = header + "\\usepackage{setspace}\n"
+	header = header + "\\usepackage{graphicx}\n"
+	header = header + "\\usepackage{ae,aecompl}\n"
+	header = header + "\\usepackage[ bookmarksnumbered, colorlinks=true, linkcolor=blue, pdftitle={Listado de películas}, pdfauthor={Pelvis}, pdfkeywords={eric5}]{hyperref}\n"
+	header = header + "\\geometry{verbose,a4paper}\n"
+	header = header + "\\usepackage{anysize}\n"
+	header = header + "\\marginsize{1.8cm}{1.3cm}{1.5cm}{1.5cm} \n"
+
+	header = header + "\\begin{document}\n"
 
 
-    # LISTADO DE DVD POR PAGINA
-    bd = bd + "\section{DVD en grande}\n"
-    s = "SELECT distinct (id_cds) as id_cds FROM peliculas ORDER BY id_cds desc;"
-
-    cur=con.Execute(s)
-    while not cur.EOF:
-	    row = cur.GetRowAssoc(0)
-	    # Son necesarias las dos
-	    bd=bd + "\\subsection*{DVD: "+str(row['id_cds'])+"}\n" 
-	    bd=bd + "\\addcontentsline{toc}{subsection}{DVD: "+str(row['id_cds'])+"}\n" 
-	    bd=bd + "\\begin{tabular}{p{8cm} p{8cm}}\n"
-	    f1=f2=f3=f4=f5=f6=""
-	    t1=t2=t3=t4=t5=t6=""
-	    sb = "SELECT titulo, foto FROM peliculas where id_cds="+ str(row['id_cds']) +";"
-	    curb=con.Execute(sb)
-	    #f1 y t1
-	    if not curb.EOF:
-		    rowb = curb.GetRowAssoc(0)
-		    f1= "\\includegraphics[width=7.7cm,height=7.2cm]{"+ str(rowb['foto'])+ ".jpg}"
-		    t1=  string2tex(str(rowb['titulo'])) 
-		    curb.MoveNext()
-	    #f2 y t2
-	    if not curb.EOF:
-		    rowb = curb.GetRowAssoc(0)
-		    f2= "\\includegraphics[width=7.7cm,height=7.2cm]{"+ str(rowb['foto'])+ ".jpg}"
-		    t2=  string2tex(str(rowb['titulo']))
-		    curb.MoveNext()
-	    #f3 y t3
-	    if not curb.EOF:
-		    rowb = curb.GetRowAssoc(0)
-		    f3= "\\includegraphics[width=7.7cm,height=7.2cm]{"+ str(rowb['foto'])+ ".jpg}"
-		    t3=  string2tex(str(rowb['titulo']))
-		    curb.MoveNext()
-	    #f4 y t4
-	    if not curb.EOF:
-		    rowb = curb.GetRowAssoc(0)
-		    f4= "\\includegraphics[width=7.7cm,height=7.2cm]{"+ str(rowb['foto'])+ ".jpg}"
-		    t4=  string2tex(str(rowb['titulo']))
-		    curb.MoveNext()
-	    #f5 y t5
-	    if not curb.EOF:
-		    rowb = curb.GetRowAssoc(0)
-		    f5= "\\includegraphics[width=7.7cm,height=7.2cm]{"+ str(rowb['foto'])+ ".jpg}"
-		    t5=  string2tex(str(rowb['titulo']))
-		    curb.MoveNext()
-	    #f6 y t6
-	    if not curb.EOF:
-		    rowb = curb.GetRowAssoc(0)
-		    f6= "\\includegraphics[width=7.7cm,height=7.2cm]{"+ str(rowb['foto'])+ ".jpg}"
-		    t6=  string2tex(str(rowb['titulo']))
-		    curb.MoveNext()
-	    curb.Close()
-
-	    bd=bd + f1 + "&" + f2 + "\\\\\n"
-	    bd=bd + t1 + "&" + t2 + "\\\\\n"
-	    bd=bd + f3 + "&" + f4 + "\\\\\n"
-	    bd=bd + t3 + "&" + t4 + "\\\\\n"
-	    bd=bd + f5 + "&" + f6 + "\\\\\n"
-	    bd=bd + t5 + "&" + t6 + "\\\\\n"
-
-	    bd = bd + "\\end{tabular}\n"
-	    bd=bd +"\\newpage\n\n"
-	    cur.MoveNext()
-    cur.Close()
+	bd=""
+	bd=bd + "\\begin{center}\n"
+	bd=bd + "\\section*{Listado de películas}\n\n"
+	bd=bd + "\\addcontentsline{toc}{section}{Listado de películas}\n"
+	bd=bd + "Esta versión es del día " + str(datetime.date.today()) + "\n"
+	bd=bd + "\\end{center}\n"
+	bd=bd +"\\tableofcontents{ }\n"
+	bd=bd +"\\newpage\n"
 
 
-    print ("  - Listado por página realizado")
+	print ("  - Listado por página")
+	# LISTADO DE DVD POR PAGINA
+	bd = bd + "\section{DVD en grande}\n"
+	for id_cd in reversed(sf.distinct_id_cds()):
+		# Son necesarias las dos
+		bd=bd + "\\subsection*{DVD: "+str(id_cd)+"}\n" 
+		bd=bd + "\\addcontentsline{toc}{subsection}{DVD: "+str(id_cd)+"}\n" 
+		bd=bd + "\\begin{tabular}{c c}\n"
+		for i, fi in enumerate(sf.films_in_id_cd(id_cd)):
+			bd=bd+"\\begin{tabular}{p{7.1cm}}\n" #Tabla foto titulo interior
+			bd=bd+ fi.tex_foto(7,7) + "\\\\\n"
+			bd=bd+ string2tex(fi.titulo) +"\\\\\n"
+			bd=bd+"\\end{tabular} &"
+			if i % 2==1:
+				bd=bd[:-2]+"\\\\\n"
+		bd = bd + "\\end{tabular}\n"
+	bd=bd +"\\newpage\n\n"
 
 
-
-    # LISTADO DE CARATULAS JUNTAS
-
-    bd=bd + "\section{DVD en pequeño}\n"
-    s = "SELECT distinct (id_cds) as id_cds FROM peliculas ORDER BY id_cds desc;"
-    cur=con.Execute(s)
-    while not cur.EOF:
-	    row = cur.GetRowAssoc(0)
-	    bd=bd + "\\begin{tabular}{c c c c c c c}\n"
-	    bd=bd + "DVD " +str(row['id_cds']) + " & "
-	    sb = "SELECT titulo, foto FROM peliculas where id_cds="+ str(row['id_cds']) +";"
-	    curb=con.Execute(sb)
-	    while not curb.EOF:
-		    rowb = curb.GetRowAssoc(0)
-		    bd=bd + "\includegraphics[width=2cm,height=2cm]{"+ str(rowb['foto'])+ ".jpg} & "
-		    curb.MoveNext()
-	    curb.Close()
-	    bd = bd[:-2]  + "\\\\\n"
-	    bd = bd + "\\end{tabular}\n\n"
-	    if row['id_cds']%10==0:
-		    bd=bd +"\\newpage\n\n"
-
-	    cur.MoveNext()
-    cur.Close()
+	print ("  - Listado de carátulas en pequeño")
+	# LISTADO DE CARATULAS JUNTAS
+	bd=bd + "\section{DVD en pequeño}\n"
+	for id_cd in reversed(sf.distinct_id_cds()):
+		bd=bd + "\\begin{tabular}{c c c c c c c}\n"
+		bd=bd + "DVD " +str(id_cd) + " & "
+		for fi in sf.films_in_id_cd(id_cd):
+			bd=bd + fi.tex_foto(2.2,2.2) + " &" 
+		bd = bd[:-2]  + "\\\\\n"
+		bd = bd + "\\end{tabular} \\\\\n\n"
+	bd=bd +"\\newpage\n\n"
 
 
-    bd=bd +"\\newpage\n"
+	print ("  - Listado ordenado alfabéticamente")
+	# ORDENADAS ALFABETICAMENTE
+	sf.sort_by_titulo()
+	bd=bd + "\section{Ordenadas alfabéticamente}\n"
+	for f in sf.arr:
+		bd=bd + "\\begin{tabular}{c c}\n"
+		bd=bd + f.tex_foto(2.2,2.2) + " & " + string2tex(f.titulo) + " \\\\\n"
+		bd = bd + "\\end{tabular}\n\n"
+	bd=bd +"\\newpage\n\n"
 
 
+	print ("  - Listado ordenado por años")
+	# ORDENADAS POR AÑO
+	bd=bd + "\section{Ordenadas por año}\n"
+	for year in reversed(sf.distinct_years()):
+		if year=="None":
+			bd=bd + "\\subsection*{Año desconocido}\n" 
+			bd=bd + "\\addcontentsline{toc}{subsection}{Año desconocido}\n" 
+		else:
+			bd=bd + "\\subsection*{Año "+year +"}\n" 
+			bd=bd + "\\addcontentsline{toc}{subsection}{Año "+year+"}\n" 
+		for fi in sf.films_in_year(year):
+			bd=bd + "\\begin{tabular}{c c}\n"
+			bd=bd + fi.tex_foto(2.2,2.2) + " &" + fi.titulo + "\\\\\n"
+			bd = bd + "\\end{tabular} \\\\\n\n"
 
-    print ("  - Listado de carátulas juntas")
+	footer=" \
+	\end{document} \
+	"
 
-    # ORDENADAS ALFABETICAMENTE
+	doc = header + bd + footer
 
-    bd=bd + "\section{Ordenadas alfabéticamente}\n"
-    s = "SELECT titulo, foto  FROM peliculas ORDER BY titulo;"
-    cur=con.Execute(s)
-    i=0
-    while not cur.EOF:
-	    i=i+1
-	    row = cur.GetRowAssoc(0)
-	    bd=bd + "\\begin{tabular}{c c}\n"
-	    bd=bd + "\\includegraphics[width=0.75cm,height=0.75cm]{"+ str(row['foto'])+ ".jpg} & " + string2tex(row['titulo']) + " \\\\\n"
-	    bd = bd + "\\end{tabular}\n\n"
-	    if i%25==0:
-		    bd=bd +"\\newpage\n\n"
-	    cur.MoveNext()
-    cur.Close()
+	d=open("/tmp/pdffilms/peliculas.tex","w")
+	d.write(doc)
+	d.close()
 
+	os.system("cd /tmp/pdffilms;pdflatex /tmp/pdffilms/peliculas.tex;  &>/dev/null;pdflatex /tmp/pdffilms/peliculas.tex")
+	os.system("cp /tmp/pdffilms/peliculas.pdf ~/peliculas.pdf")
 
-    print ("  - Listado ordenado alfabéticamente")
-
-    footer=" \
-    \end{document} \
-    "
-
-    doc = header + bd + footer
-
-    d=open("/tmp/pdffilms/peliculas.tex","w")
-    d.write(doc)
-    d.close()
-
-    os.system("cd /tmp/pdffilms;pdflatex /tmp/pdffilms/peliculas.tex;  &>/dev/null;pdflatex /tmp/pdffilms/peliculas.tex")
-    os.system("cp /tmp/pdffilms/peliculas.pdf ~/peliculas.pdf")
-
-  
 else:
 	print ("Programa que genera un pdf de una base de datos postgresql con películas")
 	print ("   # pdffilms -i		Inserta una película en la base de datos")
-        print ("   # pdffilms -g                Genera el pdf con las películas")
+	print ("   # pdffilms -g                Genera el pdf con las películas")
 
-con.Close()
+mem.disconnect()
+
 shutil.rmtree("/tmp/pdffilms")
+
