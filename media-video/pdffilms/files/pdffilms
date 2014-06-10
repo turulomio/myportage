@@ -138,10 +138,8 @@ def Yn(pregunta):
 	while True:
 		user_input = input(pregunta +" [Y|n]").strip().lower()
 		if not user_input or user_input == 'y':
-			print ("si")
 			return True
 		elif user_input == 'n':
-			print ("no")
 			return False
 		else:
 			print ("Please enter 'Y', 'n'")
@@ -192,7 +190,6 @@ if "-i" in sys.argv:# insertar
 
 	sf=SetFilms(mem)
 	sf.load("SELECT * FROM peliculas WHERE id_cds=" + str(id))
-	print (len(sf.arr))
 
 	# "Chequeando si hay registros en la base de datos del dispositivo " + str(id)
 	if len(sf.arr)>0:
@@ -238,9 +235,7 @@ elif "-g" in sys.argv:
 	header = header + "\\geometry{verbose,a4paper}\n"
 	header = header + "\\usepackage{anysize}\n"
 	header = header + "\\marginsize{1.8cm}{1.3cm}{1.5cm}{1.5cm} \n"
-
 	header = header + "\\begin{document}\n"
-
 
 	bd=""
 	bd=bd + "\\begin{center}\n"
