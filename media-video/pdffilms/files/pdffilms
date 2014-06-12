@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 # No se permiten comillas dobles en la inserción a base de datos
-import os, sys, glob, datetime, string, psycopg2, psycopg2.extras, shutil, math
+import os, sys, glob, datetime, string, psycopg2, psycopg2.extras, shutil, math, argparse, getpass
 
 class Mem:
 	def __init__(self):
 		self.con=self.connect()
 
 	def connect(self):
-		strmq="dbname='pdffilms' port='5432' user='postgres' host='127.0.0.1' password='*'"
+		strmq="dbname='{}' port='{}' user='{}' host='{}' password='{}'".format(args.db, args.port, args.user, args.host, password)
 		try:
 			return psycopg2.extras.DictConnection(strmq)
 		except psycopg2.Error:
@@ -163,6 +163,17 @@ def string2tex(cadena):
 
 
 ### MAIN SCRIPT ###
+parser=argparse.ArgumentParser('Films documentation')
+group = parser.add_mutually_exclusive_group()
+group.add_argument('-i', '--insert', help='Insert films from current numbered directory', action="store_true")
+group.add_argument('-g', '--generate', help='Generate films documentation', action="store_true")
+parser.add_argument('-U', '--user', help='Postgresql user', default='postgres')
+parser.add_argument('-p', '--port', help='Postgresql server port', default=5432)
+parser.add_argument('-H', '--host', help='Postgresql server address', default='127.0.0.1')
+parser.add_argument('-d', '--db', help='Postgresql database', default='pdffilms')
+args=parser.parse_args()
+
+password=getpass.getpass()
 cwd=os.getcwd().split("/")
 try:
 	shutil.rmtree("/tmp/pdffilms")
@@ -174,7 +185,7 @@ os.system("chmod 777 /tmp/pdffilms")
 mem=Mem()
 
 
-if "-i" in sys.argv:# insertar			    
+if args.insert==True:# insertar			    
 	try:
 		id=int(cwd[len(cwd)-1])
 	except:
@@ -217,7 +228,7 @@ if "-i" in sys.argv:# insertar
 	cur.close()
 	mem.con.commit()
 
-elif "-g" in sys.argv:
+elif args.generate==True:
 	# SACA LAS IMÁGENES DE LA BASE DE DATOS
 	print ("  - Sacando las imágenes")
 	sf=SetFilms(mem)
@@ -328,9 +339,7 @@ elif "-g" in sys.argv:
 	os.system("cp /tmp/pdffilms/peliculas.pdf ~/peliculas.pdf")
 
 else:
-	print ("Programa que genera un pdf de una base de datos postgresql con películas")
-	print ("   # pdffilms -i		Inserta una película en la base de datos")
-	print ("   # pdffilms -g                Genera el pdf con las películas")
+	parser.print_help()
 
 mem.disconnect()
 
