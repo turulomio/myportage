@@ -15,4 +15,5 @@ app-antivirus/clamav
 
 src_install(){
 	dobin ${FILESDIR}/mail-clamav-report
+	dobin ${FILESDIR}/clamav-report
 }
