@@ -1,2 +1,3 @@
 #!/bin/bash
-mailme $1 `clamav-report`
+report=`clamav-report --dir /home`
+mailme \'$report\'
