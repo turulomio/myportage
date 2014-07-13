@@ -9,6 +9,20 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -28,7 +42,53 @@ CREATE TABLE films (
 );
 
 
-ALTER TABLE public.films OWNER TO postgres;
+ALTER TABLE films OWNER TO postgres;
+
+--
+-- Name: films_duplicated; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW films_duplicated AS
+ SELECT upper(films.name) AS upper,
+    count(*) AS count
+   FROM films
+  GROUP BY upper(films.name)
+ HAVING (count(*) > 1);
+
+
+ALTER TABLE films_duplicated OWNER TO postgres;
+
+--
+-- Name: VIEW films_duplicated; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON VIEW films_duplicated IS 'Show films duplicated and count them';
+
+
+--
+-- Name: films_id_duplicated; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW films_id_duplicated AS
+ SELECT films.id_dvd,
+    upper(films.name) AS upper
+   FROM films,
+    ( SELECT upper(films_1.name) AS name,
+            count(*) AS count
+           FROM films films_1
+          GROUP BY upper(films_1.name)
+         HAVING (count(*) > 1)) k
+  WHERE (upper(films.name) = upper(k.name));
+
+
+ALTER TABLE films_id_duplicated OWNER TO postgres;
+
+--
+-- Name: VIEW films_id_duplicated; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON VIEW films_id_duplicated IS 'Shows films duplicated with id_dvd';
+
 
 --
 -- Name: films_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -42,7 +102,7 @@ CREATE SEQUENCE films_seq
     CACHE 1;
 
 
-ALTER TABLE public.films_seq OWNER TO postgres;
+ALTER TABLE films_seq OWNER TO postgres;
 
 --
 -- Name: films_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 

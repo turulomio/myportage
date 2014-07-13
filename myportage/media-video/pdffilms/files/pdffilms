@@ -79,7 +79,11 @@ class Film:
 
 	def save(self):
 		if self.id==None:
-			sqlins="insert into films (savedate, name, foto, id_dvd) values ('{0}', '{1}', lo_import('{2}'), {3}) returning id_films;".format(self.savedate,self.name,self.pathfoto, self.id_dvd)
+			if self.year==None:
+				name=self.name
+			else:
+				name="{}. {}".format(self.name,self.year)
+			sqlins="insert into films (savedate, name, foto, id_dvd) values ('{0}', '{1}', lo_import('{2}'), {3}) returning id_films;".format(self.savedate,name,self.pathfoto, self.id_dvd)
 			cur.execute(sqlins)
 			self.id=cur.fetchone()[0]
 			return True
