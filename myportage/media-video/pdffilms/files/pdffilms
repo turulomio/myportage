@@ -125,17 +125,21 @@ class SetFilms:
 		return sorted(l)
 
 	def films_in_id_dvd(self, id_dvd):
-		result=[]
+		"""Returns a SetFilms with the films in a dvd and sorts them by name"""
+		result=SetFilms(self.mem)
 		for f in self.arr:
 			if f.id_dvd==id_dvd:
-				result.append(f)
+				result.arr.append(f)
+		result.sort_by_name()
 		return result
 
 	def films_in_year(self, year):
-		result=[]
+		"""Return a SetFilms with the filmns in a year and sorts them by name"""
+		result=SetFilms(self.mem)
 		for f in self.arr:
 			if str(f.year)==year:
-				result.append(f)
+				result.arr.append(f)
+		result.sort_by_name()
 		return result
 
 	def sort_by_name(self):
@@ -240,7 +244,6 @@ elif args.generate==True:
 	for f in sf.arr:
 		f.extract_foto()
 
-
 	header=""
 	header = header + "\\documentclass[12pt,a4paper]{article}\n"
 	header = header + "\\usepackage{pdflscape}\n"
@@ -276,7 +279,7 @@ elif args.generate==True:
 		bd=bd + "\\subsection*{Índice "+str(id_dvd)+"}\n" 
 		bd=bd + "\\addcontentsline{toc}{subsection}{Índice "+str(id_dvd)+"}\n" 
 		bd=bd + "\\begin{tabular}{c c}\n"
-		for i, fi in enumerate(sf.films_in_id_dvd(id_dvd)):
+		for i, fi in enumerate(sf.films_in_id_dvd(id_dvd).arr):
 			bd=bd+"\\begin{tabular}{p{7.1cm}}\n" #Tabla foto name interior
 			bd=bd+ fi.tex_foto(7,7) + "\\\\\n"
 			bd=bd+ string2tex(fi.name) +"\\\\\n"
@@ -293,7 +296,7 @@ elif args.generate==True:
 	for id_dvd in reversed(sf.distinct_id_dvd()):
 		bd=bd + "\\begin{tabular}{m{2.1cm} m{2.1cm} m{2.1cm} m{2.1cm} m{2.1cm} m{2.1cm} m{2.1cm}}\n"
 		bd=bd + "Índice " +str(id_dvd) + " & "
-		for fi in sf.films_in_id_dvd(id_dvd):
+		for fi in sf.films_in_id_dvd(id_dvd).arr:
 			bd=bd + fi.tex_foto(2.1,2.1) + " &" 
 		bd = bd[:-2]  + "\\\\\n"
 		bd = bd + "\\end{tabular} \\\\\n\n"
@@ -302,7 +305,6 @@ elif args.generate==True:
 
 	print ("  - Listado ordenado alfabéticamente")
 	# ORDENADAS ALFABETICAMENTE
-	sf.sort_by_name()
 	bd=bd + "\section{Ordenadas alfabéticamente}\n"
 	for f in sf.arr:
 		bd=bd + "\\subsection*{{{0}}}\n".format(string2tex(f.name))
@@ -323,7 +325,7 @@ elif args.generate==True:
 		else:
 			bd=bd + "\\subsection*{Año "+year +"}\n" 
 			bd=bd + "\\addcontentsline{toc}{subsection}{Año "+year+"}\n" 
-		for fi in sf.films_in_year(year):
+		for fi in sf.films_in_year(year).arr:
 			bd=bd + "\\begin{tabular}{m{2.3cm} m{15cm}}\n"
 			bd=bd + fi.tex_foto(2.2,2.2) + " &" + string2tex(fi.name) + ". (Índice {0}).\\\\\n".format(fi.id_dvd)
 			bd = bd + "\\end{tabular} \\\\\n\n"
