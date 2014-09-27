@@ -13,7 +13,7 @@ class Mem:
 		except psycopg2.Error:
 			print("Error conecting database")
 			sys.exit(112)
-			
+
 	def disconnect(self):
 		self.con.close()
 
@@ -73,7 +73,7 @@ class Film:
 		sql="select lo_export({0}, '{1}');".format(self.foto,self.pathfoto)
 		cur.execute(sql)
 		cur.close()
-		
+
 	def tex_foto(self,width,height):
 		return  "\\includegraphics[width={0}cm,height={1}cm]{{{2}.jpg}}".format(width,height,self.foto)
 
@@ -229,7 +229,6 @@ if args.insert==True:# insertar
 	cur=mem.con.cursor()
 	print ("+ Insertando las peliculas en la base de datos")
 	for file in glob.glob( os.getcwd()+ "/*.jpg" ):
-#		f=Film(mem).init__create(datetime.date.today(), string2shell(file[len(os.getcwd())+1:-4]), string2shell(file),id)
 		f=Film(mem).init__create(datetime.date.today(), file[len(os.getcwd())+1:-4], file,id)
 		f.save()
 		print ("    - {0}".format(file[len(os.getcwd())+1:-4]))
@@ -240,7 +239,7 @@ elif args.generate==True:
 	# SACA LAS IMÁGENES DE LA BASE DE DATOS
 	print ("  - Sacando las imágenes")
 	sf=SetFilms(mem)
-	sf.load("SELECT * FROM films;")
+	sf.load("SELECT * FROM films")
 	for f in sf.arr:
 		f.extract_foto()
 
@@ -254,7 +253,7 @@ elif args.generate==True:
 	header = header + "\\usepackage{setspace}\n"
 	header = header + "\\usepackage{graphicx}\n"
 	header = header + "\\usepackage{ae,aecompl}\n"
-	header = header + "\\usepackage[ bookmarksnumbered, colorlinks=true, linkcolor=blue, pdftitle={Listado de películas}, pdfauthor={Pelvis}, pdfkeywords={eric5}]{hyperref}\n"
+	header = header + "\\usepackage[bookmarksnumbered, colorlinks=true, linkcolor=blue, pdftitle={Listado de películas}, pdfauthor={Pelvis}, pdfkeywords={eric5}]{hyperref}\n"
 	header = header + "\\geometry{verbose,a4paper}\n"
 	header = header + "\\usepackage{anysize}\n"
 	header = header + "\\marginsize{1.8cm}{1.3cm}{1.5cm}{1.5cm} \n"
@@ -277,6 +276,7 @@ elif args.generate==True:
 	for id_dvd in reversed(sf.distinct_id_dvd()):
 		# Son necesarias las dos
 		bd=bd + "\\subsection*{Índice "+str(id_dvd)+"}\n" 
+		bd=bd + "\\label{{sec:{0}}}\n".format(id_dvd)
 		bd=bd + "\\addcontentsline{toc}{subsection}{Índice "+str(id_dvd)+"}\n" 
 		bd=bd + "\\begin{tabular}{c c}\n"
 		for i, fi in enumerate(sf.films_in_id_dvd(id_dvd).arr):
@@ -306,11 +306,12 @@ elif args.generate==True:
 	print ("  - Listado ordenado alfabéticamente")
 	# ORDENADAS ALFABETICAMENTE
 	bd=bd + "\section{Ordenadas alfabéticamente}\n"
+	sf.sort_by_name()
 	for f in sf.arr:
 		bd=bd + "\\subsection*{{{0}}}\n".format(string2tex(f.name))
 		bd=bd + "\\addcontentsline{{toc}}{{subsection}}{{{0}}}\n".format(string2tex(f.name))
 		bd=bd + "\\begin{tabular}{m{2.3cm} m{15cm}}\n"
-		bd=bd + f.tex_foto(2.2,2.2) + " & Índice {0}.\\\\\n".format(f.id_dvd)
+		bd=bd + f.tex_foto(2.2,2.2) + " & ~\\nameref{{sec:{0}}}\\\\\n".format(f.id_dvd)#Reference to DVD page
 		bd = bd + "\\end{tabular}\n\n"
 	bd=bd +"\\newpage\n\n"
 
@@ -327,7 +328,7 @@ elif args.generate==True:
 			bd=bd + "\\addcontentsline{toc}{subsection}{Año "+year+"}\n" 
 		for fi in sf.films_in_year(year).arr:
 			bd=bd + "\\begin{tabular}{m{2.3cm} m{15cm}}\n"
-			bd=bd + fi.tex_foto(2.2,2.2) + " &" + string2tex(fi.name) + ". (Índice {0}).\\\\\n".format(fi.id_dvd)
+			bd=bd + "{0} & {1}. (~\\nameref{{sec:{2}}} )\\\\\n".format(fi.tex_foto(2.2,2.2), string2tex(fi.name), fi.id_dvd)
 			bd = bd + "\\end{tabular} \\\\\n\n"
 		bd=bd +"\n\\newpage\n\n"
 
@@ -341,7 +342,7 @@ elif args.generate==True:
 	d.write(doc)
 	d.close()
 
-	os.system("cd /tmp/pdffilms;pdflatex /tmp/pdffilms/peliculas.tex;  &>/dev/null;pdflatex /tmp/pdffilms/peliculas.tex")
+	os.system("cd /tmp/pdffilms;pdflatex /tmp/pdffilms/peliculas.tex;  &>/dev/null;pdflatex /tmp/pdffilms/peliculas.tex; pdflatex /tmp/pdffilms/peliculas.tex")
 	os.system("cp /tmp/pdffilms/peliculas.pdf ~/peliculas.pdf")
 
 else:

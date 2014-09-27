@@ -24,4 +24,5 @@ src_install(){
 	dobin ${FILESDIR}/pdffilms
 	insinto /usr/share/${PN}/
 	doins ${FILESDIR}/pdffilms.sql
+	doins ${FILESDIR}/ChangeLog
 }
