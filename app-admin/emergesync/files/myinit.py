@@ -1,118 +1,112 @@
 #!/usr//bin/python3
-import datetime, os
-dt=str(datetime.datetime.now()).split(".")[0].replace("-","").replace(" ","").replace(":","")
-output="/tmp/myinit-{}".format(dt)
+import datetime, os, argparse
 
 def s(command):
     os.system(command)
 
-saved=set([])#long path, dictionary with all saved in path, all dependencies must be in this set
+def ldd(program):
+   """Function that gets a program or lib and gets all shared dependencies.
+      They are added to saved set"""
+   #print("**** ldd", program)
+   for line in os.popen("ldd -v {}".format(program)):
+      if line.find("no es un ejecutable")>=0:
+         return
+      if line.find("Version information")>0:
+         continue
+      if line.find(":")>0:
+         dep=line.strip().split(":")[0]
+         if dep not in (saved):
+            saved.add(dep)
+            #print (dep)
 
 
-initfile="""#!/bin/sh
+###########################
+dt=str(datetime.datetime.now()).split(".")[0].replace("-","").replace(" ","").replace(":","")
+output="/tmp/myinit-{}/".format(dt)
 
-#Mount things needed by this script
+parser=argparse.ArgumentParser("Initramfs generator for luks root partition")
+parser.add_argument('-b', '--boot', help='Where /boot partition is', default='/dev/sda1')
+parser.add_argument('-e', '--encrypted', help='Where encrypted device is', default='/dev/sda4')
+args=parser.parse_args()
+
+saved=set(["/bin/bash",  "/bin/busybox", "/sbin/cryptsetup", "/sbin/fsck.ext4",  "/usr/bin/hmac256", "/bin/mount", "/bin/umount", "/lib/ld-linux-x86-64.so.2"])#long path, dictionary with all saved in path, all dependencies must be in this set
+
+lastsetcount=0
+
+initfile="""#!/bin/busybox sh
+mount -t devtmpfs none /dev
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
 
-#Disable kernel messages from popping onto the screen
 echo 0 > /proc/sys/kernel/printk
 
-#Clear the screen
-#clear
-#Create all the symlinks to /bin/busybox
-busybox --install -s
-
-#Create device nodes
-mknod /dev/null c 1 3
-mknod /dev/tty c 5 0
-mknod /dev/urandom c 1 9
-echo /bin/mdev > /proc/sys/kernel/hotplug
-mdev -s
-
-#Function for parsing command line options with "=" in them
-# get_opt("init=/sbin/init") will return "/sbin/init"
-get_opt() {
-        echo "$@" | cut -d "=" -f 2
-}
-
-#Defaults
-init=/sbin/init
-root=/dev/mapper/encroot
-enc_root=/dev/sda4
-
-#Process command line options
-for i in $(cat /proc/cmdline); do
-        case "${i}" in
-                root\=*)
-                        root=$(get_opt $i)
-                        ;;
-                init\=*)
-                        init=$(get_opt $i)
-                        ;;
-                enc_root\=*)
-                        enc_root=$(get_opt $i)
-                        ;;
-        esac
-done
-
-#Checking /dev/sda1
 echo "HMAC Password";
-mount /dev/sda1 /mnt
+mount {1} /mnt
 read -r a
 hmac256 $a /mnt/vmlinuz
-hmac256 $a /mnt/initramfs.gz
+hmac256 $a /mnt/myinit.gz
 umount /mnt
 
-#Open encrypted partition to create /dev/mapper/enc-pv
-cryptsetup luksOpen "${enc_root}" encroot
+ls /mnt
 
-#Get LVM volumes up
-#lvm vgchange -a y
+cryptsetup luksOpen {0} root
+fsck.ext4 /dev/mapper/root
+mount /dev/mapper/root /newroot
 
-#Mount the root device
-/bin/fsck.ext4 /dev/mapper/encroot
-mount /dev/mapper/encroot /newroot
+umount /dev /proc /sys
 
-#Unmount all other mounts so that the ram used by
-#the initramfs can be cleared after switch_root
-umount /sys /proc
-
-
-#Switch to the new root and execute init
 if [[ -x "/newroot/sbin/init" ]] ; then
         exec switch_root /newroot /sbin/init
 fi
 
-#This will only be run if the above line failed
-echo "Failed to switch_root, dropping to a shell"
-exec sh
-"""
+echo "Failed to init Gentoo..."
+""".format(args.encrypted, args.boot)
 
 s("rm -Rf {}".format(output))
 s("mkdir {}".format(output))
+
 os.chdir(output)
 
 #Make dirs
-for d in ["bin", "dev", "etc", "lib", "mnt", "newroot", "proc", "root", "sbin", "sys","usr/bin"]:
+for d in ["bin", "dev", "etc", "lib64", "mnt", "newroot", "proc", "root", "sbin", "sys","usr/bin","usr/lib64"]:
    s("mkdir -p {}/{}".format(output,d))
+s("ln -s lib64 lib")
+os.chdir(output+"/usr/")
+s("ln -s lib64 lib")
+os.chdir(output)
+os.chdir(output+"/bin")
+s("ln -s bash sh")
+os.chdir(output)
+s("cp -a /dev/null /dev/console /dev/tty /dev/sda1 /dev/sda4 {}/dev/".format(output))
 
 #Create init file
 f=open("{}/init".format(output),"w")
 f.write(initfile)
 f.close()
+s("chmod 777 init")
 
-files=["/bin/bash", "/bin/bb",  "/bin/busybox",  "/bin/cat",  "/sbin/cryptsetup",  "/bin/cut",  "/sbin/e2fsck",  "/sbin/fsck.ext4",  "/usr/bin/hmac256",  "/usr/bin/mdev",  "/bin/mknod",  "/bin/mount",  "/bin/sh",  "/sbin/udevadm",  "/bin/umount"]
-for f in files:
-   s("cp {0} {1}{0}".format(f, output))
-   saved.add("{}{}".format(output,f))
+#Search recursively dependencies
+while lastsetcount!=len(saved):
+   tmp=set(saved)
+   lastsetcount=len(saved)
+   for p in tmp:
+      ldd(p)
+   #print (saved)
 
+#Copy files
+for f in saved:
+   s("cp  {0} {1}{0}".format(f, output))
+   saved.add("{}".format(f))
+s("cp usr/bin/* bin")
+s("cp sbin/* bin")
+
+#Create timestamp
+s("touch '{}/{}.txt'".format(output,datetime.datetime.now()))
 
 ## Genera el fichero
-s("find . | cpio -H newc -o > {}/initramfs.cpio".format(output))
-s("cat {0}/initramfs.cpio | gzip > {0}/initramfs.updated.gz".format(output))
-#s("rm {}/initramfs.cpio".format(output))
-#s("mv initramfs.updated.gz /boot/")
+s("find . -print0 | cpio --null -ov --format=newc > /boot/myinit.cpio".format(output))#Cuidado no generarlo en el mismo sitio se grew
+s("cat /boot/myinit.cpio | gzip -9 > /boot/myinit.gz".format(output))
+#s("cp {0}/myinit.gz /boot/".format(output))
 
 
 

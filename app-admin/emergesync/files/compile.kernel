@@ -1,9 +1,9 @@
 #!/bin/bash
-if [ $# -ne 1 ]
+if [ $# -ne 2 ]
 then
   echo "Programa que ayuda a la compilación de un nuevo kernel en Gentoo"
   echo "Se debe copiar el .config en el nuevo directorio y hacer # make oldconfig"
-  echo "Después se debe ejecutar: # compile.kernel hmacpass"
+  echo "Después se debe ejecutar: # compile.kernel hmacpass luks_dev"
   exit 65
 fi
 
@@ -17,10 +17,11 @@ make $MAKEOPTS
 make modules_install
 make install
 emerge @module-rebuild
+myinit $2
 hmac256 $1 /boot/vmlinuz
-hmac256 $1 /boot/initramfs.gz
+hmac256 $1 /boot/myinit.gz
 hmac256 $1 /boot/vmlinuz > /boot/vmlinuz.hmac
-hmac256 $1 /boot/initramfs.gz > /boot/initramfs.hmac
+hmac256 $1 /boot/myinit.gz > /boot/myinit.hmac
 lilo
 cd $CWD
 END=$(date +%s)
