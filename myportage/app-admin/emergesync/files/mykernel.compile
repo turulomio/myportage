@@ -1,15 +1,19 @@
 #!/bin/bash
-if [ $# -ne 1 ]
+if [ $# -ne 0 ]
 then
   echo "Programa que ayuda a la compilación de un nuevo kernel en Gentoo"
   echo "Se debe copiar el .config en el nuevo directorio y hacer # make oldconfig"
-  echo "Después se debe ejecutar: # compile.kernel hmacpass"
+  echo "Después se debe ejecutar: # compile.kernel"
   echo "Si la particion boot no es la sda1 y la luks la sda4, debes cambiar este script"
 fi
 
 START=$(date +%s)
 PROCS=`cat /proc/cpuinfo | grep processor |wc -l`
 MAKEOPTS="-j$PROCS"
+echo "Generando myinit.gz"
+mykernel.initramfs -b /dev/sda1 -e /dev/sda4
+echo "HMAC Password"
+read -s password
 echo "Compilando con $PROCS procesadores"
 CWD=`pwd`
 cd /usr/src/linux
@@ -17,12 +21,11 @@ make $MAKEOPTS
 make modules_install
 make install
 emerge @module-rebuild
-myinit -b /dev/sda1 -e /dev/sda4
 cd /boot
-hmac256 $1 vmlinuz
-hmac256 $1 myinit.gz
-hmac256 $1 vmlinuz > vmlinuz.hmac
-hmac256 $1 myinit.gz > myinit.hmac
+hmac256 $password vmlinuz
+hmac256 $password myinit.gz
+hmac256 $password vmlinuz > vmlinuz.hmac
+hmac256 $password myinit.gz > myinit.hmac
 mv *.hmac /usr/src
 lilo
 cd $CWD
