@@ -64,9 +64,6 @@ s("ln -s lib64 lib")
 os.chdir(output+"/usr/")
 s("ln -s lib64 lib")
 os.chdir(output)
-os.chdir(output+"/bin")
-s("ln -s bash sh")
-os.chdir(output)
 s("cp -a /dev/null /dev/console /dev/tty {} {}/dev/".format(args.encrypted, output))
 
 #Create init file

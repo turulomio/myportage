@@ -8,7 +8,10 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-DEPEND=""
+DEPEND="
+dev-lang/python
+sys-apps/busybox
+sys-fs/cryptsetup"
 
 src_install(){
 	dobin ${FILESDIR}/e*
