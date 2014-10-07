@@ -11,7 +11,7 @@ START=$(date +%s)
 PROCS=`cat /proc/cpuinfo | grep processor |wc -l`
 MAKEOPTS="-j$PROCS"
 echo "Generando myinit.gz"
-mykernel.initramfs -b /dev/sda1 -e /dev/sda4
+mykernel.initramfs -e /dev/sda4
 echo "HMAC Password"
 read -s password
 echo "Compilando con $PROCS procesadores"
