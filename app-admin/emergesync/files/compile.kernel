@@ -1,10 +1,10 @@
 #!/bin/bash
-if [ $# -ne 2 ]
+if [ $# -ne 1 ]
 then
   echo "Programa que ayuda a la compilación de un nuevo kernel en Gentoo"
   echo "Se debe copiar el .config en el nuevo directorio y hacer # make oldconfig"
-  echo "Después se debe ejecutar: # compile.kernel hmacpass luks_dev"
-  exit 65
+  echo "Después se debe ejecutar: # compile.kernel hmacpass"
+  echo "Si la particion boot no es la sda1 y la luks la sda4, debes cambiar este script"
 fi
 
 START=$(date +%s)
@@ -17,11 +17,13 @@ make $MAKEOPTS
 make modules_install
 make install
 emerge @module-rebuild
-myinit $2
-hmac256 $1 /boot/vmlinuz
-hmac256 $1 /boot/myinit.gz
-hmac256 $1 /boot/vmlinuz > /boot/vmlinuz.hmac
-hmac256 $1 /boot/myinit.gz > /boot/myinit.hmac
+myinit -b /dev/sda1 -e /dev/sda4
+cd /boot
+hmac256 $1 vmlinuz
+hmac256 $1 myinit.gz
+hmac256 $1 vmlinuz > vmlinuz.hmac
+hmac256 $1 myinit.gz > myinit.hmac
+mv *.hmac /usr/src
 lilo
 cd $CWD
 END=$(date +%s)

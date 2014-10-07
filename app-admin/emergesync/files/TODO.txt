@@ -1,0 +1,1 @@
+20141007 Hacer script que compruebe /boot/hmac con /usr/src( desde directorio) y compruebe /usr/src y hmac
