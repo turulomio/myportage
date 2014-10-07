@@ -7,7 +7,6 @@ def s(command):
 def ldd(program):
    """Function that gets a program or lib and gets all shared dependencies.
       They are added to saved set"""
-   #print("**** ldd", program)
    for line in os.popen("ldd -v {}".format(program)):
       if line.find("no es un ejecutable")>=0:
          return
@@ -17,10 +16,8 @@ def ldd(program):
          dep=line.strip().split(":")[0]
          if dep not in (saved):
             saved.add(dep)
-            #print (dep)
-
-
 ###########################
+
 dt=str(datetime.datetime.now()).split(".")[0].replace("-","").replace(" ","").replace(":","")
 output="/tmp/myinit-{}/".format(dt)
 
@@ -29,7 +26,7 @@ parser.add_argument('-b', '--boot', help='Where /boot partition is', default='/d
 parser.add_argument('-e', '--encrypted', help='Where encrypted device is', default='/dev/sda4')
 args=parser.parse_args()
 
-saved=set(["/bin/bash",  "/bin/busybox", "/sbin/cryptsetup", "/sbin/fsck.ext4",  "/usr/bin/hmac256", "/bin/mount", "/bin/umount", "/lib/ld-linux-x86-64.so.2"])#long path, dictionary with all saved in path, all dependencies must be in this set
+saved=set(["/bin/busybox", "/sbin/cryptsetup", "/sbin/fsck.ext4", "/lib/ld-linux-x86-64.so.2"])#long path, dictionary with all saved in path, all dependencies must be in this set
 
 lastsetcount=0
 
@@ -40,14 +37,7 @@ mount -t sysfs sysfs /sys
 
 echo 0 > /proc/sys/kernel/printk
 
-echo "HMAC Password";
-mount {1} /mnt
-read -r a
-hmac256 $a /mnt/vmlinuz
-hmac256 $a /mnt/myinit.gz
-umount /mnt
-
-ls /mnt
+fsck.ext4 {1}
 
 cryptsetup luksOpen {0} root
 fsck.ext4 /dev/mapper/root
@@ -68,7 +58,7 @@ s("mkdir {}".format(output))
 os.chdir(output)
 
 #Make dirs
-for d in ["bin", "dev", "etc", "lib64", "mnt", "newroot", "proc", "root", "sbin", "sys","usr/bin","usr/lib64"]:
+for d in ["bin", "dev", "etc", "lib64", "boot","mnt", "newroot", "proc", "root", "sbin", "sys","usr/bin","usr/lib64"]:
    s("mkdir -p {}/{}".format(output,d))
 s("ln -s lib64 lib")
 os.chdir(output+"/usr/")
@@ -91,22 +81,18 @@ while lastsetcount!=len(saved):
    lastsetcount=len(saved)
    for p in tmp:
       ldd(p)
-   #print (saved)
 
 #Copy files
 for f in saved:
    s("cp  {0} {1}{0}".format(f, output))
    saved.add("{}".format(f))
-s("cp usr/bin/* bin")
-s("cp sbin/* bin")
 
 #Create timestamp
 s("touch '{}/{}.txt'".format(output,datetime.datetime.now()))
 
 ## Genera el fichero
-s("find . -print0 | cpio --null -ov --format=newc > /boot/myinit.cpio".format(output))#Cuidado no generarlo en el mismo sitio se grew
-s("cat /boot/myinit.cpio | gzip -9 > /boot/myinit.gz".format(output))
-#s("cp {0}/myinit.gz /boot/".format(output))
+s("find . -print0 | cpio --null -ov --format=newc > /tmp/myinit.cpio".format(output))#Cuidado no generarlo en el mismo sitio se grew
+s("cat /tmp/myinit.cpio | gzip -9 > /boot/myinit.gz".format(output))
 
 
 
