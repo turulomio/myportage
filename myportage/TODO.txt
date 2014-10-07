@@ -6,6 +6,3 @@
 20120127 En q3rally el binario está fuera de los binarios
 20140125 Sigue sin funcionaar mailme-clamav
 20140125 Añadir view3dscene, x3dom, x3dedit, makehuman
-20140927 Parche de Navit modificar
-20140927 Probar Luks con Grubs
-20140927 Hacer compile.kernel.grubs
