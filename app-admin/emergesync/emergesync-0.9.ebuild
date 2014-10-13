@@ -9,6 +9,7 @@ SLOT="0"
 KEYWORDS="x86 amd64"
 
 DEPEND="
+app-arch/cpio
 dev-lang/python
 sys-apps/busybox
 sys-fs/cryptsetup"
