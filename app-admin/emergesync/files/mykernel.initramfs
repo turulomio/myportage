@@ -1,5 +1,19 @@
-#!/usr//bin/python3
-import datetime, os, argparse
+#!/usr/bin/python3
+import datetime, os, argparse, sys
+
+def version():
+    if os.path.exists("/usr/src/linux/Makefile"):
+       f=open("/usr/src/linux/Makefile")
+       version=f.readline().split(" = ")[1].strip()
+       subversion=f.readline().split(" = ")[1].strip()
+       subsubversion=f.readline().split(" = ")[1].strip()
+       subsubsubversion=f.readline().split(" = ")[1].strip()
+       s="{}.{}.{}{}".format(version,subversion,subsubversion,subsubsubversion)
+       print ("Version detected: {}".format(s))
+    else:
+       print ("Version not detected")
+       sys.exit(255)
+    return s
 
 def s(command):
     os.system(command)
@@ -28,6 +42,7 @@ args=parser.parse_args()
 saved=set(["/bin/busybox","/sbin/cryptsetup", "/sbin/fsck.ext4"])
 saved.add("/lib/ld-linux-x86-64.so.2")#Si falla comand unknown será por este
 
+vers=version()
 lastsetcount=0
 
 initfile="""#!/bin/busybox sh
@@ -50,6 +65,8 @@ if [[ -x "/newroot/sbin/init" ]] ; then
 fi
 
 echo "Failed to init Gentoo..."
+busybox --install -s
+exec /bin/sh
 """.format(args.encrypted)
 
 s("rm -Rf {}".format(output))
@@ -89,4 +106,10 @@ s("touch '{}/{}.txt'".format(output,datetime.datetime.now()))
 
 ## Genera el fichero
 s("find . -print0 | cpio --null -o --format=newc > /tmp/myinit.cpio".format(output))#Cuidado no generarlo en el mismo sitio se grew
-s("cat /tmp/myinit.cpio | gzip -9 > /boot/myinit.gz".format(output))
+s("cat /tmp/myinit.cpio | gzip -9 > /boot/myinit-{}.gz".format(vers))
+try:
+    s("rm /boot/myinit.gz")
+except:
+    pass
+os.chdir("/boot")
+s("ln -s myinit-{}.gz myinit.gz".format(vers))
