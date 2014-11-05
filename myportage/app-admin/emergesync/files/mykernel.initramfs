@@ -39,13 +39,14 @@ parser=argparse.ArgumentParser("Initramfs generator for luks root partition")
 parser.add_argument('-e', '--encrypted', help='Where encrypted device is', default='/dev/sda4')
 args=parser.parse_args()
 
-saved=set(["/bin/busybox","/sbin/cryptsetup", "/sbin/fsck.ext4"])
+saved=set(["/bin/sh", "/bin/echo", "/bin/mount", "/bin/umount","/sbin/cryptsetup", "/sbin/fsck.ext4","/sbin/switch_root"])
 saved.add("/lib/ld-linux-x86-64.so.2")#Si falla comand unknown será por este
 
 vers=version()
 lastsetcount=0
 
-initfile="""#!/bin/busybox sh
+initfile="""#!/bin/sh
+
 mount -t devtmpfs none /dev
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
@@ -56,17 +57,14 @@ cryptsetup luksOpen {0} root
 fsck.ext4 /dev/mapper/root
 mount /dev/mapper/root /newroot
 
-umount -f /dev
-umount -f /proc
-umount -f /sys
+umount /proc
+umount /sys
 
 if [[ -x "/newroot/sbin/init" ]] ; then
         exec switch_root /newroot /sbin/init
 fi
 
 echo "Failed to init Gentoo..."
-busybox --install -s
-exec /bin/sh
 """.format(args.encrypted)
 
 s("rm -Rf {}".format(output))
