@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Generador de claves wpa para Wlan_XXXX, Jazztel_XXXX."
 HOMEPAGE="http://www.seguridadwireless.net"
-SRC_URI="http://www.bitsdelocos.es/SW/WPAmagickey-${PV}.tar.gz"
+SRC_URI="http://www.seguridadwireless.net/archivos/WPAmagickey-${PV}.tar.gz"
 IUSE=""
 
 LICENSE="GPL-3"
@@ -21,11 +21,10 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}/WPAmagickey-${PV}"
 
 src_unpack() {
-    tar xf /usr/portage/distfiles/${A}
+	tar xf "${DISTDIR}"/WPAmagickey-"${PV}".tar.gz
 }
 
 src_install() {
 	dobin wpamagickey
 	dodoc leeme.txt
 }
-
