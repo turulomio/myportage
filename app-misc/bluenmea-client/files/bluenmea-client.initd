@@ -1,0 +1,23 @@
+#!/sbin/runscript
+
+depend() {
+	need net
+	after logger
+}
+
+start() {
+	ebegin "Starting bluenmea-client"
+	socat "TCP:${ADDRESS}:${PORT}" PTY,link=/dev/gps &
+	sleep 1
+	chmod 644 /dev/gps
+	gpsd /dev/gps
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping bluenmea-client"
+	killall -9 socat
+	killall -9 gpsd
+	rm  /dev/gps
+	eend $?
+}
