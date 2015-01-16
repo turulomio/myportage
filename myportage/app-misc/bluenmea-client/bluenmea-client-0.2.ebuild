@@ -8,7 +8,10 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-DEPEND="sci-geosciences/gpsd"
+DEPEND="
+net-misc/socat
+sci-geosciences/gpsd
+"
 
 src_install(){
 	exeinto /etc/init.d/
