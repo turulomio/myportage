@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+import argparse
+import datetime
+import os
+import pygame
+import pygame.camera
+
+
+parser=argparse.ArgumentParser(description="Webcam snapshot from console")
+parser.add_argument('-o', '--output', help='Root directory to save snapshots', default='/var/lib/webcam-snapshots')
+parser.add_argument('-d', '--device', help='Webcam device', default='/dev/video0')
+parser.add_argument('-W', '--width', help='Snaphost width', default=640)
+parser.add_argument('-H', '--height', help='Snaphost height', default=480)
+args=parser.parse_args()
+
+now=datetime.datetime.now()
+dir=args.output+"/"+now.strftime("%Y%m%d/")
+file=now.strftime("%Y%m%d_%H%M%S.jpg")
+try:
+    os.makedirs (dir)
+except:
+    pass
+
+pygame.camera.init()
+#pygame.camera.list_camera() #Camera detected or not
+cam = pygame.camera.Camera(args.device,(args.width,args.height))
+cam.start()
+img = cam.get_image()
+pygame.image.save(img, dir +file)
+print ("Saved image in {}".format(dir+file))
