@@ -10,6 +10,7 @@ KEYWORDS="x86 amd64"
 
 DEPEND="
 app-arch/cpio
+app-portage/layman
 dev-lang/python
 sys-fs/cryptsetup"
 
