@@ -1,0 +1,19 @@
+#!/bin/bash
+if [ "$#" -ne 2 ]; then
+  echo "Usage: bdsync-local source_device destiny_file.
+  It gets source_device and syncs to destiny_file. Needs root permissions."
+  exit 1
+fi
+size=`blockdev --getsize64 $1`
+echo "Syncing $1 to $2 (Size: $size)"
+fallocate -l $size "$2"
+START=$(date +%s)
+bdsync -v "bdsync -s" $1 "$2" | bdsync --patch="$2" 
+END=$(date +%s)
+DIFF=$(( $END - $START ))
+echo "It took $DIFF seconds"
+
+if [ $DIFF -ne 0 ]; then
+  echo "Speed $(($size / $DIFF / 1024 /1024)) Megabytes/s"
+fi
+exit 0
