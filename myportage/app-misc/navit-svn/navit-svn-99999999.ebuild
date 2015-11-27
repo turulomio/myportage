@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
-inherit eutils autotools subversion
-ESVN_REPO_URI="https://navit.svn.sourceforge.net/svnroot/navit/trunk/navit"
+inherit git-r3 eutils autotools
+EGIT_REPO_URI="git://github.com/navit-gps/navit.git"
 DESCRIPTION="An open-source vector based car navigation system with a routing engine."
 HOMEPAGE="http://www.navit-project.org"
 
@@ -17,6 +17,11 @@ KEYWORDS="~amd64 ~arm ~x86"
 DEPEND="
 sci-geosciences/gpsd
 "
+
+src_unpack(){
+	git-r3_fetch
+	git-r3_checkout
+}
 
 src_prepare(){
 	epatch "${FILESDIR}"/coordsearch.patch
