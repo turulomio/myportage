@@ -94,6 +94,9 @@ class SetFilms:
 		self.arr=[]
 		self.mem=mem
 
+	def length(self):
+		return len(self.arr)
+
 	def load(self,sql):
 		cur=self.mem.con.cursor()
 		cur.execute(sql)
@@ -264,7 +267,7 @@ elif args.generate==True:
 	bd=bd + "\\begin{center}\n"
 	bd=bd + "\\section*{Listado de películas}\n\n"
 	bd=bd + "\\addcontentsline{toc}{section}{Listado de películas}\n"
-	bd=bd + "Esta versión es del día " + str(datetime.date.today()) + "\n"
+	bd=bd + "Este listado tiene {0} películas y fue generado el día {1}\n".format(sf.length(), datetime.date.today())
 	bd=bd + "\\end{center}\n"
 	bd=bd +"\\tableofcontents{ }\n"
 	bd=bd +"\\newpage\n"
