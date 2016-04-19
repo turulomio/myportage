@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+
 inherit subversion autotools eutils
 
 ESVN_REPO_URI="https://svn.code.sf.net/p/xulpymoney/code/xulpymoney"
@@ -17,8 +19,8 @@ KEYWORDS="x86 amd64"
 
 DEPEND="
 dev-python/psycopg
-dev-python/matplotlib
-dev-python/PyQt4
+dev-python/matplotlib[qt5]
+dev-python/PyQt5
 dev-python/pytz
 "
 
