@@ -20,7 +20,7 @@ KEYWORDS="x86 amd64"
 DEPEND="
 dev-python/psycopg
 dev-python/matplotlib[qt5]
-dev-python/PyQt5[printsupport,qtwebkit]
+dev-python/PyQt5[printsupport,webkit]
 dev-python/pytz
 "
 
