@@ -13,8 +13,11 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-DEPEND="app-misc/navit
-media-sound/sox"
+DEPEND="
+app-accessibility/espeak
+app-misc/navit
+media-sound/sox
+"
 
 src_compile(){
 	elog "Nothing to compile"
