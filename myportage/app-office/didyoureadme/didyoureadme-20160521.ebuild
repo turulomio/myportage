@@ -17,10 +17,9 @@ KEYWORDS="x86 amd64"
 
 DEPEND="
 >=dev-lang/python-3.0.0[sqlite]
-dev-python/PyQt4
+dev-python/PyQt5
 dev-python/psycopg
 dev-python/pytz
-dev-python/bottle
 "
 
 RDEPEND="${DEPEND}"
