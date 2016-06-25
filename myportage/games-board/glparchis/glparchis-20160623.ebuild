@@ -7,9 +7,9 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${P}/${PN}-src-linux-${PV}.tar.gz"
+SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${P}/${PN}-src-${PV}.tar.gz"
 DEPEND="
-dev-python/PyQt4[phonon]
+dev-python/PyQt5
 dev-python/pyopengl
 "
 RDEPEND=${DEPEND}
