@@ -13,7 +13,8 @@ IUSE=""
 SRC_URI="mirror://sourceforge/project/devicesinlan/devicesinlan/${PV}/devicesinlan-${PV}.tar.gz"
 
 DEPEND="
-net-analyzer/arp-scan
+dev-python/PyQt5
+dev-python/netifaces
 "
 
 
