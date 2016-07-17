@@ -19,7 +19,7 @@ dev-python/netifaces
 
 
 src_compile(){
-        ewarn "Nothing to compile"
+        einfo "Nothing to compile"
 }
 
 src_install(){
