@@ -6,7 +6,7 @@ inherit subversion autotools eutils
 
 IUSE=""
 ESVN_REPO_URI="svn://svn.code.sf.net/p/xulpymoney/code/navit-mytools"
-DESCRIPTION="Utilidades para navit"
+DESCRIPTION="My tools for navit"
 HOMEPAGE=""
 LICENSE="GPL-2"
 
@@ -20,10 +20,9 @@ media-sound/sox
 "
 
 src_compile(){
-	elog "Nothing to compile"
+	ewarn "Nothing to compile"
 }
 
 src_install(){
-	dodir /usr/share/navit/maps
-	dobin *
+	make install|| die
 }
