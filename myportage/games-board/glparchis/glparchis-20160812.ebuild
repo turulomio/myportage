@@ -9,7 +9,7 @@ KEYWORDS="x86 amd64"
 
 SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${P}/${PN}-src-${PV}.tar.gz"
 DEPEND="
-dev-python/PyQt5
+dev-python/PyQt5[gui,multimedia,opengl,network,printsupport,webkit,widgets]
 dev-python/pyopengl
 "
 RDEPEND=${DEPEND}
