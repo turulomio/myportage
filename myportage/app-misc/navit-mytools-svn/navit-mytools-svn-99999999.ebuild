@@ -17,6 +17,7 @@ DEPEND="
 app-accessibility/espeak
 app-misc/navit
 media-sound/sox
+net-analyzer/netcat
 "
 
 src_compile(){
@@ -24,5 +25,5 @@ src_compile(){
 }
 
 src_install(){
-	make install|| die
+        emake DESTDIR="${D}" install || die "Install failed"
 }
