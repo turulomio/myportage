@@ -208,15 +208,8 @@ if args.insert==True:# insertar
 
 	print ("+ Comprobando que el nombre de los videos y las imágenes tienen el formato correcto")
 	for file in glob.glob( os.getcwd()+ "/*.jpg" ):
-		if os.path.exists(file[:-3]+"avi") ==False:
-			print ("No existe " +  file[:-3]+"avi")
-			sys.exit(100)
-		else:
-			continue
-		if os.path.exists(file[:-3]+"mpg") ==False:
-			print ("No existe " +  file[:-3]+"mpg" )
-		else:
-			continue
+		if os.path.exists(file[:-3]+"avi")==False and os.path.exists(file[:-3]+"mpg")==False and os.path.exists(file[:-3]+"mkv")==False:
+			print ("No existe un video con el mismo nombre '" +  file[:-3]+"'")
 			sys.exit(100)
 
 	sf=SetFilms(mem)
