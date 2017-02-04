@@ -23,9 +23,9 @@ src_unpack(){
 	git-r3_checkout
 }
 
-src_prepare(){
-	epatch "${FILESDIR}"/coordsearch.patch
-}
+#src_prepare(){
+#	epatch "${FILESDIR}"/coordsearch.patch
+#}
 
 src_configure() {
 	mkdir build
