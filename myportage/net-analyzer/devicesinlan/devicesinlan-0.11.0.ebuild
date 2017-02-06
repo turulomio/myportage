@@ -12,6 +12,7 @@ SRC_URI="mirror://sourceforge/project/devicesinlan/devicesinlan/${PV}/devicesinl
 
 DEPEND="
 dev-python/PyQt5[widgets,gui]
+dev-python/colorama
 dev-python/netifaces
 "
 
