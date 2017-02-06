@@ -8,13 +8,11 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-
-IUSE="gui"
 SRC_URI="mirror://sourceforge/project/devicesinlan/devicesinlan/${PV}/devicesinlan-${PV}.tar.gz"
 
 DEPEND="
-gui? ( dev-python/PyQt5[widgets,gui] )
-!gui? ( dev-python/PyQt5 )
+dev-python/PyQt5[widgets,gui]
+dev-python/colorama
 dev-python/netifaces
 "
 
