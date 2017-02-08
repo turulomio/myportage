@@ -14,14 +14,16 @@ DEPEND="
 dev-python/PyQt5[widgets,gui]
 dev-python/colorama
 dev-python/netifaces
+sys-apps/man
 "
 
 
 src_compile(){
-        einfo "Nothing to compile"
+	einfo "Nothing"
 }
 
 src_install(){
+        emake DESTDIR="${D}" man|| die "Compile failed"
         emake DESTDIR="${D}" install || die "Install failed"
 }
 
