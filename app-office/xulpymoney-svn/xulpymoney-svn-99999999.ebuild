@@ -24,6 +24,7 @@ dev-python/PyQt5[printsupport,webkit]
 dev-python/pytz
 dev-qt/linguist-tools
 dev-python/PyQtChart
+dev-python/colorama
 "
 
 RDEPEND="${DEPEND}"
