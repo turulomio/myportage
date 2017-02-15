@@ -33,7 +33,7 @@ QT_PV="5.7.1:5"
 RDEPEND="
 	${PYTHON_DEPS}
 	>=dev-python/sip-4.19:=[${PYTHON_USEDEP}]
-	>=dev-qt/qtchart-${QT_PV}
+	>=dev-qt/qtcharts-${QT_PV}
 "
 DEPEND="${RDEPEND}
 "

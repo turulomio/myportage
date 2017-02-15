@@ -23,6 +23,7 @@ dev-python/matplotlib[qt5]
 dev-python/PyQt5[printsupport,webkit]
 dev-python/pytz
 dev-qt/linguist-tools
+dev-python/PyQtChart
 "
 
 RDEPEND="${DEPEND}"
