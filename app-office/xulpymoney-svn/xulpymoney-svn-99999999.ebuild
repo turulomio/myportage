@@ -22,6 +22,7 @@ dev-python/psycopg
 dev-python/matplotlib[qt5]
 dev-python/PyQt5[printsupport,webkit]
 dev-python/pytz
+dev-python/odfpy
 dev-qt/linguist-tools
 dev-python/PyQtChart
 dev-python/colorama
