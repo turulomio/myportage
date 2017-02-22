@@ -23,7 +23,6 @@ src_compile(){
 }
 
 src_install(){
-        emake DESTDIR="${D}" man|| die "Compile failed"
         emake DESTDIR="${D}" install || die "Install failed"
 }
 
