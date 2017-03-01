@@ -32,9 +32,9 @@ RDEPEND="${DEPEND}"
 
 
 src_compile(){
-        emake compile || die "Error compiling"
+       true
 }
 
 src_install(){
-        emake DESTDIR="${D}" install || die "Install failed"
+        python3 Makefile.py --destdir "${D}"|| die "Install failed"
 }
