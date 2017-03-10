@@ -20,7 +20,7 @@ KEYWORDS="x86 amd64"
 DEPEND="
 dev-python/psycopg
 dev-python/matplotlib[qt5]
-dev-python/PyQt5[printsupport,webkit]
+dev-python/PyQt5[printsupport,webengine,gui,widgets]
 dev-python/pytz
 dev-python/odfpy
 dev-qt/linguist-tools
@@ -32,7 +32,7 @@ RDEPEND="${DEPEND}"
 
 
 src_compile(){
-       true
+       python3 Makefile.py --compile
 }
 
 src_install(){
