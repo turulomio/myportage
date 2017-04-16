@@ -16,6 +16,7 @@ KEYWORDS="~amd64 ~arm ~x86"
 
 DEPEND="
 sci-geosciences/gpsd
+dev-qt/qtsensors:5
 "
 
 src_unpack(){
@@ -23,9 +24,6 @@ src_unpack(){
 	git-r3_checkout
 }
 
-#src_prepare(){
-#	epatch "${FILESDIR}"/coordsearch.patch
-#}
 
 src_configure() {
 	mkdir build
