@@ -16,6 +16,7 @@ KEYWORDS="x86 amd64"
 DEPEND="
 app-accessibility/espeak
 app-misc/navit
+dev-python/psutil
 media-sound/sox
 net-analyzer/netcat
 "
