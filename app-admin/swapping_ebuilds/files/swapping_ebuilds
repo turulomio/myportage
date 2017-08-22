@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+from datetime import datetime
+from psutil import swap_memory, process_iter
+from time import sleep
+while True:
+    package=""
+    try:
+        for proc in process_iter():
+            for word in proc.cmdline():
+                if word.endswith("] sandbox"):
+                    package=word.replace(" sandbox","")
+    except:
+        pass
+
+    used=swap_memory().used
+
+    s="{} {} {}".format(datetime.now(), package, used)
+
+    if used>500*1024*1024:
+        f=open("/var/lib/swapping_ebuilds.txt","a")
+        f.write(s+"\n")
+        f.close()
+        print (s, "Logging...")
+    else:
+        print (s)
+    sleep(60)
