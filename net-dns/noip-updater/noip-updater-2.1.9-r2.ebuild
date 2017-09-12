@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI=5
-inherit eutils readme.gentoo systemd toolchain-funcs
+inherit eutils readme.gentoo-r1 systemd toolchain-funcs
 
 MY_P=${P/-updater/}
 DESCRIPTION="no-ip.com dynamic DNS updater"
