@@ -17,6 +17,7 @@ dev-python/psutil
 dev-python/cx-oracle
 dev-python/openpyxl
 dev-python/odfpy
+=dev-db/oracle-instantclient-sqlplus-11.2.0.4
 "
 RDEPEND=${DEPEND}
 
