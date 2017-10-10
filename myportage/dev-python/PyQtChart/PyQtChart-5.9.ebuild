@@ -28,7 +28,7 @@ REQUIRED_USE="
 "
 
 # Minimal supported version of Qt.
-QT_PV="5.7.1:5"
+QT_PV="5.9:5"
 
 RDEPEND="
 	${PYTHON_DEPS}
