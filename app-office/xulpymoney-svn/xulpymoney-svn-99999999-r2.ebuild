@@ -19,20 +19,20 @@ KEYWORDS="x86 amd64"
 
 DEPEND="
 dev-python/psycopg
-dev-python/matplotlib[qt5]
 dev-python/PyQt5[printsupport,webengine,gui,widgets]
 dev-python/pytz
 dev-python/odfpy
 dev-qt/linguist-tools
 dev-python/PyQtChart
 dev-python/colorama
+dev-python/googlefinance_client
 "
 
 RDEPEND="${DEPEND}"
 
 
 src_compile(){
-       python3 Makefile.py --compile
+      true
 }
 
 src_install(){
