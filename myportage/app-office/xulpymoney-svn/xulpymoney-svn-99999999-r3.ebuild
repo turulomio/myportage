@@ -25,7 +25,6 @@ dev-python/odfpy
 dev-qt/linguist-tools
 dev-python/PyQtChart
 dev-python/colorama
-dev-python/googlefinance_client
 "
 
 RDEPEND="${DEPEND}"
