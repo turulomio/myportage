@@ -28,7 +28,7 @@ RDEPEND="dev-libs/glib:2
 		media-libs/quesoglc )
 	python? ( dev-lang/python )
 	dbus? ( sys-apps/dbus )
-	gps? ( <sci-geosciences/gpsd-3.12 )
+	gps? ( sci-geosciences/gpsd )
 	speechd? ( app-accessibility/speech-dispatcher )"
 
 DEPEND="${RDEPEND}
@@ -52,7 +52,7 @@ src_configure() {
 src_install () {
         elog "${WORKDIR} ${D}"
 	cmake-utils_src_install
-	dodoc AUTHORS ChangeLog || die "dodoc failed"
+	dodoc AUTHORS || die "dodoc failed"
 	cp ${WORKDIR}/navit-99999999_build/navit/navit.xml ${D}/usr/share/navit/navit.xml.dist
 }
 
