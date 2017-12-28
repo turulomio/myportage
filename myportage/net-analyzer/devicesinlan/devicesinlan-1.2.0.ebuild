@@ -14,7 +14,7 @@ DEPEND="
 dev-python/PyQt5[widgets,gui]
 dev-python/colorama
 dev-python/netifaces
-sys-apps/man
+sys-apps/man-db
 "
 
 
@@ -23,6 +23,6 @@ src_compile(){
 }
 
 src_install(){
-        emake DESTDIR="${D}" install || die "Install failed"
+        python3 Makefile.py --destdir "${D}" || die "Install failed"
 }
 
