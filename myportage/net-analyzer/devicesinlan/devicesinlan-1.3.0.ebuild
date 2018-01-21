@@ -10,19 +10,22 @@ KEYWORDS="x86 amd64"
 
 SRC_URI="mirror://sourceforge/project/devicesinlan/devicesinlan/${PV}/devicesinlan-${PV}.tar.gz"
 
+IUSE="gui"
 DEPEND="
-dev-python/PyQt5[widgets,gui]
-dev-python/colorama
-dev-python/netifaces
-sys-apps/man-db
+    gui? ( dev-python/PyQt5[widgets,gui] )
+    dev-python/colorama
 "
 
 
 src_compile(){
-	einfo "Nothing"
+    einfo "Nothing"
 }
 
 src_install(){
-        python3 Makefile.py --destdir "${D}" || die "Install failed"
+    if use gui ; then
+        python3 Makefile.py --install_all "${D}" || die "Install failed"
+    else
+        python3 Makefile.py --install_console "${D}" || die "Install failed"
+    fi
 }
 
