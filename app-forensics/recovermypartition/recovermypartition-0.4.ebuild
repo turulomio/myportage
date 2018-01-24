@@ -5,7 +5,7 @@
 EAPI="5"
 
 IUSE=""
-SRC_URI="mirror://sourceforge/project/recovermypartit/recovermypartit/${PV}/recovermypartit-${PV}.tar.gz"
+SRC_URI="mirror://sourceforge/project/recovermypartit/recovermypartit/${PV}/recovermypartition-${PV}.tar.gz"
 DESCRIPTION="Makes forensics from a partition"
 HOMEPAGE="http://recovermypartition.sourceforge.net"
 LICENSE="GPL-3"
@@ -14,17 +14,19 @@ SLOT="0"
 KEYWORDS="x86 amd64"
 
 DEPEND="
+dev-python/PyQt5
 app-forensics/sleuthkit
 app-forensics/foremost
+dev-python/colorama
 "
-S=${WORKDIR}/recovermypartit-${PV}
+S=${WORKDIR}/recovermypartition-${PV}
 
 RDEPEND="${DEPEND}"
 
 src_compile(){
-     emake compile|| die "Error compiling"
+     einfo "Nothing to compile"
 }
 
 src_install(){
-     emake DESTDIR="${D}/usr" install || die "Install failed"
+     python3 Makefile.py --install "${D}/" || die "Install failed"
 }
