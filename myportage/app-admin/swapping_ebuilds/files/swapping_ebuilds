@@ -28,6 +28,9 @@ class SetPackages:
             if rep!=None:
                 reports.append(rep)
 
+        if len(reports)==0:
+            return
+
         last_report=reports[0]
         package=Package()
         for r in reports:
@@ -36,7 +39,9 @@ class SetPackages:
             else:
                  self.arr.append(package)
                  package=Package()
+                 package.arr.append(r)
             last_report=r
+        self.arr.append(package)
 
     def print(self):
         for p in self.arr:
