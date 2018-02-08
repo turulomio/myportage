@@ -1,14 +1,11 @@
 #!/usr/bin/python3
 import argparse
-from datetime import datetime
+import sys
+from os import path
+from datetime import datetime, timedelta, date
+from humanize import filesize
 from psutil import swap_memory, process_iter
 from time import sleep
-
-parser=argparse.ArgumentParser()
-group1=parser.add_mutually_exclusive_group(required=True)
-group1.add_argument('--analyze', help='XULPYMONEY code', action='store_true', default=False)
-group1.add_argument('--get', help='XULPYMONEY code', action='store_true',default=False)
-args=parser.parse_args()
 
 
 class SetPackages:
@@ -45,7 +42,7 @@ class SetPackages:
 
     def print(self):
         for p in self.arr:
-            print ("{} ({}) [{}] has {} reports ({} per hour) with {} of swap average".format(p.datetime(), p.duration(),p.name(),p.num_reports(), int(p.reports_per_hour()),int(p.average_swap())))
+            print ("{} ({}) [{}] has {} reports ({} per hour) with {} of swap average".format(p.datetime(), p.duration(),p.name(),p.num_reports(), int(p.reports_per_hour()),filesize.naturalsize(int(p.average_swap()))))
 
 
 class Package:
@@ -65,6 +62,8 @@ class Package:
         return len(self.arr)
 
     def duration(self):
+        if len(self.arr)==1:
+            return timedelta(seconds=60)
         return self.arr[len(self.arr)-1].datetime-self.arr[0].datetime
 
     def datetime(self):
@@ -86,6 +85,8 @@ class Report:
     def init__from_line(self,line):
         try:
             line=line[:-1]
+            if line.find("  ")!=-1:#Not good line
+                return None
             str_datetime=line.split(" [")[0]
             self.datetime=datetime.strptime(str_datetime, "%Y-%m-%d %H:%M:%S.%f")
             self.name=line.split(" [")[1].split("] ")[0]
@@ -97,6 +98,28 @@ class Report:
 
     def __repr__(self):
         return "{} {} {}".format(self.datetime,self.name,self.swap)
+####################################################################################################
+
+version_date=date(2018,2,8)
+version_string=str(version_date).replace("-","")
+description="This app logs in /var/lib/swapping_ebuilds.txt when compiling gentoo packages and swap is over an amount of MB. This allow you to change in package.env the number of processors used, to decrease swapping and improve ebuild time compilation"
+epilog="Developed by Mariano Muñoz 2017-{}".format(version_date.year)
+parser=argparse.ArgumentParser(description=description,epilog=epilog)
+parser.add_argument('--version',action='version', version=version_string)
+group1=parser.add_mutually_exclusive_group(required=True)
+group1.add_argument('--analyze', help='Analyze log', action='store_true', default=False)
+group1.add_argument('--get', help='Generate log', action='store_true',default=False)
+parser.add_argument('--megabytes', help='Minimum megabytes swap amount to be logged. Default is 500MB', action='store', default=500,metavar="MB")
+args=parser.parse_args()
+
+try:
+    args.megabytes=int(args.megabytes)
+except:
+    print("Please add a int to the megabytes argument")
+    sys.exit(0)
+
+filename="/var/lib/swapping_ebuilds.txt"
+
 if args.get:
     while True:
         package=""
@@ -112,8 +135,8 @@ if args.get:
 
         s="{} {} {}".format(datetime.now(), package, used)
 
-        if used>500*1024*1024:
-            f=open("/var/lib/swapping_ebuilds.txt","a")
+        if used>args.megabytes*1024*1024:
+            f=open(filename,"a")
             f.write(s+"\n")
             f.close()
             print (s, "Logging...")
@@ -122,5 +145,8 @@ if args.get:
         sleep(60)
 
 if args.analyze:
+    if path.exists(filename)==False:
+        print("Use swapping_ebuilds --get, first to collect data")
+        sys.exit(0)
     set=SetPackages()
     set.print()
