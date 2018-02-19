@@ -14,6 +14,7 @@ IUSE="gui"
 DEPEND="
     gui? ( dev-python/PyQt5[widgets,gui] )
     dev-python/colorama
+    dev-python/PyQt5[network]
 "
 
 
