@@ -1,4 +1,4 @@
-EAPI=3
+EAPI=6
 inherit autotools eutils
 DESCRIPTION="OpenGL Parchis"
 HOMEPAGE="http://glparchis.sourceforge.net"
