@@ -15,7 +15,7 @@ dev-python/pyopengl
 RDEPEND=${DEPEND}
 
 src_compile(){
-        elog "Nothing to compile"
+        ewarn "Nothing to compile"
 }
 
 src_install(){
