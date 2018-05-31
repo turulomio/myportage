@@ -14,6 +14,7 @@ ESVN_PASSWORD="guested"
 DEPEND="
 app-misc/rlwrap
 dev-python/psutil
+dev-python/colorama
 dev-python/cx-oracle
 dev-python/openpyxl
 dev-python/odfpy
