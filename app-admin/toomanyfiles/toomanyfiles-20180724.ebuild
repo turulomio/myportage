@@ -6,6 +6,12 @@ EAPI=5
 DESCRIPTION="Remove innecesary files finding datetime patterns in filename"
 LICENSE="GPL-3"
 
+IUSE=""
+SRC_URI="mirror://sourceforge/project/too-many-files/toomanyfiles/${PV}/toomanyfiles-${PV}.tar.gz"
+HOMEPAGE="http://too-many-files.sourceforge.net"
+LICENSE="GPL-3"
+
+
 SLOT="0"
 KEYWORDS="x86 amd64"
 
