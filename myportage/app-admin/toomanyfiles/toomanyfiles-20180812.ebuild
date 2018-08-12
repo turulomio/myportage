@@ -2,7 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=6
+PYTHON_COMPAT=( python{3_5,3_6,3_7} pypy )
+
+inherit distutils-r1
+
 DESCRIPTION="Remove innecesary files finding datetime patterns in filename"
 LICENSE="GPL-3"
 
@@ -15,16 +19,12 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-DEPEND="
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+RDEPEND="${PYTHON_DEPS}"
+DEPEND="${RDEPEND}
 >=dev-lang/python-3.0.0
 dev-python/colorama
+dev-python/mangenerator
+dev-python/ttyrecgenerator
 "
-
-src_compile(){
-	einfo "Nothing to compile"
-}
-
-src_install(){
-	python3 Makefile.py --install ${D}
-}
-
