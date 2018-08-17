@@ -23,7 +23,6 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
->=dev-lang/python-3.0.0
 dev-python/colorama
 dev-python/mangenerator
 dev-python/ttyrecgenerator
