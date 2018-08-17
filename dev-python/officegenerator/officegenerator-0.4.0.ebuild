@@ -1,16 +1,15 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=7
 
 PYTHON_COMPAT=( python{3_5,3_6,3_7} pypy )
-inherit distutils-r1
+inherit distutils-r1 python-r1
 
 DESCRIPTION="Python module to generate man documentation"
 HOMEPAGE="https://sourceforge.net/projects/mangenerator/"
 SRC_URI="mirror://sourceforge/project/${PN}/${PN}/${PV}/${P}.tar.gz"
-#S=${WORKDIR}/googlefinance.client-${PV}/
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -23,5 +22,3 @@ DEPEND="${RDEPEND}
 dev-python/openpyxl
 dev-python/odfpy
 "
-
-
