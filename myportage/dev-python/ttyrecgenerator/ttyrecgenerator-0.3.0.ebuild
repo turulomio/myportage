@@ -21,7 +21,9 @@ IUSE=""
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}
-    dev-python/mangenerator"
+    dev-python/mangenerator
+    dev-python/colorama
+    "
 DEPEND="${RDEPEND}"
 
 
