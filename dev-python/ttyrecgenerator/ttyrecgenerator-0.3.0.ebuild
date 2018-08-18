@@ -23,6 +23,10 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}
     dev-python/mangenerator
     dev-python/colorama
+    media-video/ffmpeg
+    x11-terms/xterm
+    media-video/ttygif
+    app-misc/ttyrec
     "
 DEPEND="${RDEPEND}"
 
