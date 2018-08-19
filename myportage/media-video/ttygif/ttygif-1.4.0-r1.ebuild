@@ -12,6 +12,7 @@ KEYWORDS="x86 amd64"
 
 IUSE=""
 DEPEND="
+    app-misc/ttyrec
 "
 
 src_install(){
