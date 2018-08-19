@@ -1,14 +1,12 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python{3_5,3_6,3_7} pypy )
 
-
 inherit distutils-r1
-
 
 DESCRIPTION="Python module to save console output and create GIF or video"
 HOMEPAGE="https://sourceforge.net/projects/ttyrecgenerator/"
@@ -29,10 +27,3 @@ RDEPEND="${PYTHON_DEPS}
     app-misc/ttyrec
     "
 DEPEND="${RDEPEND}"
-
-
-src_prepare(){
-   cp -Rv ${WORKDIR}/${P}/locale/ ${WORKDIR}/${P}/ttyrecgenerator/
-   cp -Rv ${WORKDIR}/${P}/locale/ ${S}/locale/
-distutils-r1_python_prepare_all
-}
