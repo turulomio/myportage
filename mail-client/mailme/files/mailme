@@ -96,7 +96,7 @@ Subject: Mailme from """ + name + """
 
 try:
     server = smtplib.SMTP(config.server)
-#    server.set_debuglevel(1)
+    server.set_debuglevel(1)
     server.ehlo()
     server.starttls()
     server.ehlo()
