@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI=7
 PYTHON_COMPAT=( python{3_5,3_6,3_7} pypy )
 
 inherit distutils-r1
@@ -14,7 +14,6 @@ IUSE=""
 SRC_URI="mirror://sourceforge/project/too-many-files/toomanyfiles/${PV}/toomanyfiles-${PV}.tar.gz"
 HOMEPAGE="http://too-many-files.sourceforge.net"
 LICENSE="GPL-3"
-
 
 SLOT="0"
 KEYWORDS="x86 amd64"
