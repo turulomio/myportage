@@ -17,6 +17,7 @@ dev-python/psutil
 dev-python/colorama
 dev-python/cx-oracle
 dev-python/officegenerator
+dev-python/tqdm
 sci-libs/pyshp
 >=sci-geosciences/qgis-3.0.0
 =dev-db/oracle-instantclient-sqlplus-11.2.0.4
