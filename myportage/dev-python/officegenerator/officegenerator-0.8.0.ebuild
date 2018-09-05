@@ -20,6 +20,6 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 dev-libs/libxml2
-dev-python/openpyxl
+>=dev-python/openpyxl-2.4.11
 dev-python/odfpy
 "
