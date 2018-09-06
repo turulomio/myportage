@@ -16,10 +16,10 @@ app-misc/rlwrap
 dev-python/psutil
 dev-python/colorama
 dev-python/cx-oracle
-dev-python/officegenerator
+>=dev-python/officegenerator-0.9.0
 dev-python/tqdm
 sci-libs/pyshp
->=sci-geosciences/qgis-3.0.0
+<sci-geosciences/qgis-3.2.0
 =dev-db/oracle-instantclient-sqlplus-11.2.0.4
 "
 RDEPEND=${DEPEND}
