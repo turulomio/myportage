@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI=6
-PYTHON_COMPAT=( python3_{4,5} )
+PYTHON_COMPAT=( python3_{5,6,7} )
 
 inherit multibuild python-r1 qmake-utils
 
@@ -28,7 +28,7 @@ REQUIRED_USE="
 "
 
 # Minimal supported version of Qt.
-QT_PV="5.9:5"
+QT_PV="5.11:5"
 
 RDEPEND="
 	${PYTHON_DEPS}
