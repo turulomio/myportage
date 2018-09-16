@@ -33,7 +33,7 @@ QT_PV="5.11:5"
 RDEPEND="
 	${PYTHON_DEPS}
 	>=dev-python/sip-4.19:=[${PYTHON_USEDEP}]
-	>=dev-qt/qtcharts-${QT_PV}
+	>=dev-qt/qtcharts-5.11:5
 "
 DEPEND="${RDEPEND}
 "
@@ -65,6 +65,7 @@ src_compile() {
 
 src_install() {
 	installation() {
+		sed -i -e 's/install_distinfo/ /' Makefile || die "Sed failed!" ## Removing distinfo 
 		local tmp_root=${D%/}/tmp
 		emake INSTALL_ROOT="${tmp_root}" install
 
