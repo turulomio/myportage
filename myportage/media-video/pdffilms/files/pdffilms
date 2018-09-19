@@ -169,6 +169,7 @@ def string2tex(cadena):
 	cadena=cadena.replace(']','$ ] $')
 	cadena=cadena.replace('&','\&')
 	cadena=cadena.replace('²','$ ^2 $')
+	cadena=cadena.replace('#', '\#')
 	return cadena
 
 
