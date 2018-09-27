@@ -4,18 +4,22 @@ import os, sys, glob, datetime, string, psycopg2, psycopg2.extras, shutil, math,
 
 class Mem:
 	def __init__(self):
-		self.con=self.connect()
+		self.con=None
 
 	def connect(self):
 		strmq="dbname='{}' port='{}' user='{}' host='{}' password='{}'".format(args.db, args.port, args.user, args.host, password)
 		try:
-			return psycopg2.extras.DictConnection(strmq)
+			self.con=psycopg2.extras.DictConnection(strmq)
 		except psycopg2.Error:
 			print("Error conecting database")
 			sys.exit(112)
+		return self.con
 
 	def disconnect(self):
 		self.con.close()
+
+	def connection_string(self):
+		return "psql://{}@{}:{}/{}".format(args.user, args.host, args.port, args.db)
 
 class Film:
 	def __init__(self, mem):
@@ -178,13 +182,24 @@ parser=argparse.ArgumentParser('Films documentation')
 group = parser.add_mutually_exclusive_group()
 group.add_argument('-i', '--insert', help='Insert films from current numbered directory', action="store_true")
 group.add_argument('-g', '--generate', help='Generate films documentation', action="store_true")
-parser.add_argument('-U', '--user', help='Postgresql user', default='postgres')
-parser.add_argument('-p', '--port', help='Postgresql server port', default=5432)
-parser.add_argument('-H', '--host', help='Postgresql server address', default='127.0.0.1')
-parser.add_argument('-d', '--db', help='Postgresql database', default='pdffilms')
+
+group_db=parser.add_argument_group("Postgres database connection parameters")
+group_db.add_argument('--user', help='Postgresql user', default='postgres')
+group_db.add_argument('--port', help='Postgresql server port', default=5432)
+group_db.add_argument('--host', help='Postgresql server address', default='127.0.0.1')
+group_db.add_argument('--db', help='Postgresql database', default='pdffilms')
+
+
+parser.add_argument('--output', help="Path to the output document", action="append", default=[])
+
 args=parser.parse_args()
 
+
+mem=Mem()
+
+print("Introduzca la contraseña para {}".format(mem.connection_string()))
 password=getpass.getpass()
+mem.connect()
 cwd=os.getcwd().split("/")
 try:
 	shutil.rmtree("/tmp/pdffilms")
@@ -193,10 +208,8 @@ except:
 os.mkdir("/tmp/pdffilms")
 os.system("chmod 777 /tmp/pdffilms")
 
-mem=Mem()
 
-
-if args.insert==True:# insertar			    
+if args.insert==True:# insertar
 	try:
 		id=int(cwd[len(cwd)-1])
 	except:
@@ -235,6 +248,9 @@ if args.insert==True:# insertar
 elif args.generate==True:
 	# SACA LAS IMÁGENES DE LA BASE DE DATOS
 	print ("  - Sacando las imágenes")
+	if len(args.output)==0:
+		print ("    Necesita añadir al menos un documento de salida. Por ejemplo '--output peliculas.pdf'")
+		sys.exit(0)
 	sf=SetFilms(mem)
 	sf.load("SELECT * FROM films")
 	for f in sf.arr:
@@ -340,7 +356,8 @@ elif args.generate==True:
 	d.close()
 
 	os.system("cd /tmp/pdffilms;pdflatex /tmp/pdffilms/peliculas.tex;  &>/dev/null;pdflatex /tmp/pdffilms/peliculas.tex; pdflatex /tmp/pdffilms/peliculas.tex")
-	os.system("cp /tmp/pdffilms/peliculas.pdf ~/peliculas.pdf")
+	for output in args.output:
+		os.system("cp /tmp/pdffilms/peliculas.pdf {}".format(output))
 
 else:
 	parser.print_help()
