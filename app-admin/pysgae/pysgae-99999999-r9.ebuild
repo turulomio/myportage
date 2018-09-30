@@ -17,6 +17,7 @@ dev-python/psutil
 dev-python/colorama
 dev-python/cx-oracle
 >=dev-python/officegenerator-0.9.0
+dev-python/gc_office
 dev-python/tqdm
 sci-libs/pyshp
 <sci-geosciences/qgis-3.2.0
