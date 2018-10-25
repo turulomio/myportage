@@ -21,7 +21,7 @@ DEPEND="
 dev-python/psycopg
 dev-python/PyQt5[printsupport,webengine,gui,widgets]
 dev-python/pytz
-dev-python/odfpy
+dev-python/officegenerator
 dev-qt/linguist-tools
 dev-python/PyQtChart
 dev-python/colorama
