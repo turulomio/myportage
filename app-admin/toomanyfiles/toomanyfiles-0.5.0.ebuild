@@ -6,13 +6,12 @@ EAPI=7
 PYTHON_COMPAT=( python{3_5,3_6,3_7} pypy )
 
 inherit distutils-r1
-
 DESCRIPTION="Remove innecesary files finding datetime patterns in filename"
 LICENSE="GPL-3"
 
 IUSE=""
-SRC_URI="mirror://sourceforge/project/too-many-files/toomanyfiles/${PV}/toomanyfiles-${PV}.tar.gz"
-HOMEPAGE="http://too-many-files.sourceforge.net"
+SRC_URI="https://github.com/Turulomio/toomanyfiles/archive/toomanyfiles-v${PV}.tar.gz"
+HOMEPAGE="https://github.com/Turulomio/toomanyfiles"
 LICENSE="GPL-3"
 
 SLOT="0"
@@ -23,6 +22,5 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 dev-python/colorama
-dev-python/mangenerator
-dev-python/ttyrecgenerator
 "
+S="${WORKDIR}/toomanyfiles-toomanyfiles-v${PV}"
