@@ -28,6 +28,7 @@ dev-python/officegenerator
 dev-qt/linguist-tools
 dev-python/PyQtChart
 dev-python/colorama
+dev-python/python-stdnum
 "
 
 S="${WORKDIR}/xulpymoney-xulpymoney-v${PV}"
