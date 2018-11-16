@@ -56,30 +56,28 @@ pkg_setup() {
 }
 
 src_configure() {
-	econf --disable-xdg-utils  --without-libsvm
-
-#"""	econf \
-#		--disable-rpath \
-#		--enable-shared \
-#		--with-mpfr \
-#		--docdir="${EPREFIX}/usr/share/doc/${PF}" \
-#		--htmldir="${EPREFIX}/usr/share/doc/${PF}/html" \
-#		$(use_enable cpu_flags_x86_avx avx) \
-#		$(use_enable curl www) \
-#		$(use_enable gtk gui) \
-#		$(use_enable gtk xdg) \
-#		$(use_enable gtk xdg-utils) \
-#		$(use_enable nls) \
-#		$(use_enable openmp) \
-#		$(use_enable cpu_flags_x86_sse2 sse2) \
-#		$(use_enable static-libs static) \
-#		$(use_with accessibility audio) \
-#		$(use_with mpi) \
-#		$(use_with odbc) \
-#		$(use_with readline) \
-#		$(use_with R libR) \
-#		${myconf} \
-#		LAPACK_LIBS="$($(tc-getPKG_CONFIG) --libs lapack)
+	econf \
+		--disable-rpath \
+		--enable-shared \
+		--with-mpfr \
+		--docdir="${EPREFIX}/usr/share/doc/${PF}" \
+		--htmldir="${EPREFIX}/usr/share/doc/${PF}/html" \
+		$(use_enable cpu_flags_x86_avx avx) \
+		$(use_enable curl www) \
+		$(use_enable gtk gui) \
+		$(use_enable gtk xdg) \
+		$(use_enable gtk xdg-utils) \
+		$(use_enable nls) \
+		$(use_enable openmp) \
+		$(use_enable cpu_flags_x86_sse2 sse2) \
+		$(use_enable static-libs static) \
+		$(use_with accessibility audio) \
+		$(use_with mpi) \
+		$(use_with odbc) \
+		$(use_with readline) \
+		$(use_with R libR) \
+		${myconf} \
+		LAPACK_LIBS="$($(tc-getPKG_CONFIG) --libs lapack)"
 }
 
 src_compile() {
