@@ -5,7 +5,7 @@ EAPI=5
 
 USE_EINSTALL=true
 
-inherit eutils elisp-common toolchain-funcs
+inherit eutils elisp-common toolchain-funcs xdg-utils
 
 DESCRIPTION="Regression, econometrics and time-series library"
 HOMEPAGE="http://gretl.sourceforge.net/"
@@ -105,6 +105,8 @@ pkg_postinst() {
 		elog "add the following line to your \"~/.emacs\" file:"
 		elog "  (add-to-list 'auto-mode-alist '(\"\\\\.inp\\\\'\" . gretl-mode))"
 	fi
+	xdg_desktop_database_update
+	xdg_mimeinfo_database_update
 }
 
 pkg_postrm() {
