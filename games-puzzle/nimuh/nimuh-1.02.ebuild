@@ -4,7 +4,7 @@
 
 DESCRIPTION="Nimuh is a game about Andalucía"
 HOMEPAGE="http://www.nimuh.com/"
-SRC_URI="http://surfnet.dl.sourceforge.net/sourceforge/nimuh/${P}.tar.gz"
+SRC_URI="mirror://sourceforge/project/nimuh/nimuh%201.02/Nimuh%20SRC%20%28Source%20Code%29/nimuh-1.02.tar.gz"
 
 LICENSE="Creative commons"
 SLOT="0"
