@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-DESCRIPTION="Nimuh is a game about Andalucía."
+DESCRIPTION="Nimuh is a game about Andalucía"
 HOMEPAGE="http://www.nimuh.com/"
 SRC_URI="http://surfnet.dl.sourceforge.net/sourceforge/nimuh/${P}.tar.gz"
 
