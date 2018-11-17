@@ -1,5 +1,0 @@
-#!/bin/bash
-mydir=`pwd`
-cd /usr/share/games/assaultcube
-../../../games/bin/native_client
-cd $mydir
