@@ -1,4 +1,4 @@
-EAPI=2
+EAPI=5
 
 inherit  autotools cmake-utils games
 
