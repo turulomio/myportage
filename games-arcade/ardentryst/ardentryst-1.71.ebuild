@@ -14,21 +14,21 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 DEPEND="
+<dev-lang/python-3.0.0
 dev-python/pygame
 "
 
-S="${WORKDIR}/Ardentryst17/"
+S="${WORKDIR}/ardentryst1.71/"
 
 src_install() {
-        cp ${FILESDIR}/ardentryst.sh ${S}
-
-	cd ${S}
-
-	mkdir -p  "${D}/${GAMES_DATADIR}/${PN}/"
-	cp -r * "${D}/${GAMES_DATADIR}/${PN}/"
-
-	dogamesbin ardentryst.sh
-
-	prepgamesdirs
+        sed -i -e 's/python/python2/' ${S}/ardentryst
+        sed -i -e 's/Icon=ardentryst/Icon=\/usr\/share\/pixmaps\/icon.png/' ${S}/Ardentryst.desktop
+        doicon ${S}/icon.png
+        dobin ${S}/ardentryst
+        dodir "${GAMES_DATADIR}/${PN}/"
+        cp -r ${S}/* "${D}/${GAMES_DATADIR}/${PN}/"
+        insinto "/usr/share/applications"
+        doins ${S}/Ardentryst.desktop
+        prepgamesdirs
 }
 
