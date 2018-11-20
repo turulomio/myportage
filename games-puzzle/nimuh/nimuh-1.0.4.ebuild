@@ -15,9 +15,9 @@ RDEPEND="media-libs/libsdl
 	 dev-libs/expat
 	"
 DEPEND="${RDEPEND}"
-S=${WORKDIR}/nimuh-nimuh-1.0.3/
+S=${WORKDIR}/nimuh-nimuh-${PV}/
 
-src_install(){
-make_desktop_entry nimuh "Nimuh" /usr/share/nimuh/data/nimuh.png "Game;LogicGame"
-cmake-utils_src_install
-}
+#src_install(){
+#make_desktop_entry nimuh "Nimuh" /usr/share/nimuh/data/nimuh.png "Game;LogicGame"
+#cmake-utils_src_install
+#}
