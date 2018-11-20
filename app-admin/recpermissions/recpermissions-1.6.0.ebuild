@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python{3_5,3_6,3_7} pypy )
 
 inherit distutils-r1
 
-DESCRIPTION="Remove innecesary files finding datetime patterns in filename"
+DESCRIPTION="Script to change permissions and owner recursivily from current directory"
 LICENSE="GPL-3"
 
 IUSE=""
