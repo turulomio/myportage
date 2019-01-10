@@ -24,6 +24,7 @@ app-misc/rlwrap
 dev-python/psutil
 dev-python/colorama
 dev-python/cx-oracle
+dev-python/python-stdnum
 >=dev-python/officegenerator-0.9.0
 dev-python/gc_office
 dev-python/tqdm
