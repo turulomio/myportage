@@ -25,11 +25,11 @@ dev-python/psutil
 dev-python/colorama
 dev-python/cx-oracle
 dev-python/python-stdnum
->=dev-python/officegenerator-0.9.0
+dev-python/officegenerator
 dev-python/gc_office
 dev-python/tqdm
 sci-libs/pyshp
-<sci-geosciences/qgis-3.2.0
+sci-geosciences/qgis
 =dev-db/oracle-instantclient-sqlplus-11.2.0.4
 "
 
