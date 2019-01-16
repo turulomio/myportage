@@ -22,7 +22,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${RDEPEND}
 dev-python/psycopg
-dev-python/PyQt5[printsupport,webengine,gui,widgets]
+dev-python/PyQt5[printsupport,gui,widgets]
 dev-python/pytz
 dev-python/officegenerator
 dev-qt/linguist-tools
