@@ -1,0 +1,66 @@
+#!/sbin/openrc-run
+
+: ${LONG_NAME:="${RC_SVCNAME}"}
+: ${PIDFILE:=/run/${RC_SVCNAME}.pid}
+
+##########  Helper functions  ##########
+
+init_defaults() {
+	: ${gitbucket_war:=/usr/lib/gitbucket/gitbucket.war}
+	: ${gitbucket_user:=gitbucket}
+	: ${gitbucket_hostname:=localhost}
+	: ${gitbucket_port:=8080}
+	: ${gitbucket_context_path:=/}
+	: ${gitbucket_data_dir:=/var/lib/gitbucket}
+}
+
+init_command_args() {
+	command=/usr/bin/java
+
+	gitbucket_opts="
+		--host=${gitbucket_hostname}
+		--port=${gitbucket_port}
+		--prefix=${gitbucket_context_path}
+		--gitbucket.home=${gitbucket_data_dir}"
+
+	# Complete list of arguments for startup script
+	command_args="
+		-server
+		-jar ${gitbucket_war}
+		${gitbucket_opts}"
+}
+
+check_paths() {
+	if [ ! -d "${gitbucket_data_dir}" ]; then
+		eerror '$gitbucket_data_dir does not exist or not a directory!'; eend 1
+	fi
+}
+
+init_vars() {
+	init_defaults
+	init_command_args
+	check_paths
+}
+
+##########  Runscript functions  ##########
+
+depend() {
+	use net
+}
+
+start_pre() {
+	init_vars
+}
+
+start() {
+	ebegin "Starting ${LONG_NAME} ${command} -- ${command_args}"
+	start-stop-daemon --start -background --chdir "${gitbucket_data_dir}" --user "${gitbucket_user}" --make-pidfile --pidfile ${PIDFILE} --exec ${command} -- ${command_args}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping ${LONG_NAME}"
+	start-stop-daemon --stop --quiet --retry=60 --pidfile ${PIDFILE}
+	eend $?
+}
+
