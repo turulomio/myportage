@@ -31,10 +31,6 @@ src_unpack() {
     cp "${DISTDIR}/${A}" "${S}"
 }
 
-src_compile() {
-	einfo "Nothing to compile"
-}
-
 src_install() {
 	dodir usr/lib/gitbucket
 
@@ -42,6 +38,5 @@ src_install() {
 	doins gitbucket.war
 
 	newinitd "${FILESDIR}/gitbucket.initd" gitbucket
-#	insinto etc/conf.d/
 	newconfd "${FILESDIR}/gitbucket.conf" gitbucket
 }
