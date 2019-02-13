@@ -11,12 +11,7 @@ DESCRIPTION="Python bindings for the Qt Chart framework"
 HOMEPAGE="https://www.riverbankcomputing.com/software/pyqtchart/intro"
 
 MY_P=${PN}_gpl-${PV/_pre/.dev}
-if [[ ${PV} == *_pre* ]]; then
-	SRC_URI="https://dev.gentoo.org/~pesa/distfiles/${MY_P}.tar.xz"
-else
-	SRC_URI="mirror://sourceforge/pyqt/${MY_P}.tar.gz"
-fi
-
+SRC_URI="https://www.riverbankcomputing.com/static/Downloads/PyQtChart/PyQtChart_gpl-${PV}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~ppc64 ~x86"
@@ -26,9 +21,6 @@ IUSE=""
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 "
-
-# Minimal supported version of Qt.
-QT_PV="5.11:5"
 
 RDEPEND="
 	${PYTHON_DEPS}
@@ -48,9 +40,7 @@ src_configure() {
 			"${PYTHON}"
 			"configure.py"
 			--verbose
-			--qtchart-version="${PV}"
 			--qmake="$(qt5_get_bindir)"/qmake
-			--destdir="$(python_get_sitedir)/PyQt5"
 		)
 		echo QT_SELECT="qt5" "${myconf[@]}"
 		"${myconf[@]}" || die
