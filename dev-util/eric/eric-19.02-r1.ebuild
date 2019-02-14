@@ -21,6 +21,7 @@ DEPEND="
 	${PYTHON_DEPS}
 	>=dev-python/sip-4.14.3[${PYTHON_USEDEP}]
 	>=dev-python/PyQt5-5.7.1[gui,network,printsupport,sql,svg,widgets,${PYTHON_USEDEP}]
+	dev-python/PyQtWebEngine
 	>=dev-python/qscintilla-python-2.10[qt5(+),${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}
