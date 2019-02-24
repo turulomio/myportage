@@ -4,7 +4,7 @@
 EAPI=6
 
 MY_P=${PN}6-${PV}
-PYTHON_COMPAT=( python2_7 python3_{4,5,6} )
+PYTHON_COMPAT=( python2_7 python3_{5,6,7} )
 PYTHON_REQ_USE="sqlite,xml"
 inherit python-single-r1 xdg-utils
 
@@ -32,6 +32,7 @@ RDEPEND="${DEPEND}
 	>=dev-python/chardet-3.0.4[${PYTHON_USEDEP}]
 	>=dev-python/coverage-4.1.0[${PYTHON_USEDEP}]
 	>=dev-python/pygments-2.2.0[${PYTHON_USEDEP}]
+	dev-python/pyenchant[${PYTHON_USEDEP}]
 	!dev-util/eric:4
 	!dev-util/eric:5
 "
