@@ -17,9 +17,11 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 app-text/poppler
+app-text/tesseract
 dev-python/odfpy
 dev-python/officegenerator
 dev-python/pillow
+dev-python/tqdm
 "
 
 S="${WORKDIR}/pdf2odt-pdf2odt-${PV}"
