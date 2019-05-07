@@ -30,6 +30,7 @@ IUSE=""
 RESTRICT="test"
 
 COMMON_DEPEND="media-libs/libsdl2
+        dev-util/android-tools
 	media-video/ffmpeg"
 DEPEND="${COMMON_DEPEND}"
 RDEPEND="${COMMON_DEPEND}"
