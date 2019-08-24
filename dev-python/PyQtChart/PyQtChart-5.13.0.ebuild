@@ -18,16 +18,13 @@ KEYWORDS="~amd64 ~arm ~ppc64 ~x86"
 
 IUSE=""
 
-REQUIRED_USE="
-	${PYTHON_REQUIRED_USE}
-"
-
 RDEPEND="
 	${PYTHON_DEPS}
 	>=dev-python/sip-4.19:=[${PYTHON_USEDEP}]
 	>=dev-qt/qtcharts-5.11:5
 "
 DEPEND="${RDEPEND}
+	dev-python/PyQt5
 "
 
 S=${WORKDIR}/${MY_P}
