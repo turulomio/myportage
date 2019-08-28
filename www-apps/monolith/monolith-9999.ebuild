@@ -4,6 +4,7 @@ inherit cargo eutils
 
 #Must be before SRC_URI
 CRATES="
+ansi_term-0.11.0
 atty-0.2.13
 base64-0.10.1
 bitflags-1.1.0
@@ -14,8 +15,12 @@ indicatif-0.11.0
 lazy_static-1.3.0
 regex-1.2.1
 reqwest-0.9.20
-strsim-0.8
+env_logger-0.6.2
+strsim-0.8.0
+textwrap-0.11.0
+unicode-width-0.1.6
 url-2.1.0
+vec_map-0.8.1
 "
 
 DESCRIPTION="Save HTML pages with ease"
