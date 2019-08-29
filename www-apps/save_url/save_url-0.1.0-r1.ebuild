@@ -16,10 +16,11 @@ KEYWORDS="x86 amd64"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-RDEPEND="${PYTHON_DEPS}"
-DEPEND="${RDEPEND}
+DEPEND="
 www-apps/monolith
 "
+RDEPEND="${DEPEND}"
+
 S="${WORKDIR}/save_url-save_url-${PV}"
 
 src_install() {
