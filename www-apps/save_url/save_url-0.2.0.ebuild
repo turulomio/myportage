@@ -17,6 +17,7 @@ KEYWORDS="x86 amd64"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
+dev-python/colorama
 www-apps/monolith
 "
 RDEPEND="${DEPEND}"
