@@ -22,6 +22,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 dev-python/PyQt5[gui,multimedia,opengl,network,printsupport,widgets]
+dev-python/PyQtWebEngine
 dev-python/colorama
 dev-python/pyopengl
 "
