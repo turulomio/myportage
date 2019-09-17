@@ -196,7 +196,7 @@ winreg-0.6.2
 ws2_32-sys-0.2.1
 "
 
-COMMIT="f3308157c0d46b5d364690d3944db27d06b238da"
+COMMIT="ac79a52da011cec36e3ed7b0069a45efbd290159"
 
 DESCRIPTION="Save HTML pages with ease"
 HOMEPAGE="https://github.com/Y2Z/monolith"
