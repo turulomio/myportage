@@ -3,10 +3,11 @@
 
 EAPI=6
 
+inherit meson vala gnome2-utils
+
 VALA_MIN_API_VERSION="0.26"
 VALA_USE_DEPEND="vapigen"
 
-inherit meson vala gnome2-utils
 
 DESCRIPTION="A simple ebook reader originally intended for Elementary OS"
 HOMEPAGE="https://babluboy.github.io/bookworm"
@@ -39,10 +40,12 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
+DOCS="AUTHORS"
+
 src_prepare(){
 	export VALAC="$(type -p valac-$(vala_best_api_version))"
-	DOCS="AUTHORS"
-	meson_src_prepare
+	eapply_user
+	#meson_src_prepare
 }
 
 src_configure(){
