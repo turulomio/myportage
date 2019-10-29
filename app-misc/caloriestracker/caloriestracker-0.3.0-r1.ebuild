@@ -23,6 +23,7 @@ dev-python/pytz
 dev-python/PyQtChart
 dev-python/PyQtWebEngine
 dev-python/colorama
+dev-python/officegenerator
 "
 
 S="${WORKDIR}/caloriestracker-caloriestracker-${PV}"
