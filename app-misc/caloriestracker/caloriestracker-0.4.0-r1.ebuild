@@ -17,6 +17,7 @@ KEYWORDS="x86 amd64"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${RDEPEND}
+dev-python/npyscreen
 dev-python/psycopg
 dev-python/PyQt5[printsupport,gui,widgets]
 dev-python/pytz
