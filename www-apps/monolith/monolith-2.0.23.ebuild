@@ -51,7 +51,7 @@ futures-0.1.28
 futures-cpupool-0.1.8
 getrandom-0.1.11
 h2-0.1.26
-html5ever-0.24.0
+html5ever-0.24.1
 http-0.1.18
 http-body-0.1.0
 httparse-1.3.4
@@ -124,8 +124,8 @@ rand_pcg-0.1.2
 rand_xorshift-0.1.1
 rdrand-0.4.0
 redox_syscall-0.1.56
-regex-1.2.1
-regex-syntax-0.6.11
+regex-1.3.1
+regex-syntax-0.6.12
 remove_dir_all-0.5.2
 reqwest-0.9.20
 rustc-demangle-0.1.16
@@ -196,7 +196,7 @@ winreg-0.6.2
 ws2_32-sys-0.2.1
 "
 
-COMMIT="ac79a52da011cec36e3ed7b0069a45efbd290159"
+COMMIT="491185e191b09051f25ca5a0809ee576e42a9d44"
 
 DESCRIPTION="Save HTML pages with ease"
 HOMEPAGE="https://github.com/Y2Z/monolith"
