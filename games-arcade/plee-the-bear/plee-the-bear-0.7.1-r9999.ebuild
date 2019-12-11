@@ -1,9 +1,14 @@
 EAPI=7
 
-inherit git-r3 cmake-utils
+inherit cmake-utils
 
-EGIT_REPO_URI="https://github.com/j-jorge/plee-the-bear"
-#https://github.com/j-jorge/bear"
+BEARCOMMIT="2a785228d85997dc1682ee71899841528fa09c33"
+PLEECOMMIT="42d8511ae53325e464a8f32ca0cb55ece30926ea"
+
+SRC_URI="https://github.com/j-jorge/bear/archive/${BEARCOMMIT}.zip -> bear.zip
+https://github.com/j-jorge/plee-the-bear/archive/${PLEECOMMIT}.zip -> plee-the-bear.zip"
+
+#EGIT_REPO_URI="https://github.com/j-jorge/plee-the-bear https://github.com/j-jorge/bear"
 
 DESCRIPTION=""
 LICENSE="LGPL-2"
@@ -15,19 +20,25 @@ DEPEND="
 media-libs/libclaw
 "
 
+S=${WORKDIR}
+
 RDEPEND=${DEPEND}
 
 #src_fetch(){
+#    mkdir plee-the-bear2
+#    cd plee-the-bear2
+#    git-r3_fetch https://github.com/j-jorge/plee-the-bear
+#    cd ../bear
+#    git-r3_fetch https://github.com/j-jorge/bear
+
 #}
 
 
 src_prepare() {
-    mkdir plee-the-bear
-    cd plee-the-bear
-    git-r3_fetch https://github.com/j-jorge/plee-the-bear
-    cd ../bear
-    git-r3_fetch https://github.com/j-jorge/bear
-
+    mv plee-the-bear-${PLEECOMMIT} plee-the-bear
+    mv bear-${BEARCOMMIT} bear
+    cp ${FILESDIR}/CMakeLists.txt ${WORKDIR}
+    cd bear
     eapply "${FILESDIR}/bear.patch"
     eapply_user
     cmake-utils_src_prepare
