@@ -1,68 +1,16 @@
-From 0e98d33e1f557a5cd50e92e6f48df48e7655208a Mon Sep 17 00:00:00 2001
-From: turulomio <turulomio@yahoo.es>
-Date: Tue, 10 Dec 2019 20:10:52 +0100
-Subject: [PATCH] Trying to compile. Commenting errors
-
----
- Makefile                                      | 47 -------------------
- .../src/bf/code/accelerator_table.cpp         |  2 +-
- .../src/bf/code/base_editor_application.cpp   |  2 +-
- 3 files changed, 2 insertions(+), 49 deletions(-)
- delete mode 100644 Makefile
-
-diff --git a/Makefile b/Makefile
-deleted file mode 100644
-index 8a43e72..0000000
---- a/Makefile
-+++ /dev/null
-@@ -1,47 +0,0 @@
--CFLAGS=-Wall -Wno-sign-compare -fdiagnostics-color=always -fext-numeric-literals
--CXXFLAGS= $(CFLAGS) -std=c++11
--LDFLAGS=
--
--CMAKE_BUILD_TYPE=
--
--ifeq ($(BUILD),release)
--  CMAKE_BUILD_TYPE=release
--  BUILD_DIR=build/release
--else ifeq ($(BUILD),profile)
--  CMAKE_BUILD_TYPE=release
--  CXXFLAGS += -pg -fPIC
--  LDFLAGS += -fPIC
--  BUILD_DIR=build/profile
--  CMAKE_ARGS=-DBEAR_ENGINE_CORE_LINK_TYPE=STATIC
--else
--  CMAKE_BUILD_TYPE=debug
--  BUILD_DIR=build/debug
--endif
--
--CMAKE_ARGS += -DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) \
--        -DCMAKE_INSTALL_PREFIX=/usr
--
--all: test
--
--install: test
--	cd $(BUILD_DIR) && $(MAKE) install
--
--uninstall:
--	[ ! -d $(BUILD_DIR) ] || cd $(BUILD_DIR) && $(MAKE) uninstall
--
--test: target
--	cd $(BUILD_DIR) && CTEST_OUTPUT_ON_FAILURE=1 ctest
--
--target: .cmake
--	cd $(BUILD_DIR) && $(MAKE) VERBOSE=$(VERBOSE)
--
--.cmake: $(BUILD_DIR)
--	cd $(BUILD_DIR) \
--	  && CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" \
--	     cmake ../.. $(CMAKE_ARGS)
--
--$(BUILD_DIR):
--	[ -d $(BUILD_DIR) ] || mkdir -p $(BUILD_DIR)
--
--clean:
--	rm -fr build
+diff --git a/bear-factory/CMakeLists.txt b/bear-factory/CMakeLists.txt
+index 6c01034..ed900b7 100644
+--- a/bear-factory/CMakeLists.txt
++++ b/bear-factory/CMakeLists.txt
+@@ -14,7 +14,7 @@ if( NOT BEAR_FACTORY_INSTALL_LIBRARY_DIR )
+       "${BEAR_FACTORY_INSTALL_EXECUTABLE_DIR}"
+       )
+   else( WIN32 )
+-    set( BEAR_FACTORY_INSTALL_LIBRARY_DIR lib )
++    set( BEAR_FACTORY_INSTALL_LIBRARY_DIR lib64 )
+   endif( WIN32 )
+ endif( NOT BEAR_FACTORY_INSTALL_LIBRARY_DIR )
+ 
 diff --git a/bear-factory/bear-editor/src/bf/code/accelerator_table.cpp b/bear-factory/bear-editor/src/bf/code/accelerator_table.cpp
 index d9420eb..52fea6b 100644
 --- a/bear-factory/bear-editor/src/bf/code/accelerator_table.cpp
@@ -87,6 +35,16 @@ index e49f15f..aeaec85 100644
 +     // argv[argc] = NULL;
      }
  } // base_editor_application::remove_options_at()
--- 
-2.24.0
-
+diff --git a/cmake-helper/bear-config.cmake b/cmake-helper/bear-config.cmake
+index e66d79e..e1be421 100644
+--- a/cmake-helper/bear-config.cmake
++++ b/cmake-helper/bear-config.cmake
+@@ -47,7 +47,7 @@ if( NOT BEAR_ENGINE_INSTALL_LIBRARY_DIR )
+       "${BEAR_ENGINE_INSTALL_EXECUTABLE_DIR}"
+       )
+   else( WIN32 )
+-    set( BEAR_ENGINE_INSTALL_LIBRARY_DIR lib )
++    set( BEAR_ENGINE_INSTALL_LIBRARY_DIR lib64 )
+   endif( WIN32 )
+ endif( NOT BEAR_ENGINE_INSTALL_LIBRARY_DIR )
+ 

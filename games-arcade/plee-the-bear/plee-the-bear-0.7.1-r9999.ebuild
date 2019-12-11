@@ -18,21 +18,12 @@ KEYWORDS="~x86 ~amd64"
 
 DEPEND="
 media-libs/libclaw
+media-libs/sdl2-mixer
 "
 
 S=${WORKDIR}
 
 RDEPEND=${DEPEND}
-
-#src_fetch(){
-#    mkdir plee-the-bear2
-#    cd plee-the-bear2
-#    git-r3_fetch https://github.com/j-jorge/plee-the-bear
-#    cd ../bear
-#    git-r3_fetch https://github.com/j-jorge/bear
-
-#}
-
 
 src_prepare() {
     mv plee-the-bear-${PLEECOMMIT} plee-the-bear
@@ -40,6 +31,8 @@ src_prepare() {
     cp ${FILESDIR}/CMakeLists.txt ${WORKDIR}
     cd bear
     eapply "${FILESDIR}/bear.patch"
+    cd ../plee-the-bear
+    eapply "${FILESDIR}/plee-the-bear.patch"
     eapply_user
     cmake-utils_src_prepare
 }
