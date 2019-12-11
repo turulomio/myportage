@@ -1,0 +1,28 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8a66e3c..4f0a0eb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -37,8 +37,8 @@ if( NOT PTB_INSTALL_CUSTOM_LIBRARY_DIR )
+     set( PTB_INSTALL_CUSTOM_LIBRARY_DIR
+       "${PTB_INSTALL_EXECUTABLE_DIR}"
+       )
+-  else( WIN32 )
+-    set( PTB_INSTALL_CUSTOM_LIBRARY_DIR lib )
++  else()
++    set( PTB_INSTALL_CUSTOM_LIBRARY_DIR lib64 )
+   endif( WIN32 )
+ endif( NOT PTB_INSTALL_CUSTOM_LIBRARY_DIR )
+ 
+diff --git a/release/make-release b/release/make-release
+index ae05f2c..1864042 100755
+--- a/release/make-release
++++ b/release/make-release
+@@ -8,7 +8,7 @@ CONTROL_FILES_FOLDER="DEBIAN"
+ PREFIX=/usr
+ 
+ BEAR_INSTALL_EXECUTABLE_DIR=games
+-BEAR_INSTALL_LIBRARY_DIR=lib
++BEAR_INSTALL_LIBRARY_DIR=lib64
+ PTB_INSTALL_DATA_DIR=share/games/plee-the-bear
+ PTB_INSTALL_CUSTOM_LIBRARY_DIR="$PTB_INSTALL_LIBRARY_DIR"/plee-the-bear
+ 
