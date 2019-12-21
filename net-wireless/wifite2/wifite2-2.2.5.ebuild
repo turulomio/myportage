@@ -16,6 +16,12 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
+net-wireless/hcxdumptool
+net-wireless/hcxtools
+net-analyzer/wireshark
+net-wireless/pixiewps
+net-wireless/aircrack-ng
+net-wireless/reaver
+net-wireless/pyrit
 "
 
-#S="${WORKDIR}/officegenerator-officegenerator-${PV}"
