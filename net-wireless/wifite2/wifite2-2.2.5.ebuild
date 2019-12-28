@@ -16,6 +16,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
+net-wireless/cowpatty
 net-wireless/hcxdumptool
 net-wireless/hcxtools
 net-analyzer/wireshark
