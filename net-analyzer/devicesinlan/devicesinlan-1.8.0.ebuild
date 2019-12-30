@@ -24,6 +24,7 @@ DEPEND="${RDEPEND}
 gui? ( dev-python/PyQt5[widgets,gui] )
 dev-python/colorama
 dev-python/PyQt5[network]
+net-analyzer/scapy
 "
 
 S="${WORKDIR}/devicesinlan-devicesinlan-v${PV}"
