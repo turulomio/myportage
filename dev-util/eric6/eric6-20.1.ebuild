@@ -7,7 +7,7 @@ inherit xdg-utils
 DESCRIPTION="Python IDE"
 HOMEPAGE="https://eric-ide.python-projects.org/"
 SRC_URI="${SRC_URI} amd64? (
-         https://downloads.sourceforge.net/project/eric-ide/${PN}/stable/${PV}/${P}.tar.gz
+         https://downloads.sourceforge.net/project/eric-ide/${PN}/stable/20.01/${P}.tar.gz
 )"
 
 LICENSE="GPL-3"
