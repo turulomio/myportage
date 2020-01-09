@@ -1,5 +1,0 @@
-#!/bin/bash
-emaint cleanresume -f
-equery l '*'| grep 9999| sed 's:-99999999::' |  xargs emerge -v --oneshot --keep-going y
-emerge @preserved-rebuild
-revdep-rebuild -i -- --keep-going y
