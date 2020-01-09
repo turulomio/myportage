@@ -1,0 +1,20 @@
+#!/bin/bash
+if [ "$USER" == "root" ]; then
+  echo "In order to use sound in the you need have the following line in /etc/pulse/default.pa"
+  echo "load-module module-native-protocol-unix auth-anonymous=1 socket=/tmp/my-pulse-socket-name"
+
+  useradd firefox_newuser -g users -G audio,video
+  mkdir -p  /home/firefox_newuser
+  chown firefox_newuser:users /home/firefox_newuser
+  su - firefox_newuser -c 'mkdir -p /home/firefox_newuser/.pulse/'
+  su - firefox_newuser -c 'echo "default-server = unix:/tmp/my-pulse-socket-name" > /home/firefox_newuser/.pulse/client.conf'
+  su - firefox_newuser -c 'firefox --private-window www.google.com'
+  pkill -9 -U firefox_newuser
+  userdel firefox_newuser
+  rm -Rf /home/firefox_newuser
+  ls -la /home
+else
+  xhost +
+  echo "Introduce la contraseña de root"
+  su - -c /usr/bin/firefox_newuser
+fi
