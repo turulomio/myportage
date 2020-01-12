@@ -1,4 +1,8 @@
 EAPI=7
+PYTHON_COMPAT=( python{3_6,3_7,3_8} pypy )
+
+inherit distutils-r1
+
 DESCRIPTION="My emerge sync procedure"
 LICENSE="GPL-3"
 
@@ -9,10 +13,9 @@ IUSE=""
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 
-DEPEND="
-"
+DISTUTILS_USE_SETUPTOOLS=rdepend
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-src_install(){
-	dobin emerge.sync
-	dobin emerge.sync.rebuildsystem
-}
+RDEPEND="${PYTHON_DEPS}"
+DEPEND="${RDEPEND}
+"
