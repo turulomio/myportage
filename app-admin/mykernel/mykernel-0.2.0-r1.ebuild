@@ -18,4 +18,9 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
+app-arch/cpio
+dev-python/pytz
+sys-fs/cryptsetup
+sys-fs/e2fsprogs
+sys-apps/util-linux
 "
