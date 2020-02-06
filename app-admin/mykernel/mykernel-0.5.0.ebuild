@@ -19,8 +19,12 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 app-arch/cpio
+dev-python/colorama
 dev-python/pytz
 sys-fs/cryptsetup
 sys-fs/e2fsprogs
+sys-apps/iucode_tool
 sys-apps/util-linux
+sys-firmware/intel-microcode
+sys-kernel/linux-firmware
 "
