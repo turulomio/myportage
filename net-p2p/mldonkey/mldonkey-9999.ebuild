@@ -3,8 +3,6 @@ WANT_AUTOCONF="2.5"
 
 inherit versionator flag-o-matic eutils autotools toolchain-funcs user git-r3
 EGIT_REPO_URI="https://github.com/ygrek/mldonkey" 
-   
-   
 
 IUSE="bittorrent doc fasttrack gd gnutella magic +ocamlopt upnp"
 
@@ -27,8 +25,6 @@ dev-ml/num
 dev-lang/ocaml
 "
 
-#RESTRICT="!ocamlopt? ( strip )"
-
 MLUSER="p2p"
 
 pkg_setup() {
@@ -44,9 +40,9 @@ pkg_setup() {
 src_configure() {
 	cd "${S}"
 
-	./configure 
+	#./configure 
 	
-	echo --sysconfdir=/etc/mldonkey \
+	econf --sysconfdir=/etc/mldonkey \
 		--sharedstatedir=/var/mldonkey \
 		--localstatedir=/var/mldonkey \
 		--enable-checks \
