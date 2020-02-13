@@ -7,7 +7,7 @@ inherit eutils user
 
 DESCRIPTION="An open-source git service"
 HOMEPAGE="https://github.com/gitbucket/gitbucket"
-SRC_URI="https://github.com/gitbucket/gitbucket/releases/download/${PV}/gitbucket.war"
+SRC_URI="https://github.com/gitbucket/gitbucket/releases/download/${PV}/gitbucket.war -> gitbucket-${PV}.war"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -35,7 +35,7 @@ src_install() {
 	dodir usr/lib/gitbucket
 
 	insinto usr/lib/gitbucket
-	doins gitbucket.war
+	newins gitbucket-${PV}.war gitbucket.war
 
 	newinitd "${FILESDIR}/gitbucket.initd" gitbucket
 	newconfd "${FILESDIR}/gitbucket.conf" gitbucket

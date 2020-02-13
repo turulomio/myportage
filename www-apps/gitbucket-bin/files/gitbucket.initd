@@ -12,6 +12,7 @@ init_defaults() {
 	: ${gitbucket_port:=8080}
 	: ${gitbucket_context_path:=/}
 	: ${gitbucket_data_dir:=/var/lib/gitbucket}
+	: ${gitbucket_max_file_size:=3145728}
 }
 
 init_command_args() {
@@ -21,7 +22,8 @@ init_command_args() {
 		--host=${gitbucket_hostname}
 		--port=${gitbucket_port}
 		--prefix=${gitbucket_context_path}
-		--gitbucket.home=${gitbucket_data_dir}"
+		--gitbucket.home=${gitbucket_data_dir}
+		--max_file_size=${gitbucket_max_file_size}"
 
 	# Complete list of arguments for startup script
 	command_args="
