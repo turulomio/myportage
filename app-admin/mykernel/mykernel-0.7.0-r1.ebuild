@@ -21,6 +21,7 @@ DEPEND="${RDEPEND}
 app-arch/cpio
 dev-python/colorama
 dev-python/pytz
+dev-util/ccache
 sys-fs/cryptsetup
 sys-fs/e2fsprogs
 sys-apps/iucode_tool
