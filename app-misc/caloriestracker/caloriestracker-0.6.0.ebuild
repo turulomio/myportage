@@ -7,7 +7,7 @@ DESCRIPTION="Calories tracker system"
 LICENSE="GPL-3"
 
 IUSE=""
-SRC_URI="https://github.com/turulomio/caloriestracker/archive/caloriestracker-${PV}.tar.gz"
+SRC_URI="https://github.com/turulomio/caloriestracker/archive/${PV}.tar.gz -> caloriestracker-${PV}.tar.gz"
 HOMEPAGE="https://github.com/turulomio/caloriestracker"
 LICENSE="GPL-3"
 
@@ -26,5 +26,3 @@ dev-python/PyQtWebEngine
 dev-python/colorama
 dev-python/officegenerator
 "
-
-S="${WORKDIR}/caloriestracker-caloriestracker-${PV}"
