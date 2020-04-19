@@ -18,6 +18,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
 dev-python/colorama
+dev-python/mechanize
 www-apps/monolith
 "
 RDEPEND="${DEPEND}"
