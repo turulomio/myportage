@@ -1,20 +1,20 @@
-# Copyright 1999-2019 Gentoo Foundation
+# Copyright 2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_7,3_{6,7,8}} )
 inherit desktop eutils python-any-r1 toolchain-funcs qmake-utils xdg-utils
 
 MY_PV="${PV/.}"
 
 DESCRIPTION="Multiple Arcade Machine Emulator + Multi Emulator Super System (MESS)"
 HOMEPAGE="http://mamedev.org/"
-SRC_URI="https://github.com/mamedev/mame/releases/download/mame${MY_PV}/mame${MY_PV}s.zip -> mame-${PV}.zip"
+SRC_URI="https://github.com/mamedev/mame/archive/mame${MY_PV}.tar.gz -> mame-${PV}.tar.gz"
 
 LICENSE="GPL-2+ BSD-2 MIT CC0-1.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="alsa +arcade debug desktop +mess opengl openmp tools"
+IUSE="alsa +arcade debug +mess opengl openmp tools"
 REQUIRED_USE="|| ( arcade mess )"
 
 # MESS (games-emulation/sdlmess) has been merged into MAME upstream since mame-0.162 (see below)
@@ -40,14 +40,12 @@ RDEPEND="!games-emulation/sdlmametools
 		dev-qt/qtgui:5
 		dev-qt/qtwidgets:5 )
 	x11-libs/libX11
-	x11-libs/libXinerama
-	${PYTHON_DEPS}"
+	x11-libs/libXinerama"
 DEPEND="${RDEPEND}
-	app-arch/unzip
 	virtual/pkgconfig
 	x11-base/xorg-proto"
 BDEPEND="${PYTHON_DEPS}"
-S=${WORKDIR}
+S="${WORKDIR}/mame-mame${MY_PV}"
 
 # Function to disable a makefile option
 disable_feature() {
@@ -63,15 +61,10 @@ pkg_setup() {
 	python-any-r1_pkg_setup
 }
 
-src_unpack() {
-	default
-	unzip -qo -U ./mame.zip
-	rm -f mame.zip || die
-}
+#PATCHES=( ${FILESDIR}"/${P}-qt.patch" )
 
 src_prepare() {
-	PATCHES=( ${FILESDIR}"/${PN}-0.184-qt.patch" )
-	default_src_prepare
+	default
 	# Disable using bundled libraries
 	enable_feature USE_SYSTEM_LIB_EXPAT
 	enable_feature USE_SYSTEM_LIB_FLAC
@@ -212,16 +205,6 @@ src_install() {
 		done
 		#newbin ldplayer${suffix} ${PN}-ldplayer
 		#newman docs/man/ldplayer.1 ${PN}-ldplayer.1
-	fi
-	if use desktop; then
-		local mydesktopfields=(
-			"sdlmame"
-			"MAME"
-			"mame"
-			"Application;Game;Emulation"
-		)
-		make_desktop_entry ${mydesktopfields[@]}
-		doicon "${FILESDIR}/mame.png"
 	fi
 }
 
