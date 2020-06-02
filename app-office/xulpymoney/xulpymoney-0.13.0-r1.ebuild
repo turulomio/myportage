@@ -29,6 +29,7 @@ dev-python/PyQtChart
 dev-python/PyQtWebEngine
 dev-python/colorama
 dev-python/python-stdnum
+sci-libs/scipy
 "
 
 S="${WORKDIR}/xulpymoney-xulpymoney-v${PV}"
