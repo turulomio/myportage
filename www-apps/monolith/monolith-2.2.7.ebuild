@@ -2,21 +2,24 @@ EAPI=7
 
 inherit cargo eutils
 
-#Must be before SRC_URI
+#Must be before SRC_URI. Use cargo-ebuild to get CRATES and remove monolith crate. Automatica generated ebuild of that command doesn't work
 
 CRATES="
 adler32-1.0.4
-aho-corasick-0.7.6
 ansi_term-0.11.0
 anyhow-1.0.26
+assert_cmd-0.12.0
 async-compression-0.2.0
 atty-0.2.13
 autocfg-0.1.7
-base64-0.10.1
 base64-0.11.0
+base64-0.12.0
 bitflags-1.2.1
+block-buffer-0.7.3
+block-padding-0.1.5
 bumpalo-3.1.1
-byteorder-1.3.2
+byte-tools-0.3.1
+byteorder-1.3.4
 bytes-0.5.3
 c2-chacha-0.2.3
 cc-1.0.47
@@ -26,8 +29,16 @@ cloudabi-0.0.3
 core-foundation-0.6.4
 core-foundation-sys-0.6.2
 crc32fast-1.2.0
+cssparser-0.27.2
+cssparser-macros-0.6.0
+difference-2.0.0
+digest-0.8.1
+doc-comment-0.3.1
 dtoa-0.4.4
+dtoa-short-0.3.2
 encoding_rs-0.8.20
+escargot-0.5.0
+fake-simd-0.1.2
 flate2-1.0.13
 fnv-1.0.6
 foreign-types-0.3.2
@@ -42,6 +53,7 @@ futures-io-0.3.1
 futures-sink-0.3.1
 futures-task-0.3.1
 futures-util-0.3.1
+generic-array-0.12.3
 getrandom-0.1.13
 h2-0.2.1
 heck-0.3.1
@@ -75,14 +87,19 @@ net2-0.2.33
 new_debug_unreachable-1.0.3
 nom-4.2.3
 num_cpus-1.11.1
+opaque-debug-0.2.3
 openssl-0.10.26
 openssl-probe-0.1.2
 openssl-sys-0.9.53
 percent-encoding-2.1.0
 phf-0.7.24
+phf-0.8.0
 phf_codegen-0.7.24
 phf_generator-0.7.24
+phf_generator-0.8.0
+phf_macros-0.8.0
 phf_shared-0.7.24
+phf_shared-0.8.0
 pin-project-0.4.6
 pin-project-internal-0.4.6
 pin-project-lite-0.1.2
@@ -90,6 +107,10 @@ pin-utils-0.1.0-alpha.4
 pkg-config-0.3.17
 ppv-lite86-0.2.6
 precomputed-hash-0.1.1
+predicates-1.0.2
+predicates-core-1.0.0
+predicates-tree-1.0.0
+proc-macro-hack-0.5.14
 proc-macro2-1.0.6
 quote-1.0.2
 rand-0.6.5
@@ -105,11 +126,10 @@ rand_isaac-0.1.1
 rand_jitter-0.1.4
 rand_os-0.1.3
 rand_pcg-0.1.2
+rand_pcg-0.2.1
 rand_xorshift-0.1.1
 rdrand-0.4.0
 redox_syscall-0.1.56
-regex-1.3.1
-regex-syntax-0.6.12
 remove_dir_all-0.5.2
 reqwest-0.10.0
 ryu-1.0.2
@@ -120,7 +140,9 @@ serde-1.0.103
 serde_derive-1.0.103
 serde_json-1.0.42
 serde_urlencoded-0.6.1
+sha2-0.8.1
 siphasher-0.2.3
+siphasher-0.3.2
 slab-0.4.2
 smallvec-1.0.0
 sourcefile-0.1.4
@@ -132,20 +154,21 @@ syn-1.0.11
 tempfile-3.1.0
 tendril-0.4.1
 textwrap-0.11.0
-thread_local-0.3.6
 time-0.1.42
 tokio-0.2.6
 tokio-tls-0.3.0
 tokio-util-0.2.0
 tower-service-0.3.0
+treeline-0.1.0
 try-lock-0.2.2
+typenum-1.12.0
 unicase-2.6.0
 unicode-bidi-0.3.4
 unicode-normalization-0.1.11
 unicode-segmentation-1.6.0
 unicode-width-0.1.6
 unicode-xid-0.2.0
-url-2.1.0
+url-2.1.1
 utf-8-0.7.5
 vcpkg-0.2.8
 vec_map-0.8.1
@@ -171,7 +194,7 @@ winreg-0.6.2
 ws2_32-sys-0.2.1
 "
 
-COMMIT="1e8348543af89604f2ae8f87b60fbaafc514da46"
+COMMIT="bfdcd459e1b6e56befff818a29800ba1c8090b33"
 
 DESCRIPTION="Save HTML pages with ease"
 HOMEPAGE="https://github.com/Y2Z/monolith"
@@ -189,8 +212,6 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=">=virtual/rust-1.31.0"
 
-
-#QA_FLAGS_IGNORED="/usr/bin/fblog"
 
 S=${WORKDIR}/monolith-$COMMIT
 
