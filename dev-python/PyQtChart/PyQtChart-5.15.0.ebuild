@@ -11,7 +11,9 @@ DESCRIPTION="Python bindings for the Qt Chart framework"
 HOMEPAGE="https://www.riverbankcomputing.com/software/pyqtchart/intro"
 
 MY_P=${PN}_gpl-${PV/_pre/.dev}
-SRC_URI="https://www.riverbankcomputing.com/static/Downloads/PyQtChart/${PV}/PyQtChart-${PV}.tar.gz"
+SRC_URI="https://files.pythonhosted.org/packages/1c/a7/b075cd95d5481306e27643f80372d72f540e65812ed432a8e44f836a21c4/PyQtChart-5.15.0.tar.gz"
+#https://www.riverbankcomputing.com/static/Downloads/PyQtChart/${PV}/PyQtChart-${PV}.tar.gz"
+
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~ppc64 ~x86"
