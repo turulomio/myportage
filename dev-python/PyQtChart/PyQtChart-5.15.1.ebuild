@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI=6
-PYTHON_COMPAT=( python3_{5,6,7} )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
 inherit multibuild python-r1 qmake-utils
 
@@ -11,7 +11,7 @@ DESCRIPTION="Python bindings for the Qt Chart framework"
 HOMEPAGE="https://www.riverbankcomputing.com/software/pyqtchart/intro"
 
 MY_P=${PN}_gpl-${PV/_pre/.dev}
-SRC_URI="https://files.pythonhosted.org/packages/1c/a7/b075cd95d5481306e27643f80372d72f540e65812ed432a8e44f836a21c4/PyQtChart-5.15.0.tar.gz"
+SRC_URI="https://files.pythonhosted.org/packages/cf/97/49c7e5774835a97543b9759c617d0ad2bfd2e3e3596e4c2cddf9b38aeee2/PyQtChart-5.15.1.tar.gz"
 #https://www.riverbankcomputing.com/static/Downloads/PyQtChart/${PV}/PyQtChart-${PV}.tar.gz"
 
 LICENSE="GPL-3"
