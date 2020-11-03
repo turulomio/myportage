@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="amd64 ~amd64"
 IUSE=""
 
-RDEPEND=">=dev-python/qscintilla-python-2.10.8"
+RDEPEND=""
 DEPEND=""
 
 src_unpack(){
