@@ -16,7 +16,7 @@ else
 fi
 
 MY_SERVER_PN="scrcpy-server"
-MY_SERVER_P="${MY_SERVER_PN}-v${MY_SERVER_PV}.jar"
+MY_SERVER_P="${MY_SERVER_PN}-v${MY_SERVER_PV}"
 
 SRC_URI="https://github.com/Genymobile/${PN}/releases/download/v${MY_SERVER_PV}/${MY_SERVER_P}"
 
