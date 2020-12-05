@@ -1,3 +1,4 @@
+
 # Copyright 2019 linurs.org
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
@@ -15,8 +16,9 @@ SLOT="0"
 KEYWORDS="amd64 ~amd64"
 IUSE=""
 
-RDEPEND=""
-DEPEND=""
+RDEPEND="
+dev-python/qscintilla-python"
+DEPEND="${RDEPEND}"
 
 src_unpack(){
  if [ "${A}" != "" ]; then
