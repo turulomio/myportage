@@ -1,8 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v2
-# $Id$
-
-EAPI=6
+EAPI=7
 PYTHON_COMPAT=( python3_{7,8,9} )
 
 inherit multibuild python-r1 qmake-utils
@@ -11,8 +7,7 @@ DESCRIPTION="Python bindings for the Qt Chart framework"
 HOMEPAGE="https://www.riverbankcomputing.com/software/pyqtchart/intro"
 
 MY_P=${PN}_gpl-${PV/_pre/.dev}
-SRC_URI="https://files.pythonhosted.org/packages/cf/97/49c7e5774835a97543b9759c617d0ad2bfd2e3e3596e4c2cddf9b38aeee2/PyQtChart-5.15.1.tar.gz"
-#https://www.riverbankcomputing.com/static/Downloads/PyQtChart/${PV}/PyQtChart-${PV}.tar.gz"
+SRC_URI="https://files.pythonhosted.org/packages/23/63/e6b6720be83f3d9a6a547e6de550822bfe3003bfbe0d6ece265bf65887ad/PyQtChart-5.15.2.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
