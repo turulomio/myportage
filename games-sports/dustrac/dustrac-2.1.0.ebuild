@@ -1,12 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v2
-EAPI=6
+EAPI=7
 
-inherit cmake-utils
+inherit cmake
 
 DESCRIPTION="Dust Racing (Dustrac) is a tile-based, cross-platform 2D racing game written in Qt (C++) and OpenGL."
 HOMEPAGE="https://github.com/juzzlin/DustRacing2D"
-SRC_URI="https://github.com/juzzlin/DustRacing2D/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/juzzlin/DustRacing2D/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-3"
 KEYWORDS="amd64 x86"
 IUSE=""
@@ -19,19 +17,27 @@ media-libs/libvorbis
 "
 RDEPEND="${DEPEND}"
 
-S=${WORKDIR}/DustRacing2D-2.0.1/
+S=${WORKDIR}/DustRacing2D-${PV}/
 
 src_configure(){
-    ./configure    -DCMAKE_INSTALL_PREFIX=${D}/usr/games/dustrac
+    #./${D}/usr/bin/ -D DATA_PATH=data -DReleaseBuild=ON -DCMAKE_INSTALL_PREFIX=${D}/usr
+    #cd ${S}
+    local mycmakeargs=(
+        -DReleaseBuild=ON
+    #    -DBIN_PATH=bin
+        -DCMAKE_INSTALL_PREFIX=/usr
+    )
 
+    cmake_src_configure
 }
 
-src_compile(){
-    emake 
-}
+#src_compile(){
+#    cmake_src_compile
+#}
+
 src_install(){
-	emake install 
-	dobin ${FILESDIR}/dustrac*
+	cmake_src_install 
+	#dobin ${FILESDIR}/dustrac*
 	insinto /usr/share/pixmaps 
 	doins data/icons/dustrac-*
         make_desktop_entry dustrac-game "Dusting Race Game" /usr/share/pixmaps/dustrac-game
