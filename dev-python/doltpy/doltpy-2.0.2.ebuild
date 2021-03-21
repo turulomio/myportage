@@ -20,11 +20,9 @@ RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 dev-python/wheel
 "
-RESTRICT="test"
-src_configure(){
-#    sed -i -e "s/find_packages()/['doltpy',]/" setup.py
-#    sed -i "18d" setup.py
-#    sed -i "18d" setup.py
-    cat setup.py
+src_prepare(){
+    mv tests doltpytests #tests fail
+    eapply_user
 }
+
 
