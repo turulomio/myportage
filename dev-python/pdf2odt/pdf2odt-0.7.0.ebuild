@@ -1,6 +1,6 @@
 EAPI=7
 
-PYTHON_COMPAT=( python{3_5,3_6,3_7} pypy )
+PYTHON_COMPAT=( python{3_7,3_8,3_9} pypy )
 inherit distutils-r1
 
 DESCRIPTION="Converts a PDF file to LibreOffice Writer document"
@@ -18,6 +18,7 @@ RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 app-text/poppler
 app-text/tesseract
+dev-python/colorama
 dev-python/odfpy
 dev-python/officegenerator
 dev-python/pillow
