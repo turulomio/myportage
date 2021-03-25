@@ -20,12 +20,19 @@ S=${WORKDIR}
 
 src_install(){
     dolib.so usr/lib64/libpkcs11-dnie-asn1skeletons.so.0.0.0
-    dosym /usr/lib64/libpkcs11-dnie-asn1skeletons.so.0.0.0 /usr/lib64/libpkcs11-dnie-asn1skeletons.so.0
     dolib.so usr/lib64/libpkcs11-dnie-asn1.so.0.0.0
-    dosym /usr/lib64/libpkcs11-dnie-asn1.so.0.0.0 /usr/lib64/libpkcs11-dnie-asn1.so.0
     dolib.so usr/lib64/libpkcs11-dnie-cryptopp.so.0.0.0
-    dosym /usr/lib64/libpkcs11-dnie-cryptopp.so.0.0.0 /usr/lib64/libpkcs11-dnie-cryptopp.so.0
     dolib.so usr/lib64/libpkcs11-dnie.so
+
+
+    cd usr/lib64
+    dosym libpkcs11-dnie-asn1skeletons.so.0.0.0 /usr/lib64/libpkcs11-dnie-asn1skeletons.so
+    dosym libpkcs11-dnie-asn1.so.0.0.0 /usr/lib64/libpkcs11-dnie-asn1.so
+    dosym libpkcs11-dnie-cryptopp.so.0.0.0 /usr/lib64/libpkcs11-dnie-cryptopp.so
+    dosym libpkcs11-dnie-asn1skeletons.so.0.0.0 /usr/lib64/libpkcs11-dnie-asn1skeletons.so.0
+    dosym libpkcs11-dnie-asn1.so.0.0.0 /usr/lib64/libpkcs11-dnie-asn1.so.0
+    dosym libpkcs11-dnie-cryptopp.so.0.0.0 /usr/lib64/libpkcs11-dnie-cryptopp.so.0
+
 }
 
 pkg_postinst() {
