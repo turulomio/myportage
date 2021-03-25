@@ -1,6 +1,3 @@
-# Copyright 1999-2020 Gentoo Authors
-# Distributed under the terms of the GNU General Public License v2
-
 EAPI=7
 
 inherit desktop java-utils-2 rpm xdg
@@ -18,15 +15,25 @@ BDEPEND="app-arch/unzip"
 
 S=${WORKDIR}
 
+src_prepare() {
+        sed -i 's:autoFirma:autofirma:' usr/lib64/firefox/defaults/pref/autofirma.js || die "sed failed"
+        eapply_user
+}
+
 src_unpack() {
 	default
 	rpm_unpack "./${P}-1.noarch.rpm"
 }
+
+
 
 src_install() {
 	java-pkg_dojar "usr/lib64/${PN}/${PN}.jar"
 	java-pkg_dolauncher
 	java-pkg_dojar "usr/lib64/${PN}/${PN}Configurador.jar"
 	doicon "usr/lib64/${PN}/${PN}.png"
+	insinto /usr/lib64/firefox/defaults/pref/
+	doins usr/lib64/firefox/defaults/pref/autofirma.js
 	make_desktop_entry "${PN} %u" AutoFirma "${PN}" "Utility" "Comment[es]=Aplicación de firma electrónica de la FNMT\nMimeType=x-scheme-handler/afirma"
+	dodoc AF_manual_instalacion_usuarios_ES.pdf
 }
