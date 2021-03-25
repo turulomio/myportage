@@ -11,6 +11,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
+app-crypt/ccid
 sys-apps/pcsc-lite
 sys-apps/pcsc-tools
 "
@@ -38,7 +39,7 @@ src_install(){
 pkg_postinst() {
     elog "To use dnie you must:"
     elog "  * To make usb card gadget work"
-    elog "    - Maybe you need to use -udev libusb if your card gadget is not recognized"
+    elog "    - Read https://wiki.gentoo.org/wiki/PCSC-Lite"
     elog "    - Init /etc/init.d/pcscd start or rc-update add pcscd default"
     elog "  * To make firefox use dnie"
     elog "    - https://www.dnielectronico.es/PDFs/Familia_Mozilla.pdf"
