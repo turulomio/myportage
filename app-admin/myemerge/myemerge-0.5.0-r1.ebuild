@@ -18,5 +18,6 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
+app-portage/gentoolkit
 dev-util/ccache
 "
