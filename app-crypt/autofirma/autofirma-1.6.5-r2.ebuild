@@ -10,7 +10,11 @@ LICENSE="|| ( GPL-2+ EUPL-1.1 )"
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND="virtual/jre:1.8"
+RDEPEND="
+app-crypt/libpkcs11-fnmtdnie
+sys-apps/pcsc-tools
+virtual/jre:1.8
+"
 BDEPEND="app-arch/unzip"
 
 S=${WORKDIR}
