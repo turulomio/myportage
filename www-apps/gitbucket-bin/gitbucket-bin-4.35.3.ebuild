@@ -14,9 +14,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=""
-DEPEND="
-${RDEPEND}"
+RDEPEND="
+dev-java/openjdk
+"
+
+DEPEND="${RDEPEND}"
 
 GIT_USER="gitbucket"
 GIT_HOME="/var/lib/gitbucket"
