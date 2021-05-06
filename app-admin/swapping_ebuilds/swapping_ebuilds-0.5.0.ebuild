@@ -18,6 +18,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
+dev-python/colorama
 dev-python/humanize
 dev-python/psutil
 "
