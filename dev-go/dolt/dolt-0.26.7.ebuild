@@ -33,6 +33,9 @@ SLOT="0"
 DEPEND="dev-lang/go"
 RDEPEND="${DEPEND}"
 
+## COMPILE WITH THIS COMMAND
+## FEATURES="-network-sandbox" emerge -v dolt
+
 
 src_compile(){
     cd go/cmd/dolt
