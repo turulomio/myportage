@@ -3,12 +3,13 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_5,3_6,3_7} )
+PYTHON_COMPAT=( python{3_8,3_9,3_10} )
 inherit distutils-r1
 
 MY_PN="cx_Oracle"
 DESCRIPTION="Python extension module that allows access to Oracle Databases"
-HOMEPAGE="http://www.python.net/crew/atuining/cx_Oracle/"
+HOMEPAGE="https://github.com/oracle/python-cx_Oracle/archive/7.2.3.zip"
+#https://github.com/oracle/python-cx_Oracle/archive/7.2.3.zip
 SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_PN}-${PV}.tar.gz"
 
 LICENSE="BSD"
@@ -16,7 +17,7 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="test doc"
 
-DEPEND=">=dev-db/oracle-instantclient-basic-10.1.0.2"
+DEPEND=""
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_PN}-${PV}"
