@@ -9,4 +9,6 @@ app-office/xulpymoney
 dev-python/django
 dev-python/django-debug-toolbar
 dev-python/django-cors-headers
+www-apache/mod_wsgi
+www-servers/apache
 "
