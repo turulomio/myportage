@@ -16,6 +16,5 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 DISTUTILS_USE_SETUPTOOLS="rdepend"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
-app-office/libreoffice
+app-admin/unogenerator_daemon
 "
-
