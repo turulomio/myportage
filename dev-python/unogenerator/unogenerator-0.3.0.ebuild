@@ -17,4 +17,5 @@ DISTUTILS_USE_SETUPTOOLS="rdepend"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 app-admin/unogenerator_daemon
+dev-python/tqdm
 "

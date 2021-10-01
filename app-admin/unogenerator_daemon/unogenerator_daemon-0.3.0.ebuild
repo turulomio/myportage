@@ -17,7 +17,8 @@ app-office/libreoffice
 S="${WORKDIR}/unogenerator-${PV}/"
 
 RDEPEND="${DEPEND}"
+
 src_install() {
-    einfo ${HOME}
     doinitd ${S}/init.d/unogenerator
+    newconfd ${S}/init.d/unogenerator.conf unogenerator
 }
