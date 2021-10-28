@@ -18,4 +18,6 @@ RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 app-office/libreoffice
 dev-python/tqdm
+dev-python/colorama
+dev-python/humanize
 "
