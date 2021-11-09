@@ -7,7 +7,7 @@ DESCRIPTION="Python bindings for the Qt Chart framework"
 HOMEPAGE="https://www.riverbankcomputing.com/software/pyqtchart/intro"
 
 MY_P=${PN}_gpl-${PV/_pre/.dev}
-SRC_URI="https://files.pythonhosted.org/packages/23/63/e6b6720be83f3d9a6a547e6de550822bfe3003bfbe0d6ece265bf65887ad/PyQtChart-5.15.2.tar.gz"
+SRC_URI="https://files.pythonhosted.org/packages/e6/af/dd493297922be2935ae2de34daea818940c4f747a98d09acaaa5e84cd1dd/PyQtChart-5.15.4.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -35,6 +35,7 @@ src_configure() {
 			"configure.py"
 			--verbose
 			--qmake="$(qt5_get_bindir)"/qmake
+			#--sip="/usr/bin/"
 		)
 		echo QT_SELECT="qt5" "${myconf[@]}"
 		"${myconf[@]}" || die

@@ -17,6 +17,8 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 dev-python/translate-toolkit
+dev-python/polib
+dev-python/unogenerator
 "
 
 S="${WORKDIR}/${P}"
