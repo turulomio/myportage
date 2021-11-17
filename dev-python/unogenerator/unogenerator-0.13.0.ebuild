@@ -21,4 +21,5 @@ dev-python/tqdm
 dev-python/colorama
 dev-python/humanize
 dev-python/polib
+dev-python/psutil
 "
