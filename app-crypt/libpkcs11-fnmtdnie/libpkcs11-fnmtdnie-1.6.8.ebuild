@@ -4,8 +4,7 @@ inherit desktop rpm xdg
 
 DESCRIPTION="Spanish government's electronic signature PKCS11 for FNMT DNIE"
 HOMEPAGE="https://www.sede.fnmt.gob.es/en/stceres"
-SRC_URI="https://www.sede.fnmt.gob.es/documents/10445900/10816753/libpkcs11-fnmtdnie-1.6.1_Fedora_33_64bits.rpm"
-
+SRC_URI="https://www.sede.fnmt.gob.es/documents/10445900/10876884/libpkcs11-fnmtdnie-1.6.8_Fedora_33_34_64bits.rpm"
 LICENSE="|| ( GPL-2+ EUPL-1.1 )"
 SLOT="0"
 KEYWORDS="~amd64"
