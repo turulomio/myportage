@@ -7,7 +7,6 @@ KEYWORDS="amd64 arm arm64 ~ia64 ~m68k ~mips ppc ppc64 ~s390 sparc x86 ~amd64-lin
 RDEPEND="
 app-admin/unogenerator_daemon
 dev-python/django
-dev-python/django-debug-toolbar
 dev-python/django-cors-headers
 dev-python/djangorestframework
 dev-python/psycopg
