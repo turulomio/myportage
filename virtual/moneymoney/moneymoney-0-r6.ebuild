@@ -9,6 +9,8 @@ app-admin/unogenerator_daemon
 dev-python/django
 dev-python/django-cors-headers
 dev-python/djangorestframework
+dev-python/uritemplate
+dev-python/pyyaml
 dev-python/drf-spectacular
 dev-python/psycopg
 dev-python/requests
