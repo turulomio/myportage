@@ -1,5 +1,5 @@
 EAPI=7
-PYTHON_COMPAT=( python{3_8,3_9,3_10} pypy )
+PYTHON_COMPAT=( python{3_9,3_10,3_11} pypy )
 
 inherit distutils-r1
 
@@ -20,7 +20,7 @@ RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 app-text/texlive
 dev-python/colorama
-dev-python/officegenerator
+dev-python/unogenerator
 dev-python/psycopg
 "
 S="${WORKDIR}/mymoviebook-mymoviebook-${PV}"
