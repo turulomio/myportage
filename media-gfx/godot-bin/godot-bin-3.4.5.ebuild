@@ -5,7 +5,7 @@ inherit desktop
 DESCRIPTION="Godot Engine – Multi-platform 2D and 3D game engine"
 HOMEPAGE="https://godotengine.org/"
 SRC_URI="
-	amd64? ( https://github.com/godotengine/godot/releases/download/3.4.4-stable/Godot_v${PV}-stable_x11.64.zip )
+	amd64? ( https://github.com/godotengine/godot/releases/download/${PV}-stable/Godot_v${PV}-stable_x11.64.zip )
 "
 
 LICENSE="MIT"
