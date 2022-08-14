@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 python3_{4,5,6} )
+PYTHON_COMPAT=( python3_{9,10,11} )
 inherit distutils-r1
 
 SRC_URI="https://github.com/coderholic/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
