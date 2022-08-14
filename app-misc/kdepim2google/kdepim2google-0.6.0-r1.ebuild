@@ -1,6 +1,6 @@
 EAPI="7"
 
-inherit cmake-utils
+inherit cmake
 
 #ABI_X86="64"
 SRC_URI="https://github.com/turulomio/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
