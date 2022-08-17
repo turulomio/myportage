@@ -18,4 +18,10 @@ LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="amd64 x86"
 
-DEPEND=""
+DEPEND="
+dev-python/APScheduler 
+dev-python/cachetools
+dev-python/httpx 
+www-servers/tornado 
+dev-python/rfc3986
+"
