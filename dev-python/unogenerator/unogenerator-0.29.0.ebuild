@@ -1,6 +1,6 @@
 EAPI=7
 
-PYTHON_COMPAT=( python{3_8,3_9,3_10} pypy )
+PYTHON_COMPAT=( python{3_9,3_10,3_11} pypy )
 inherit distutils-r1
 
 DESCRIPTION="Python module to generate documents using Libreoffice API"
