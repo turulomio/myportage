@@ -12,6 +12,9 @@ DEPEND="
 www-client/firefox
 "
 
-src_install(){
-	dobin firefox_newuser
-}
+PYTHON_COMPAT=( python{3_9,3_10,3_11} pypy )
+inherit distutils-r1
+
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+DISTUTILS_USE_SETUPTOOLS="rdepend"
+RDEPEND="${PYTHON_DEPS}"
