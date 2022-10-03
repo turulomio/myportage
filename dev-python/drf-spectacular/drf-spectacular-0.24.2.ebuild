@@ -6,7 +6,7 @@ inherit distutils-r1
 DESCRIPTION="Sane and flexible OpenAPI 3 schema generation for Django REST framework."
 HOMEPAGE="https://github.com/tfranzel/drf-spectacular"
 
-SRC_URI="https://github.com/tfranzel/drf-spectacular/archive/refs/tags/0.22.1.zip -> ${P}.zip"
+SRC_URI="https://github.com/tfranzel/drf-spectacular/archive/refs/tags/0.24.2.zip -> ${P}.zip"
 
 #S=${WORKDIR}/npyscreen-$COMMIT/
 LICENSE="BSD-3"
