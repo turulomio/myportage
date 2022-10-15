@@ -9,6 +9,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
+x11-apps/xhost
 www-client/firefox
 "
 
