@@ -1,6 +1,5 @@
 EAPI=8
 
-
 PYTHON_COMPAT=( python{3_9,3_10,3_11} pypy )
 inherit distutils-r1
 
