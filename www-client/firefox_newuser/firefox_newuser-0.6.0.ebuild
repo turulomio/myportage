@@ -11,6 +11,9 @@ IUSE=""
 DEPEND="
 x11-apps/xhost
 www-client/firefox
+dev-python/colorama
+dev-python/psutil
+dev-python/tqdm
 "
 
 PYTHON_COMPAT=( python{3_9,3_10,3_11} pypy )
