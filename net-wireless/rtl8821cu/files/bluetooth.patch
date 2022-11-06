@@ -1,0 +1,13 @@
+diff --git a/8821cu.conf b/8821cu.conf
+index f38db09..fb7abd4 100644
+--- a/8821cu.conf
++++ b/8821cu.conf
+@@ -8,7 +8,7 @@
+ # documentation.
+ #
+ # Edit the following line to change, add or delete options:
+-options 8821cu rtw_drv_log_level=0 rtw_led_ctrl=1 rtw_vht_enable=1 rtw_power_mgnt=1 rtw_dfs_region_domain=0
++options 8821cu rtw_drv_log_level=1 rtw_led_ctrl=1 rtw_vht_enable=1 rtw_power_mgnt=1 rtw_dfs_region_domain=0 rtw_RFE_type=7
+ #
+ # After editing is complete, save this file (if using nano: Ctrl + x, y, Enter)
+ # and reboot to activate the changes.

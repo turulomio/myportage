@@ -20,6 +20,11 @@ S="${WORKDIR}/8821cu-20210118-main"
 MODULE_NAMES="8821cu(net/wireless)"
 BUILD_TARGETS="all"
 
+PATCHES=(
+    "${FILESDIR}/bluetooth.patch"
+)
+
+
 pkg_setup() {
     linux-mod_pkg_setup
     BUILD_PARAMS="KERN_DIR=${KV_DIR} KSRC=${KV_DIR} KERN_VER=${KV_FULL} O=${KV_OUT_DIR} V=1 KBUILD_VERBOSE=1"
