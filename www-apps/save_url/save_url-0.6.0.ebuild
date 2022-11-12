@@ -1,7 +1,4 @@
 EAPI=7
-#PYTHON_COMPAT=( python{3_5,3_6,3_7} pypy )
-
-#inherit distutils-r1
 
 DESCRIPTION="Script to save and url in a single file with an automatic and structured name. It uses monolith as its backend"
 LICENSE="GPL-3"
