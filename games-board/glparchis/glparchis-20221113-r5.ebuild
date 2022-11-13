@@ -1,7 +1,3 @@
-# Copyright 1999-2018 Gentoo Technologies, Inc.
-# Distributed under the terms of the GNU General Public License v2
-# $Header: $
-
 EAPI=7
 PYTHON_COMPAT=( python{3_9,3_10,3_11} )
 
@@ -10,8 +6,8 @@ DESCRIPTION="OpenGL Parchis"
 LICENSE="GPL-3"
 
 IUSE=""
-SRC_URI="https://github.com/Turulomio/glparchis/archive/glparchis-${PV}.tar.gz"
-HOMEPAGE="https://github.com/Turulomio/glparchis"
+SRC_URI="https://github.com/turulomio/glparchis/archive/glparchis-${PV}.tar.gz"
+HOMEPAGE="https://github.com/turulomio/glparchis"
 LICENSE="GPL-3"
 
 SLOT="0"
@@ -27,3 +23,13 @@ dev-python/colorama
 dev-python/pyopengl
 "
 S="${WORKDIR}/glparchis-glparchis-${PV}"
+
+
+src_install() {
+	distutils-r1_src_install
+	insinto /usr/share/pixmaps
+	doins glparchis/images/glparchis.png
+	insinto /usr/share/applications
+	doins glparchis.desktop
+
+}
