@@ -20,6 +20,7 @@ RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 app-text/texlive
 dev-python/colorama
+dev-python/mangenerator
 dev-python/unogenerator
 dev-python/psycopg
 "
