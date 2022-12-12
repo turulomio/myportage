@@ -28,6 +28,7 @@ dev-python/python-magic
 dev-python/ffmpeg-python
 dev-python/wand
 dev-python/filelock
+dev-python/pyexifinfo
 "
 
 

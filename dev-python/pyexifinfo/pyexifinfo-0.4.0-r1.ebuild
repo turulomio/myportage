@@ -8,7 +8,6 @@ HOMEPAGE="https://github.com/guinslym/pyexifinfo"
 
 SRC_URI="https://files.pythonhosted.org/packages/d5/57/7d90277921541ff7113ec1de13b7163f9b85abe43f905a9f94420ecdd528/pyexifinfo-0.4.0.tar.gz"
 
-#S=${WORKDIR}/preview-generator-release_${PV}/
 LICENSE="BSD-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -19,8 +18,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
+media-libs/exiftool
 "
 
 
-
-#pyexifinfo falta
