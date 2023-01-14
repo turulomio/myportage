@@ -16,4 +16,5 @@ KEYWORDS="amd64 x86"
 S="${WORKDIR}/factory_boy-${PV}/"
 
 DEPEND="
+dev-python/faker
 "
