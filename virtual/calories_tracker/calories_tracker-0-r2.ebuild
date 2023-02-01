@@ -17,5 +17,6 @@ dev-python/psycopg:2
 dev-python/django-simple-history
 dev-python/preview-generator
 dev-python/tabulate
+dev-python/pillow
 net-libs/nodejs
 "
