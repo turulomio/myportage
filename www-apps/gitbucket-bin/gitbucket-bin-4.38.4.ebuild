@@ -1,9 +1,7 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-
-inherit eutils user
+EAPI=8
 
 DESCRIPTION="An open-source git service"
 HOMEPAGE="https://github.com/gitbucket/gitbucket"
@@ -15,18 +13,12 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
+acct-user/gitbucket
 dev-java/openjdk
 "
 
 DEPEND="${RDEPEND}"
 
-GIT_USER="gitbucket"
-GIT_HOME="/var/lib/gitbucket"
-
-pkg_setup() {
-    enewgroup ${GIT_USER}
-    enewuser ${GIT_USER} -1 /bin/bash ${GIT_HOME} "${GIT_USER}"
-}
 
 src_unpack() {
     mkdir -p ${S}
