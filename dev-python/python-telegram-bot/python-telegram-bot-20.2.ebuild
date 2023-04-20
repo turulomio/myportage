@@ -17,7 +17,7 @@ KEYWORDS="amd64 x86"
 DEPEND="
 dev-python/APScheduler 
 dev-python/cachetools
-dev-python/httpx 
+=dev-python/httpx-0.23.3-r1
 dev-python/rfc3986
 dev-python/tornado
 "
