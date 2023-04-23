@@ -1,7 +1,9 @@
 EAPI=7
-PYTHON_COMPAT=( python{3_9,3_10,3_11} pypy )
 
+PYTHON_COMPAT=( python3_{9..11} )
 inherit distutils-r1
+
+DISTUTILS_USE_PEP517=poetry
 
 DESCRIPTION="Generate your personal movie collection book "
 LICENSE="GPL-3"
@@ -20,8 +22,10 @@ RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 app-text/texlive
 dev-python/colorama
-dev-python/mangenerator
-dev-python/unogenerator
+dev-python/platformdirs
 dev-python/psycopg
+dev-python/python-decouple
+dev-python/tqdm
+dev-python/dj-database-url
 "
 S="${WORKDIR}/mymoviebook-mymoviebook-${PV}"
