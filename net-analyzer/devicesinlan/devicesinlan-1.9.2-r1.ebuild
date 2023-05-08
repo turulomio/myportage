@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=7
-PYTHON_COMPAT=( python{3_8,3_9,3_10} pypy )
+PYTHON_COMPAT=( python3_{9..11} )
 
 inherit distutils-r1
 DESCRIPTION="Show devices in a lan. You can enter your known devices, in order to detect strange devices."
