@@ -21,4 +21,5 @@ DEPEND="${RDEPEND}
 dev-python/tqdm
 dev-python/colorama
 dev-python/chardet
+dev-python/poetry-core
 "
