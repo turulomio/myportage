@@ -21,4 +21,5 @@ DEPEND="${RDEPEND}
 app-portage/gentoolkit
 dev-util/ccache
 dev-python/pycryptodome
+dev-python/poetry-core
 "
