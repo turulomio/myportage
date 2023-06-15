@@ -1,8 +1,7 @@
 EAPI=7
 PYTHON_COMPAT=( python3_{9..11} )
-
 inherit distutils-r1
-
+DISTUTILS_USE_PEP517=poetry
 DESCRIPTION="My gentoo kernel compilation script"
 LICENSE="GPL-3"
 
@@ -19,7 +18,6 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 app-arch/cpio
-dev-python/colorama
 dev-python/pytz
 dev-util/ccache
 sys-fs/cryptsetup
@@ -28,4 +26,6 @@ sys-apps/iucode_tool
 sys-apps/util-linux
 sys-firmware/intel-microcode
 sys-kernel/linux-firmware
+dev-python/poetry-core
+
 "
