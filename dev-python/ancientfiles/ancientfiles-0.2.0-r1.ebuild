@@ -1,6 +1,6 @@
 EAPI=7
 
-PYTHON_COMPAT=( python{3_7,3_8,3_9} pypy )
+PYTHON_COMPAT=( python3_{10..12} )
 inherit distutils-r1
 
 DESCRIPTION="Moves ancient files from a directory to another selecting is age. Then you can backup them."
