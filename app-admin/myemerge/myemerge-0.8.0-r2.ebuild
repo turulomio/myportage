@@ -20,6 +20,7 @@ RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 app-portage/gentoolkit
 dev-util/ccache
+dev-python/colorama
 dev-python/pycryptodome
 dev-python/poetry-core
 "
