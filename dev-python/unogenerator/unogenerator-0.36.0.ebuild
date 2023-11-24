@@ -25,6 +25,7 @@ dev-python/humanize
 dev-python/poetry-core
 dev-python/polib
 dev-python/psutil
+dev-python/pydicts
 dev-python/pytz
 media-gfx/imagemagick
 "
