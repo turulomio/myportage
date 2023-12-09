@@ -6,4 +6,5 @@ KEYWORDS="amd64 arm arm64 ~ia64 ~m68k ~mips ppc ppc64 ~s390 sparc x86 ~amd64-lin
 
 RDEPEND="
 app-admin/unogenerator_daemon
+net-libs/nodejs[inspector]
 "
