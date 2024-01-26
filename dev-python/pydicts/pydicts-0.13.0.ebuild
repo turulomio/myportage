@@ -19,4 +19,6 @@ DISTUTILS_USE_SETUPTOOLS="rdepend"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 dev-python/tabulate
+dev-python/pylatex
+dev-python/isodate
 "
