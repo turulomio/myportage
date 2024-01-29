@@ -26,5 +26,5 @@ sys-apps/util-linux
 sys-firmware/intel-microcode
 sys-kernel/linux-firmware
 dev-python/poetry-core
-dev-python/pydicts
+>=dev-python/pydicts-0.13.0
 "
