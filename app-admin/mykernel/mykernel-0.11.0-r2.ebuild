@@ -24,6 +24,7 @@ sys-fs/e2fsprogs
 sys-apps/iucode_tool
 sys-apps/util-linux
 sys-firmware/intel-microcode
+sys-kernel/dracut
 sys-kernel/linux-firmware
 dev-python/poetry-core
 >=dev-python/pydicts-0.13.0
