@@ -3,12 +3,14 @@
 # $Header: $
 
 EAPI=7
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{9..12} )
 
 inherit distutils-r1
 DESCRIPTION="Show devices in a lan. You can enter your known devices, in order to detect strange devices."
 
 LICENSE="GPL-3"
+
+DISTUTILS_USE_PEP517=poetry
 
 IUSE="gui"
 SRC_URI="https://github.com/Turulomio/devicesinlan/archive/devicesinlan-v${PV}.tar.gz"
@@ -21,9 +23,9 @@ KEYWORDS="x86 amd64"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${RDEPEND}
-gui? ( dev-python/PyQt5[widgets,gui] )
+gui? ( dev-python/PyQt6[widgets,gui] )
 dev-python/colorama
-dev-python/PyQt5[network]
+dev-python/PyQt6[network]
 net-analyzer/scapy
 "
 
