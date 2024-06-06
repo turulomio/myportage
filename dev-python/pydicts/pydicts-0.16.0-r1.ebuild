@@ -1,6 +1,6 @@
 EAPI=7
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{9..13} )
 inherit distutils-r1
 
 DESCRIPTION="Module to use dictionaries, list of dictionaries and other data structures "
