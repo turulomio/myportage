@@ -28,4 +28,5 @@ sys-kernel/dracut
 sys-kernel/linux-firmware
 dev-python/poetry-core
 >=dev-python/pydicts-0.13.0
+sys-kernel/installkernel[dracut,grub]
 "
