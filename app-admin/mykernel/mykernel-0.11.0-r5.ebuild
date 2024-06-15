@@ -8,7 +8,7 @@ LICENSE="GPL-3"
 HOMEPAGE="https://github.com/turulomio/${PN}"
 SRC_URI="https://github.com/turulomio/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-3"
-IUSE=""
+IUSE="dracut"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 
@@ -24,9 +24,9 @@ sys-fs/e2fsprogs
 sys-apps/iucode_tool
 sys-apps/util-linux
 sys-firmware/intel-microcode
-sys-kernel/dracut
+dracut? ( sys-kernel/dracut )
 sys-kernel/linux-firmware
 dev-python/poetry-core
 >=dev-python/pydicts-0.13.0
-sys-kernel/installkernel[dracut,grub]
+sys-kernel/installkernel[grub]
 "
