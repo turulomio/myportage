@@ -18,6 +18,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 DISTUTILS_USE_SETUPTOOLS="rdepend"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
+dev-python/colorama
 dev-python/tabulate
 dev-python/pylatex
 dev-python/isodate
