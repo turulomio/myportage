@@ -1,4 +1,5 @@
-EAPI=7
+EAPI=8
+
 
 
 DESCRIPTION="Script to save and url in a single file with an automatic and structured name. It uses monolith as its backend"
@@ -8,7 +9,7 @@ IUSE=""
 SRC_URI="https://github.com/turulomio/save_url/archive/save_url-${PV}.tar.gz"
 HOMEPAGE="https://github.com/turulomio/save_url"
 
-DISTUTILS_USE_PEP517=poetry
+DISTUTILS_USE_PEP517=standalone
 
 
 SLOT="0"
@@ -22,7 +23,7 @@ www-apps/monolith
 "
 
 
-PYTHON_COMPAT=( python{3_9,3_10,3_11,3_12} pypy )
+PYTHON_COMPAT=( python{3_10,3_11,3_12} pypy )
 
 inherit distutils-r1
 
