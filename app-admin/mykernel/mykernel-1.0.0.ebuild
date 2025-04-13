@@ -1,7 +1,7 @@
-EAPI=7
-PYTHON_COMPAT=( python3_{9..13} )
+EAPI=8
+PYTHON_COMPAT=( python3_{10..13} )
 inherit distutils-r1
-DISTUTILS_USE_PEP517=poetry
+DISTUTILS_USE_PEP517=standalone
 DESCRIPTION="My gentoo kernel compilation script"
 LICENSE="GPL-3"
 
@@ -27,6 +27,6 @@ sys-firmware/intel-microcode
 dracut? ( sys-kernel/dracut )
 sys-kernel/linux-firmware
 dev-python/poetry-core
->=dev-python/pydicts-0.13.0
+dev-python/pydicts
 sys-kernel/installkernel[grub]
 "
