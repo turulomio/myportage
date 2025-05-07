@@ -23,7 +23,7 @@ www-apps/monolith
 "
 
 
-PYTHON_COMPAT=( python{3_10,3_11,3_12} pypy )
+PYTHON_COMPAT=( python3_{10..13} pypy )
 
 inherit distutils-r1
 
