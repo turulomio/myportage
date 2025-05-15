@@ -3,8 +3,8 @@
 # $Header: $
 
 EAPI=7
-PYTHON_COMPAT=( python3_{10,11,12} )
-
+PYTHON_COMPAT=( python3_{10..13} )
+DISTUTILS_USE_PEP517="standalone"
 inherit distutils-r1
 DESCRIPTION="Remove innecesary files finding datetime patterns in filename"
 LICENSE="GPL-3"
@@ -22,5 +22,9 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 dev-python/colorama
+dev-python/poetry-core
 "
+
+RESTRICT="test" #Test for developer not needed
+
 S="${WORKDIR}/toomanyfiles-toomanyfiles-v${PV}"
