@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=7
-PYTHON_COMPAT=( python{3_9,3_10,3_11} pypy )
+PYTHON_COMPAT=( python3_{10..14} )
 
 inherit distutils-r1
 DESCRIPTION="Admin options to work with the max length of the name of your files"
@@ -23,4 +23,3 @@ RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 dev-python/colorama
 "
-#S="${WORKDIR}/toomanyfiles-toomanyfiles-v${PV}"
