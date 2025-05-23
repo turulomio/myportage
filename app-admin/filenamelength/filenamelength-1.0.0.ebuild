@@ -24,4 +24,3 @@ dev-python/colorama
 dev-python/pydicts
 dev-python/poetry-core
 "
-
