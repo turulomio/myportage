@@ -3,8 +3,8 @@
 # $Header: $
 
 EAPI=8
-PYTHON_COMPAT=( python3_{10..14} )
-DISTUTILS_USE_PEP517=standalone
+PYTHON_COMPAT=( python3_{10..13} )
+DISTUTILS_USE_PEP517=poetry
 inherit distutils-r1
 DESCRIPTION="Admin options to work with the max length of the name of your files"
 LICENSE="GPL-3"
