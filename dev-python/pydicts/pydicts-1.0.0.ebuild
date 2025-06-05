@@ -1,12 +1,12 @@
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python3_{9..13} )
-inherit distutils-r1
+
 
 DESCRIPTION="Module to use dictionaries, list of dictionaries and other data structures "
 
-DISTUTILS_USE_PEP517=standalone
-
+DISTUTILS_USE_PEP517=poetry
+inherit distutils-r1
 SRC_URI="https://github.com/turulomio/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 HOMEPAGE="https://github.com/turulomio/${PN}"
 LICENSE="GPL-3"
