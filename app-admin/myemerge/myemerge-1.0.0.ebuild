@@ -1,8 +1,8 @@
 EAPI=8
 PYTHON_COMPAT=( python3_{10..13} )
-inherit distutils-r1
-DISTUTILS_USE_PEP517=standalone
 
+DISTUTILS_USE_PEP517=poetry
+inherit distutils-r1
 DESCRIPTION="My emerge sync procedure"
 LICENSE="GPL-3"
 
