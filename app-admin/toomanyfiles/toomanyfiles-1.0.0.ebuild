@@ -4,7 +4,7 @@
 
 EAPI=7
 PYTHON_COMPAT=( python3_{10..13} )
-DISTUTILS_USE_PEP517="standalone"
+DISTUTILS_USE_PEP517=poetry
 inherit distutils-r1
 DESCRIPTION="Remove innecesary files finding datetime patterns in filename"
 LICENSE="GPL-3"
