@@ -2,15 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=7
-PYTHON_COMPAT=( python3_{9..12} )
+EAPI=8
+PYTHON_COMPAT=( python3_{11..14} )
+DISTUTILS_USE_PEP517="poetry"
 
 inherit distutils-r1
 DESCRIPTION="Show devices in a lan. You can enter your known devices, in order to detect strange devices."
 
 LICENSE="GPL-3"
 
-DISTUTILS_USE_PEP517=poetry
 
 IUSE="gui"
 SRC_URI="https://github.com/Turulomio/devicesinlan/archive/devicesinlan-v${PV}.tar.gz"
@@ -20,12 +20,11 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-
+RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
-gui? ( dev-python/PyQt6[widgets,gui] )
+gui? ( dev-python/pyqt6[widgets,gui] )
 dev-python/colorama
-dev-python/PyQt6[network]
+dev-python/pyqt6[network]
 net-analyzer/scapy
 "
 
