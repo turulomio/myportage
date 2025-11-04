@@ -10,8 +10,8 @@ inherit distutils-r1
 DESCRIPTION="Remove innecesary files finding datetime patterns in filename"
 LICENSE="GPL-3"
 IUSE=""
-SRC_URI="https://github.com/Turulomio/toomanyfiles/archive/toomanyfiles-v${PV}.tar.gz"
-HOMEPAGE="https://github.com/Turulomio/toomanyfiles"
+SRC_URI="https://github.com/turulomio/toomanyfiles/archive/toomanyfiles-v${PV}.tar.gz"
+HOMEPAGE="https://github.com/turulomio/toomanyfiles"
 SLOT="0"
 KEYWORDS="x86 amd64"
 
