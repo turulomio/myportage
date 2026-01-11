@@ -17,7 +17,9 @@ SRC_URI="https://github.com/charmbracelet/vhs/releases/download/v${PV}/vhs_${PV}
 KEYWORDS="~amd64"
 
 # Dependencias de tiempo de ejecución (ninguna específica requerida para este binario)
-RDEPEND=""
+RDEPEND="
+    www-apps/ttyd
+"
 S="${WORKDIR}/vhs_0.10.0_Linux_x86_64"
 # -----------------------------------------------------------------
 # Fase de Instalación (src_install)
