@@ -1,29 +1,22 @@
-EAPI=7
+EAPI=8
+PYTHON_COMPAT=( python3_{10..14} )
+DISTUTILS_USE_PEP517="poetry"
+inherit distutils-r1
+
 DESCRIPTION="Script to launch firefox in a recently created user. It deletes user after closing firefox"
+LICENSE="GPL-3"
+
 HOMEPAGE="https://github.com/turulomio/${PN}"
 SRC_URI="https://github.com/turulomio/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
-
-
-DISTUTILS_USE_PEP517=poetry
-
-
-LICENSE="GPL-3"
-SLOT="0"
-KEYWORDS="~amd64 ~x86"
 IUSE=""
+SLOT="0"
+KEYWORDS="~x86 ~amd64"
 
-DEPEND="
-x11-apps/xhost
+RDEPEND="${PYTHON_DEPS}"
+DEPEND="${RDEPEND}
 www-client/firefox
 dev-python/colorama
-dev-python/poetry-core
 dev-python/psutil
 dev-python/tqdm
 "
 
-PYTHON_COMPAT=( python{3_9,3_10,3_11,3_12} pypy )
-inherit distutils-r1
-
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-DISTUTILS_USE_SETUPTOOLS="rdepend"
-RDEPEND="${PYTHON_DEPS}"
