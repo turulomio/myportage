@@ -25,4 +25,5 @@ sys-kernel/linux-firmware
 dev-python/poetry-core
 dev-python/pydicts
 sys-kernel/installkernel[grub]
+dev-python/configparser_rb
 "
