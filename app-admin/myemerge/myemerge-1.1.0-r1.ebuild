@@ -18,4 +18,5 @@ app-portage/gentoolkit
 dev-util/ccache
 dev-python/colorama
 dev-python/configparser_rb
+sys-power/cpupower
 "

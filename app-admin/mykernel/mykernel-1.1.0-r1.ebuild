@@ -26,4 +26,5 @@ dev-python/poetry-core
 dev-python/pydicts
 sys-kernel/installkernel[grub]
 dev-python/configparser_rb
+sys-power/cpupower
 "
