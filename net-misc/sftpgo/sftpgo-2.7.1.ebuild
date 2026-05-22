@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/drakkan/sftpgo"
 # We use github's release archive, but we also need to leverage go-module eclass
 # to automatically resolve and pull Go dependencies during the fetch phase.
 SRC_URI="https://github.com/drakkan/sftpgo/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-https://github.com/turulomio/myportage/raw/refs/heads/master/distfiles/${P}.tar.gz -> sftpgo-deps-${PV}.tar.gz"
+https://github.com/turulomio/myportage/blob/master/distfiles/sftpgo-2.7.1.tar.gz -> sftpgo-deps-${PV}.tar.gz"
 
 LICENSE="AGPL-3.0 Apache-2.0 BSD-2-Clause BSD-3-Clause MIT MPL-2.0"
 SLOT="0"
