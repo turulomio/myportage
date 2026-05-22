@@ -1,0 +1,8 @@
+# /etc/conf.d/sftpgo
+
+# Options to pass to SFTPGo daemon
+SFTPGO_OPTS="serve -c /etc/sftpgo"
+
+# User and group to run the daemon as
+SFTPGO_USER="sftpgo"
+SFTPGO_GROUP="sftpgo"
