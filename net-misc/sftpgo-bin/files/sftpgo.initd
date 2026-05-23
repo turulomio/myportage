@@ -1,0 +1,39 @@
+#!/sbin/openrc-run
+# Copyright 2024-2025 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="SFTPGo - SFTP/FTP/WebDAV/HTTP file transfer server"
+
+: "${SFTPGO_USER:=sftpgo}"
+: "${SFTPGO_GROUP:=sftpgo}"
+: "${SFTPGO_CONFIG_DIR:=/etc/sftpgo}"
+: "${SFTPGO_LOG_FILE:=/var/log/sftpgo/sftpgo.log}"
+: "${SFTPGO_LOG_LEVEL:=info}"
+: "${SFTPGO_DATA_DIR:=/var/lib/sftpgo}"
+
+pidfile="/run/${RC_SVCNAME}.pid"
+command="/usr/bin/sftpgo"
+command_args="serve
+	--config-dir ${SFTPGO_CONFIG_DIR}
+	--log-file-path ${SFTPGO_LOG_FILE}
+	--log-level ${SFTPGO_LOG_LEVEL}
+	${SFTPGO_EXTRA_ARGS}"
+command_user="${SFTPGO_USER}:${SFTPGO_GROUP}"
+command_background="yes"
+
+# Esperar a que la red esté disponible si hace falta
+rc_need="net"
+
+depend() {
+	need net
+	use logger dns
+	after firewall
+}
+
+start_pre() {
+	checkpath --directory --owner "${SFTPGO_USER}:${SFTPGO_GROUP}" \
+		--mode 0750 /var/log/sftpgo /var/lib/sftpgo
+
+	checkpath --file --owner "${SFTPGO_USER}:${SFTPGO_GROUP}" \
+		--mode 0640 "${SFTPGO_CONFIG_DIR}/sftpgo.json"
+}
