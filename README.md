@@ -22,5 +22,5 @@ Use `dev-util/pkgcheck`
 
 ```bash 
 cd /ruta/de/tu/overlay
-pkgcheck scan
+pkgcheck scan myportage
 ```
