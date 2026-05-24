@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>turulomio@yahoo.es</email>
+		<name>Turulomio</name>
+	</maintainer>
+	<use>
+		<flag name="dracut">Use <pkg>sys-kernel/dracut</pkg> for initramfs generation</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">turulomio/mykernel</remote-id>
+	</upstream>
+</pkgmetadata>

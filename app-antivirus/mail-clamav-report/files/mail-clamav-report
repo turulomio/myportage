@@ -1,3 +1,0 @@
-#!/bin/bash
-report=`clamav-report --dir /home`
-mailme \'$report\'
