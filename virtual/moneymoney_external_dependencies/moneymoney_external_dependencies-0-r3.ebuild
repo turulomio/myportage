@@ -6,7 +6,7 @@ EAPI=8
 DESCRIPTION="External dependencies for moneymoney and django_moneymoney"
 SLOT="0"
 
-KEYWORDS="amd64 arm arm64 ~loong ppc64 ~riscv x86 ~x64-macos"
+KEYWORDS="amd64 x86"
 RDEPEND="
 	net-libs/nodejs[inspector]
 "
