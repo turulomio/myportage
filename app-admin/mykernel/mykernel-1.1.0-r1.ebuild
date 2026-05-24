@@ -1,15 +1,16 @@
 EAPI=8
-PYTHON_COMPAT=( python3_{10..14} )
+PYTHON_COMPAT=( python3_{11..15} )
 DISTUTILS_USE_PEP517="poetry"
 inherit distutils-r1
 
 DESCRIPTION="My gentoo kernel compilation script"
-LICENSE="GPL-3"
-HOMEPAGE="https://github.com/turulomio/${PN}"
+HOMEPAGE="https://github.com/turulomio/mykernel"
 SRC_URI="https://github.com/turulomio/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
-IUSE="dracut"
+
+LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
+IUSE="dracut"
 
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}

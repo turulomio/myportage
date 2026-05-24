@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>turulomio@sourceforge.net</email>
+		<name>Turulomio</name>
+	</maintainer>
+	<use>
+		<flag name="mpv">Use <pkg>media-video/mpv</pkg> for playback</flag>
+		<flag name="mplayer">Use <pkg>media-video/mplayer</pkg> for playback</flag>
+		<flag name="vlc">Use <pkg>media-video/vlc</pkg> for playback</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">coderholic/pyradio</remote-id>
+	</upstream>
+</pkgmetadata>

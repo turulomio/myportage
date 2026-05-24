@@ -1,35 +1,29 @@
-EAPI=7
-PYTHON_COMPAT=( python3_{9..13} )
+EAPI=8
 
-inherit distutils-r1
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{11..13} )
+inherit distutils-r1 desktop
+
 DESCRIPTION="OpenGL Parchis"
-LICENSE="GPL-3"
-
-IUSE=""
-SRC_URI="https://github.com/turulomio/glparchis/archive/glparchis-${PV}.tar.gz"
 HOMEPAGE="https://github.com/turulomio/glparchis"
+SRC_URI="https://github.com/turulomio/glparchis/archive/glparchis-${PV}.tar.gz"
+
 LICENSE="GPL-3"
-
 SLOT="0"
-KEYWORDS="x86 amd64"
-
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-
-RDEPEND="${PYTHON_DEPS}"
-DEPEND="${RDEPEND}
-dev-python/PyQt5[gui,multimedia,opengl,network,printsupport,widgets]
-dev-python/PyQtWebEngine
-dev-python/colorama
-dev-python/pyopengl
-"
 S="${WORKDIR}/glparchis-glparchis-${PV}"
+KEYWORDS="amd64 x86"
 
+RDEPEND="
+	${PYTHON_DEPS}
+	dev-python/pyqt5[gui,multimedia,opengl,network,printsupport,widgets]
+	dev-python/pyqtwebengine[${PYTHON_USEDEP}]
+	dev-python/colorama[${PYTHON_USEDEP}]
+	dev-python/pyopengl[${PYTHON_USEDEP}]
+"
+DEPEND="${RDEPEND}"
 
 src_install() {
 	distutils-r1_src_install
-	insinto /usr/share/pixmaps
-	doins glparchis/images/glparchis.png
-	insinto /usr/share/applications
-	doins glparchis.desktop
-
+	doicon glparchis/images/glparchis.png
+	domenu glparchis.desktop
 }

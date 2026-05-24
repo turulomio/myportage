@@ -1,35 +1,31 @@
-EAPI=7
+EAPI=8
 
 inherit desktop java-utils-2 rpm xdg
 
 DESCRIPTION="Spanish government's electronic signature application for online procedures"
 HOMEPAGE="https://administracionelectronica.gob.es/ctt/clienteafirma"
 SRC_URI="https://estaticos.redsara.es/comunes/autofirma/1/7/1/AutoFirma_Linux.zip -> ${P}.zip"
-
+S="${WORKDIR}"
 LICENSE="|| ( GPL-2+ EUPL-1.1 )"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-app-crypt/libpkcs11-fnmtdnie
-sys-apps/pcsc-tools
-virtual/jre
+	app-crypt/libpkcs11-fnmtdnie
+	sys-apps/pcsc-tools
+	virtual/jre
 "
 BDEPEND="app-arch/unzip"
 
-S=${WORKDIR}
-
 src_prepare() {
-        sed -i 's:autoFirma:autofirma:' usr/lib64/firefox/defaults/pref/autofirma.js || die "sed failed"
-        eapply_user
+	sed -i 's:autoFirma:autofirma:' usr/lib64/firefox/defaults/pref/autofirma.js || die "sed failed"
+	eapply_user
 }
 
 src_unpack() {
 	default
 	rpm_unpack "./${P}-1.noarch_SUSE.rpm"
 }
-
-
 
 src_install() {
 	java-pkg_dojar "usr/lib64/${PN}/${PN}.jar"
@@ -38,6 +34,6 @@ src_install() {
 	doicon "usr/lib64/${PN}/${PN}.png"
 	insinto /usr/lib64/firefox/defaults/pref/
 	doins usr/lib64/firefox/defaults/pref/autofirma.js
-	make_desktop_entry "${PN} %u" AutoFirma "${PN}" "Utility" "Comment[es]=Aplicación de firma electrónica de la FNMT\nMimeType=x-scheme-handler/afirma"
-#	dodoc AF_manual_instalacion_usuarios_ES.pdf
+	make_desktop_entry "${PN} %u" AutoFirma "${PN}" "Utility" \
+		"Comment[es]=Aplicación de firma electrónica de la FNMT\nMimeType=x-scheme-handler/afirma"
 }

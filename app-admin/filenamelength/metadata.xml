@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>turulomio@sourceforge.net</email>
+		<name>Turulomio</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">turulomio/filenamelength</remote-id>
+	</upstream>
+</pkgmetadata>

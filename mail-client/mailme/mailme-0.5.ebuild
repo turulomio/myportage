@@ -1,24 +1,22 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
-EAPI=5
+EAPI=8
 
-HOMEPAGE="http://turulomio.users.sourceforge.net"
 DESCRIPTION="Script que envia un correo rapidamente desde consola"
-LICENSE="GPL-3"
+HOMEPAGE="https://github.com/turulomio/mailme"
 SRC_URI=""
 
-IUSE=""
+LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="amd64 x86"
 
-S=${WORKDIR}/${P}
+S="${WORKDIR}/${P}"
 
-src_unpack(){
-	mkdir -p "${S}"
+src_unpack() {
+	mkdir -p "${S}" || die
 }
 
-src_install(){
+src_install() {
 	dobin "${FILESDIR}/mailme"
 }

@@ -3,8 +3,7 @@
 
 EAPI=8
 
-# Updated to include more modern Python versions
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{11..15} )
 DISTUTILS_USE_PEP517="hatchling"
 inherit distutils-r1
 
@@ -16,14 +15,9 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-# RDEPEND should contain the libraries needed at runtime
 RDEPEND="
-    dev-python/colorama[${PYTHON_USEDEP}]
-    dev-python/humanize[${PYTHON_USEDEP}]
-    dev-python/psutil[${PYTHON_USEDEP}]
+	dev-python/colorama[${PYTHON_USEDEP}]
+	dev-python/humanize[${PYTHON_USEDEP}]
+	dev-python/psutil[${PYTHON_USEDEP}]
 "
-# BDEPEND is for build-time tools (uv is added via DISTUTILS_USE_PEP517=uv)
-BDEPEND="
-    ${RDEPEND}
-"
-
+BDEPEND="${RDEPEND}"
