@@ -5,7 +5,10 @@
 		<email>turulomio@yahoo.es</email>
 		<name>Turulomio</name>
 	</maintainer>
+	<use>
+		<flag name="pylatex">Enable support for generating LaTeX documents</flag>
+	</use>
 	<upstream>
-		<remote-id type="github">turulomio/preprod</remote-id>
+		<remote-id type="github">turulomio/pydicts</remote-id>
 	</upstream>
 </pkgmetadata>

@@ -6,6 +6,6 @@
 		<name>Turulomio</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">turulomio/preprod</remote-id>
+		<remote-id type="github">drakkan/sftpgo</remote-id>
 	</upstream>
 </pkgmetadata>

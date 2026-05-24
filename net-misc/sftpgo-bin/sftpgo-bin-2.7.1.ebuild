@@ -3,20 +3,19 @@
 
 EAPI=8
 
-DESCRIPTION="Full-featured and highly configurable SFTP, FTP/S, WebDAV and HTTP/S file transfer server"
-HOMEPAGE="https://github.com/drakkan/sftpgo"
+inherit bash-completion-r1 shell-completion
 
-# Ajusta SRC_URI a la URL real del tarball binario en GitHub Releases
+DESCRIPTION="SFTP, FTP/S, WebDAV and HTTP/S file transfer server"
+HOMEPAGE="https://github.com/drakkan/sftpgo"
 SRC_URI="https://github.com/drakkan/sftpgo/releases/download/v${PV}/sftpgo_v${PV}_linux_x86_64.tar.xz -> ${P}.tar.xz"
 
 S="${WORKDIR}"
 
-LICENSE="AGPL-3.0-only"
+LICENSE="AGPL-3"
 SLOT="0"
 KEYWORDS="-* ~amd64"
 IUSE="bash-completion zsh-completion"
 
-# El binario es precompilado; no necesita toolchain
 RESTRICT="mirror strip"
 QA_PREBUILT="usr/bin/sftpgo"
 
@@ -25,62 +24,48 @@ RDEPEND="
 	acct-user/sftpgo
 "
 
-# sftpgo no necesita BUILD_DEPEND ni DEPEND al ser un binario precompilado
-
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]] ; then
 		use amd64 || die "Este ebuild solo soporta la arquitectura amd64."
 	fi
 }
 
+src_prepare() {
+	default
+	gunzip man/man1/*.1.gz || die
+}
+
 src_install() {
-	# --- Binario principal ---
 	dobin sftpgo
+	doman man/man1/*.1
 
-	# --- Páginas man ---
-	doman man/man1/*.1.gz
-
-	# --- Configuración por defecto ---
 	insinto /etc/sftpgo
 	doins sftpgo.json
-	# Proteger el fichero de configuración con permisos restrictivos
 	fowners root:sftpgo /etc/sftpgo/sftpgo.json
 	fperms 0640 /etc/sftpgo/sftpgo.json
 
-	# --- Script de init OpenRC ---
-	# El tarball sólo incluye sftpgo.service (systemd).
-	# Se proporciona aquí un script OpenRC propio; ajústalo a tus necesidades.
 	newinitd "${FILESDIR}/sftpgo.initd" sftpgo
 	newconfd "${FILESDIR}/sftpgo.confd" sftpgo
 
-	# --- Datos de la aplicación (plantillas, estáticos, openapi) ---
 	insinto /usr/share/${PN}
 	doins -r templates static openapi
 
-	# --- Base de datos SQLite de ejemplo (solo como referencia; no usar en producción) ---
-	# doins sqlite/sftpgo.db   # Omitida intencionalmente: no instalar BD de ejemplo
-
-	# --- Directorio de trabajo con permisos correctos ---
 	keepdir /var/lib/sftpgo
 	fowners sftpgo:sftpgo /var/lib/sftpgo
 	fperms 0750 /var/lib/sftpgo
 
-	# --- Directorio de logs ---
 	keepdir /var/log/sftpgo
 	fowners sftpgo:sftpgo /var/log/sftpgo
 	fperms 0750 /var/log/sftpgo
 
-	# --- Completado de shell ---
 	if use bash-completion ; then
 		newbashcomp bash_completion/sftpgo sftpgo
 	fi
 
 	if use zsh-completion ; then
-		insinto /usr/share/zsh/site-functions
-		newins zsh_completion/_sftpgo _sftpgo
+		newzshcomp zsh_completion/_sftpgo _sftpgo
 	fi
 
-	# --- Licencia ---
 	dodoc LICENSE NOTICE README.txt
 }
 

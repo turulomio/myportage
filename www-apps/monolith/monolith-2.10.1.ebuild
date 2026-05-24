@@ -361,8 +361,7 @@ DESCRIPTION="CLI tool and library for saving web pages as a single HTML file"
 HOMEPAGE="https://github.com/Y2Z/monolith"
 SRC_URI="
 	${CARGO_CRATE_URIS}
-	https://github.com/Y2Z/monolith/archive/v2.10.1.tar.gz -> ${P}.tar.gz
-
+	https://github.com/Y2Z/monolith/archive/v${PV}.tar.gz -> ${P}.tar.gz
 "
 
 LICENSE="CC0-1.0"

@@ -7,6 +7,7 @@ DESCRIPTION="A 2D platform game with a focus on exploration and puzzle solving"
 HOMEPAGE="https://github.com/riksweeney/edgar"
 SRC_URI="https://github.com/riksweeney/edgar/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
+S="${WORKDIR}/${P}"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -19,8 +20,6 @@ RDEPEND="
 	media-libs/sdl-net
 "
 DEPEND="${RDEPEND}"
-
-S="${WORKDIR}/${P}"
 
 src_prepare() {
 	default

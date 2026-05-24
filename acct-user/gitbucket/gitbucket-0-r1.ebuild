@@ -14,4 +14,3 @@ ACCT_USER_GROUPS=( gitbucket )
 ACCT_USER_HOME= /var/lib/gitbucket
 
 acct-user_add_deps
-

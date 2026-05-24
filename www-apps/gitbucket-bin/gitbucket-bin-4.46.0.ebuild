@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -9,26 +9,21 @@ SRC_URI="https://github.com/gitbucket/gitbucket/releases/download/${PV}/gitbucke
 
 LICENSE="Apache-2.0"
 SLOT="0"
+S="${WORKDIR}/${P}"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 RDEPEND="
-acct-user/gitbucket
-dev-java/openjdk
+	acct-user/gitbucket
+	virtual/jre
 "
 
-DEPEND="${RDEPEND}"
-
-
 src_unpack() {
-    mkdir -p ${S}
-    cp "${DISTDIR}/${A}" "${S}"
+	mkdir -p "${S}" || die
+	cp "${DISTDIR}/${A}" "${S}" || die
 }
 
 src_install() {
-	dodir usr/lib/gitbucket
-
-	insinto usr/lib/gitbucket
+	insinto /usr/lib/gitbucket
 	newins gitbucket-${PV}.war gitbucket.war
 
 	newinitd "${FILESDIR}/gitbucket.initd" gitbucket

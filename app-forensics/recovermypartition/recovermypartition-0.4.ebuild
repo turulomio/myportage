@@ -4,16 +4,16 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{11..15} )
 inherit distutils-r1
 
 DESCRIPTION="Makes forensics from a partition"
 HOMEPAGE="https://recovermypartition.sourceforge.net"
 SRC_URI="https://downloads.sourceforge.net/project/recovermypartit/recovermypartit/${PV}/recovermypartition-${PV}.tar.gz"
 
+S="${WORKDIR}/recovermypartition-${PV}"
 LICENSE="GPL-3"
 SLOT="0"
-S="${WORKDIR}/recovermypartition-${PV}"
 KEYWORDS="amd64 x86"
 
 RDEPEND="
