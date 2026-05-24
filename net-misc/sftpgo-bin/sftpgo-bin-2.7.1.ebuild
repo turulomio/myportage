@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit bash-completion-r1 shell-completion
+inherit shell-completion
 
 DESCRIPTION="SFTP, FTP/S, WebDAV and HTTP/S file transfer server"
 HOMEPAGE="https://github.com/drakkan/sftpgo"

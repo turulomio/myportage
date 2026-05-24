@@ -5,4 +5,7 @@
 		<email>turulomio@yahoo.es</email>
 		<name>Turulomio</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">turulomio/webcam-snapshot</remote-id>
+	</upstream>
 </pkgmetadata>

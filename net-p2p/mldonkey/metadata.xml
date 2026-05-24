@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>turulomio@yahoo.es</email>
+		<name>Turulomio</name>
+	</maintainer>
+	<use>
+		<flag name="bittorrent">Enable BitTorrent support</flag>
+		<flag name="fasttrack">Enable FastTrack support</flag>
+		<flag name="gnutella">Enable Gnutella support</flag>
+		<flag name="ocamlopt">Enable native bytecode compilation for OCaml</flag>
+		<flag name="magic">Enable libmagic support for file type detection</flag>
+		<flag name="upnp">Enable UPnP support</flag>
+		<flag name="gd">Enable GD support</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">ygrek/mldonkey</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -13,4 +13,3 @@ ACCT_USER_GROUPS=( sftpgo )
 ACCT_USER_HOME= /var/lib/sftpgo
 
 acct-user_add_deps
-

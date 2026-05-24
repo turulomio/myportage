@@ -9,9 +9,9 @@ DESCRIPTION="Tile-based 2D racing game in Qt and OpenGL"
 HOMEPAGE="https://github.com/juzzlin/DustRacing2D"
 SRC_URI="https://github.com/juzzlin/DustRacing2D/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
+S="${WORKDIR}/DustRacing2D-${PV}"
 LICENSE="GPL-3"
 SLOT="0"
-S="${WORKDIR}/DustRacing2D-${PV}"
 KEYWORDS="amd64 x86"
 
 DEPEND="

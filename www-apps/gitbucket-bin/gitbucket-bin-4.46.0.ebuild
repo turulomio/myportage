@@ -7,9 +7,9 @@ DESCRIPTION="An open-source git service"
 HOMEPAGE="https://github.com/gitbucket/gitbucket"
 SRC_URI="https://github.com/gitbucket/gitbucket/releases/download/${PV}/gitbucket.war -> gitbucket-${PV}.war"
 
+S="${WORKDIR}/${P}"
 LICENSE="Apache-2.0"
 SLOT="0"
-S="${WORKDIR}/${P}"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
