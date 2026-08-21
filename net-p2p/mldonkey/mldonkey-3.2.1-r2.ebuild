@@ -25,7 +25,7 @@ RDEPEND="dev-lang/perl
 	)
 	acct-user/p2p
 	app-arch/bzip2
-	sys-libs/zlib:=
+	sys-libs/zlib
 "
 # Can't yet use newer OCaml
 # -unsafe-string usage:

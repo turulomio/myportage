@@ -37,6 +37,14 @@ pkgcheck scan
 - **`add_release_all.sh`**: Increment revision numbers (`-r1`, `-r2`, ...) for all ebuilds in the repository and update Manifests.
 - **`integrating_from_other_repositories.sh`**: Sync and integrate ebuilds directly from external GitHub tree URLs.
 
+### Thin Manifests
+
+Este overlay utiliza `thin-manifests = true` en `metadata/layout.conf` siguiendo las recomendaciones de Gentoo para repositorios basados en Git:
+
+- Los archivos `Manifest` solo contienen checksums de archivos descargables externos (`DIST`).
+- Los archivos ebuild, `metadata.xml` y ficheros auxiliares son rastreados por Git y no requieren entradas en `Manifest`.
+- Los paquetes que no descargan fuentes externas (como paquetes `virtual/*`, `acct-user/*` o `acct-group/*`) no generan ni necesitan archivo `Manifest`.
+
 ## Agradecimientos / External Contributions
 
 Este repositorio incluye ebuilds integrados y sincronizados desde otros repositorios de Gentoo. Reconocemos y agradecemos la contribución de sus autores:
