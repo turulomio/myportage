@@ -1,8 +1,8 @@
-EAPI=7
+EAPI=8
 
 DESCRIPTION="External dependencies for mymoviebook"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="amd64 arm arm64 ppc ppc64 x86"
 
 RDEPEND="
 app-text/texlive
