@@ -1,0 +1,2 @@
+# Regla de protección de configuración para AutoFirma y DNIe en Gentoo
+CONFIG_PROTECT="/lib/Autofirma"

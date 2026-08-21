@@ -2,25 +2,43 @@
 
 ## Add an entry to [/etc/portage/repos.conf](https://wiki.gentoo.org/wiki//etc/portage/repos.conf)
 
-```
+Create `/etc/portage/repos.conf/myportage.conf`:
+
+```ini
 [myportage]
-location = /usr/local/overlays/myportage
-#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ set this to any location you want
+location = /var/db/repos/myportage
+#          ^^^^^^^^^^^^^^^^^^^^^^^ set this to any location you want
 sync-uri = https://github.com/turulomio/myportage.git
 sync-type = git
 auto-sync = yes
 ```
 
 ## Sync overlay
-Ejecute this command in console 
 
-`emerge --sync myportage`
+Execute one of these commands in console:
 
-## To mantain this portage
+```bash
+emaint sync -r myportage
+# or
+emerge --sync myportage
+```
 
-Use `dev-util/pkgcheck`
+## Maintain this overlay
+
+Use `dev-util/pkgcheck` to scan the repository for quality and policy issues:
 
 ```bash 
-cd /ruta/de/tu/overlay
-pkgcheck scan myportage
+cd /path/to/myportage
+pkgcheck scan
 ```
+
+### Utility Scripts
+
+- **`add_release_all.sh`**: Increment revision numbers (`-r1`, `-r2`, ...) for all ebuilds in the repository and update Manifests.
+- **`integrating_from_other_repositories.sh`**: Sync and integrate ebuilds directly from external GitHub tree URLs.
+
+## Agradecimientos / External Contributions
+
+Este repositorio incluye ebuilds integrados y sincronizados desde otros repositorios de Gentoo. Reconocemos y agradecemos la contribución de sus autores:
+
+* **[app-crypt/autofirma-dnie](app-crypt/autofirma-dnie)**: Integrado desde el repositorio [jrubioh1/j-overlay](https://github.com/jrubioh1/j-overlay) ([ver ebuild en GitHub](https://github.com/jrubioh1/j-overlay/tree/main/app-crypt/autofirma-dnie)).
