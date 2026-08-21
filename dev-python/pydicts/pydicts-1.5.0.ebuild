@@ -1,5 +1,5 @@
 EAPI=8
-PYTHON_COMPAT=( python3_{10..15} )
+PYTHON_COMPAT=( python3_{12..15} )
 DISTUTILS_USE_PEP517="poetry"
 inherit distutils-r1
 

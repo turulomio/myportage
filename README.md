@@ -35,7 +35,9 @@ pkgcheck scan
 ### Utility Scripts
 
 - **`add_release_all.sh`**: Increment revision numbers (`-r1`, `-r2`, ...) for all ebuilds in the repository and update Manifests.
+- **`digest_all.sh`**: Run `ebuild digest` across all ebuilds in the overlay repository to update Manifests.
 - **`integrating_from_other_repositories.sh`**: Sync and integrate ebuilds directly from external GitHub tree URLs.
+
 
 ### Thin Manifests
 
@@ -44,6 +46,16 @@ Este overlay utiliza `thin-manifests = true` en `metadata/layout.conf` siguiendo
 - Los archivos `Manifest` solo contienen checksums de archivos descargables externos (`DIST`).
 - Los archivos ebuild, `metadata.xml` y ficheros auxiliares son rastreados por Git y no requieren entradas en `Manifest`.
 - Los paquetes que no descargan fuentes externas (como paquetes `virtual/*`, `acct-user/*` o `acct-group/*`) no generan ni necesitan archivo `Manifest`.
+
+### Actualización de Manifests
+
+Cada vez que se modifique o añada un ebuild en el repositorio, se debe regenerar el archivo `Manifest` ejecutando:
+
+```bash
+cd /ruta/al/paquete
+ebuild <fichero-ebuild>.ebuild digest
+```
+
 
 ## Agradecimientos / External Contributions
 

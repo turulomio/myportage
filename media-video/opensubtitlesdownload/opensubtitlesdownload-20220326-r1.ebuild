@@ -5,7 +5,7 @@ EAPI=8
 
 COMMIT="e517bd0de9cbc93d43169903c4f117533c388d79"
 
-PYTHON_COMPAT=( python3_{11..15} )
+PYTHON_COMPAT=( python3_{12..15} )
 inherit python-single-r1
 
 DESCRIPTION="Automatically find and download the right subtitles for your favorite videos!"

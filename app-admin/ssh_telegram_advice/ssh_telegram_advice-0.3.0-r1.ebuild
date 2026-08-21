@@ -1,7 +1,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{11..15} pypy3 )
+PYTHON_COMPAT=( python3_{12..15} pypy3 )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Logs in telegram ssh logins"
