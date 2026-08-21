@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 
 DEPEND="
-	dev-qt/qtopengl:5
+	dev-qt/qtbase:6[gui,opengl]
 	media-libs/openal
 	media-libs/libvorbis
 "

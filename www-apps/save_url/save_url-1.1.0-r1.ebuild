@@ -14,7 +14,7 @@ SRC_URI="https://github.com/turulomio/save_url/archive/save_url-${PV}.tar.gz"
 S="${WORKDIR}/save_url-save_url-${PV}"
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/colorama[${PYTHON_USEDEP}]

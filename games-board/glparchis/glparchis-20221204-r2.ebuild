@@ -14,12 +14,12 @@ SRC_URI="https://github.com/turulomio/glparchis/archive/glparchis-${PV}.tar.gz"
 S="${WORKDIR}/glparchis-glparchis-${PV}"
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	${PYTHON_DEPS}
-	dev-python/pyqt5[gui,multimedia,opengl,network,printsupport,widgets]
-	dev-python/pyqtwebengine[${PYTHON_USEDEP}]
+	dev-python/pyqt6[gui,multimedia,opengl,network,printsupport,widgets,${PYTHON_USEDEP}]
+	dev-python/pyqt6-webengine[${PYTHON_USEDEP}]
 	dev-python/colorama[${PYTHON_USEDEP}]
 	dev-python/pyopengl[${PYTHON_USEDEP}]
 "

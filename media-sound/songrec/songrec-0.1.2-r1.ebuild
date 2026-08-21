@@ -243,7 +243,7 @@ xdg@2.2.0
 
 inherit cargo
 
-DESCRIPTION="An open-source Shazam client for Linux, written in Rust."
+DESCRIPTION="An open-source Shazam client for Linux, written in Rust"
 # Double check the homepage as the cargo_metadata crate
 # does not provide this value so instead repository is used
 HOMEPAGE="https://github.com/marin-m/SongRec"

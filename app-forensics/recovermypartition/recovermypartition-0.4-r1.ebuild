@@ -17,7 +17,6 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 
 RDEPEND="
-	dev-python/pyqt5
 	app-forensics/sleuthkit
 	app-forensics/foremost
 	dev-python/colorama
