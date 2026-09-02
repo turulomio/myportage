@@ -19,5 +19,6 @@ RESTRICT="test"
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 	dev-python/colorama
+	dev-python/tqdm
 	dev-python/poetry-core
 "
