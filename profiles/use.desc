@@ -1,1 +1,2 @@
 # Global USE flags for myportage
+single-file - Enable support for SingleFile CLI backend
