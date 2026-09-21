@@ -30,6 +30,8 @@ Para evitar errores de permisos en `/var/tmp/portage` o `/var/cache/distfiles`, 
 export PORTAGE_TMPDIR="${HOME}/.cache/portage/tmp"
 export DISTDIR="${HOME}/.cache/portage/distfiles"
 export PORTAGE_GRPNAME="$(id -gn)"
+export PORTAGE_INST_UID="$(id -u)"
+export PORTAGE_INST_GID="$(id -g)"
 mkdir -p "${PORTAGE_TMPDIR}" "${DISTDIR}"
 ```
 
@@ -50,7 +52,8 @@ mkdir -p "${PORTAGE_TMPDIR}" "${DISTDIR}"
 3. **Ciclo de Construcción y Prueba Completo (sin tocar `/`)**:
    El comando `ebuild` permite ejecutar las fases de compilación e instalación en la imagen intermedia `${D}` (directorio temporal dentro de `PORTAGE_TMPDIR`), sin requerir root:
    ```bash
-   PORTAGE_TMPDIR="${HOME}/.cache/portage/tmp" DISTDIR="${HOME}/.cache/portage/distfiles" PORTAGE_GRPNAME="$(id -gn)" \
+   PORTAGE_TMPDIR="${HOME}/.cache/portage/tmp" DISTDIR="${HOME}/.cache/portage/distfiles" \
+   PORTAGE_GRPNAME="$(id -gn)" PORTAGE_INST_UID="$(id -u)" PORTAGE_INST_GID="$(id -g)" \
    ebuild <archivo>.ebuild clean compile test install
    ```
 
