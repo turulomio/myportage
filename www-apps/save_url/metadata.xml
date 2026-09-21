@@ -8,4 +8,7 @@
 	<upstream>
 		<remote-id type="github">turulomio/save_url</remote-id>
 	</upstream>
+	<use>
+		<flag name="single-file">Enable support for SingleFile CLI backend via <pkg>www-apps/single-file-cli-bin</pkg></flag>
+	</use>
 </pkgmetadata>

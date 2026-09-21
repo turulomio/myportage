@@ -15,12 +15,13 @@ S="${WORKDIR}/save_url-save_url-${PV}"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="single-file"
 
 RDEPEND="
 	dev-python/colorama[${PYTHON_USEDEP}]
 	dev-python/mechanize[${PYTHON_USEDEP}]
 	www-apps/monolith
-	www-apps/single-file-cli-bin
+	single-file? ( www-apps/single-file-cli-bin )
 "
 DEPEND="${RDEPEND}"
 BDEPEND="dev-python/poetry-core[${PYTHON_USEDEP}]"

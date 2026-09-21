@@ -20,12 +20,7 @@ RESTRICT="strip"
 QA_PREBUILT="usr/bin/single-file"
 
 RDEPEND="
-	|| (
-		www-client/chromium
-		www-client/google-chrome
-		www-client/firefox
-		www-client/firefox-bin
-	)
+	www-client/google-chrome
 "
 
 src_unpack() {
