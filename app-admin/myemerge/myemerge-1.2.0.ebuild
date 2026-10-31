@@ -17,5 +17,5 @@ app-portage/gentoolkit
 dev-util/ccache
 dev-python/colorama
 dev-python/configparser_rb
-def-python/pycpufreq
+dev-python/pycpufreq
 "
